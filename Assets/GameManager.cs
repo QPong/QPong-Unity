@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     }
 
     public static void Score(string wallID){
-        if (wallID == "RigthWall"){
+        if (wallID == "RightWall"){
             PlayerScore1++;
         } else {
             PlayerScore2++;
@@ -43,11 +43,5 @@ public class GameManager : MonoBehaviour
             GUI.Label(new Rect(Screen.width / 2 -150, 200, 2000, 1000), "PLAYER TWO WINS");
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
