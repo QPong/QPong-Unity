@@ -204,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2057461330}
   - component: {fileID: 2057461329}
+  - component: {fileID: 2057461331}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -273,3 +274,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &2057461331
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057461328}
+  m_Enabled: 1
+  m_SortingLayerID: -175146881
+  m_SortingLayer: -1
+  m_SortingOrder: 0
