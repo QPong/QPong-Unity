@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public int xOffset = 40;
     public int centerOffset = 45;
+    public int winScore = 7;
 
     public GUISkin layout;
 
@@ -48,11 +49,13 @@ public class GameManager : MonoBehaviour
             theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
         }
 
-        if (PlayerScore1 == 10){
-            GUI.Label(new Rect(Screen.width / 2 -150, 200, 2000, 1000), "PLAYER ONE WINS");
+        if (PlayerScore1 >= winScore){
+            Debug.Log("PLAYER ONE WINS");
+            GUI.Label(new Rect(Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER ONE WINS");
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
-        } else if (PlayerScore2 == 10){
-            GUI.Label(new Rect(Screen.width / 2 -150, 200, 2000, 1000), "PLAYER TWO WINS");
+        } else if (PlayerScore2 >= winScore){
+            Debug.Log("PLAYER TWO WINS");
+            GUI.Label(new Rect(Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER TWO WINS");
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
     }
