@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static int PlayerScore2 = 0;
 
     public int xOffset = 40;
-    public int centerOffset = 42;
+    public int centerOffset = 45;
 
     public GUISkin layout;
 
