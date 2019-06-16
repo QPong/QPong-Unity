@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a7d34f665b9e74b70b276ddf0c7a45ae
+guid: e27b73b28bd6b4bc9ac07594c20a1d64
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: 6809 Chargen
+  fontName: Bit5x3
   fontNames:
-  - 6809 Chargen
+  - Bit5x3
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

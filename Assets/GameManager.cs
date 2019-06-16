@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public static int PlayerScore1 = 0;
     public static int PlayerScore2 = 0;
 
+    public int xOffset = 40;
+    public int centerOffset = 42;
+
     public GUISkin layout;
 
     GameObject theBall;
@@ -15,6 +18,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
+        //Output the current screen window width in the console
+        Debug.Log("Screen Width : " + Screen.width);
+        Debug.Log("Screen Height : " + Screen.height);
     }
 
     public static void Score(string wallID){
@@ -27,10 +33,16 @@ public class GameManager : MonoBehaviour
 
     void OnGUI(){
         GUI.skin = layout;
-        GUI.Label(new Rect(Screen.width / 2 - 150 - 12, 20, 100, 100), "" + PlayerScore1);
-        GUI.Label(new Rect(Screen.width / 2 + 150 + 12, 20, 100, 100), "" + PlayerScore2);
 
-        if (GUI.Button(new Rect(Screen.width / 2 - 60, 35, 120, 53), "RESTART")){
+        var centeredLabelStyle = GUI.skin.GetStyle("Label");
+        var centeredButtonStyle = GUI.skin.GetStyle("Button");
+        centeredLabelStyle.alignment = TextAnchor.UpperCenter;
+        centeredButtonStyle.alignment = TextAnchor.MiddleCenter;
+
+        GUI.Label(new Rect((Screen.width / 2 - centerOffset)- xOffset, 20, 100, 100), "" + PlayerScore1);
+        GUI.Label(new Rect((Screen.width / 2 - centerOffset)+ xOffset, 20, 100, 100), "" + PlayerScore2);
+
+        if (GUI.Button(new Rect(Screen.width / 2 - 60, Screen.height- 60, 120, 50), "RESTART", centeredButtonStyle)){
             PlayerScore1 = 0;
             PlayerScore2 = 0;
             theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
