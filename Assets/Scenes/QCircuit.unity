@@ -966,6 +966,8 @@ MonoBehaviour:
   moveDown: 115
   moveLeft: 97
   moveRight: 100
+  addXGate: 120
+  XGateImage: {fileID: 2800000, guid: 6d0bc2d0f3abc4e95b1b5823da2177c3, type: 3}
   stepX: 5
   stepY: 5
   boundX: 5
