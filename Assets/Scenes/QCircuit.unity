@@ -880,8 +880,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2091936328}
   - component: {fileID: 2091936327}
+  - component: {fileID: 2091936329}
   m_Layer: 0
-  m_Name: circuit-grid-cursor
+  m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,6 +950,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &2091936329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091936326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186635359acd644bfb19598473ec2bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveUp: 119
+  moveDown: 115
+  moveLeft: 97
+  moveRight: 100
+  stepX: 5
+  stepY: 5
+  boundX: 5
+  boundY: 35
+  centerX: 56
 --- !u!1 &2093393398
 GameObject:
   m_ObjectHideFlags: 0

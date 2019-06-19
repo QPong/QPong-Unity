@@ -181,7 +181,6 @@ GameObject:
   - component: {fileID: 197009572}
   - component: {fileID: 197009574}
   - component: {fileID: 197009575}
-  - component: {fileID: 197009576}
   m_Layer: 0
   m_Name: Paddle1
   m_TagString: Player
@@ -298,22 +297,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 1}
   m_EdgeRadius: 0
---- !u!114 &197009576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197009571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 186635359acd644bfb19598473ec2bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveUp: 119
-  moveDown: 115
-  speed: 60
-  boundY: 34
 --- !u!1 &447822108
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +856,6 @@ GameObject:
   - component: {fileID: 1867437828}
   - component: {fileID: 1867437827}
   - component: {fileID: 1867437826}
-  - component: {fileID: 1867437825}
   m_Layer: 0
   m_Name: Paddle2
   m_TagString: Player
@@ -881,22 +863,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1867437825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867437824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 186635359acd644bfb19598473ec2bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveUp: 273
-  moveDown: 274
-  speed: 60
-  boundY: 34
 --- !u!61 &1867437826
 BoxCollider2D:
   m_ObjectHideFlags: 0
