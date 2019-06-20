@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xOffset: 40
   centerOffset: 45
-  winScore: 3
+  winScore: 7
   layout: {fileID: 11400000, guid: 9d26dd4ef666a4edfbedaeb324c895f9, type: 2}
 --- !u!4 &447822111
 Transform:

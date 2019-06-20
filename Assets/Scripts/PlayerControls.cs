@@ -10,7 +10,7 @@ public class PlayerControls : MonoBehaviour
     public KeyCode moveRight = KeyCode.D;
     public KeyCode addXGate = KeyCode.X;
 
-    public Texture XGateImage;
+    public Sprite XGateSprite;
     private bool showXGate;
     private Rect XGatePosition = new Rect(0, 0, 20, 20);
 
@@ -22,13 +22,6 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
-        showXGate = true;
-    }
-
-    void OnGUI()
-    {
-        if (showXGate)
-            GUI.DrawTexture(XGatePosition, XGateImage);
     }
 
     // Update is called once per frame
@@ -49,8 +42,7 @@ public class PlayerControls : MonoBehaviour
             pos.x += stepX;
         }
         else if (Input.GetKeyDown(addXGate)) {
-            showXGate = !showXGate;
-            XGatePosition.position = pos;
+            
         }
 
         if (pos.y > boundY) {
