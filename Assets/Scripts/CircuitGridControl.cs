@@ -21,6 +21,7 @@ public class CircuitGridControl : MonoBehaviour
     public Sprite YGateSprite;
     public Sprite ZGateSprite;
     public Sprite HGateSprite;
+    public Sprite emptyGateSprite;
 
     public KeyCode moveUp = KeyCode.W;
     public KeyCode moveDown = KeyCode.S;
@@ -30,6 +31,7 @@ public class CircuitGridControl : MonoBehaviour
     public KeyCode addYGate = KeyCode.Y;
     public KeyCode addZGate = KeyCode.Z;
     public KeyCode addHGate = KeyCode.H;
+    public KeyCode deleteGate = KeyCode.Space;
 
     // Start is called before the first frame update
     void Start()
@@ -78,13 +80,31 @@ public class CircuitGridControl : MonoBehaviour
         }
 
         if (Input.GetKeyDown(addXGate)) {
-            selectedGate.GetComponent<SpriteRenderer>().sprite = XGateSprite;
+            if (selectedGate.GetComponent<SpriteRenderer>().sprite == XGateSprite) {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            } else {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = XGateSprite;
+            }
         } else if (Input.GetKeyDown(addYGate)) {
-            selectedGate.GetComponent<SpriteRenderer>().sprite = YGateSprite;
+            if (selectedGate.GetComponent<SpriteRenderer>().sprite == YGateSprite) {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            } else {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = YGateSprite;
+            }
         } else if (Input.GetKeyDown(addZGate)) {
-            selectedGate.GetComponent<SpriteRenderer>().sprite = ZGateSprite;
+            if (selectedGate.GetComponent<SpriteRenderer>().sprite == ZGateSprite) {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            } else {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = ZGateSprite;
+            }
         } else if (Input.GetKeyDown(addHGate)) {
-            selectedGate.GetComponent<SpriteRenderer>().sprite = HGateSprite;
+            if (selectedGate.GetComponent<SpriteRenderer>().sprite == HGateSprite) {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            } else {
+                selectedGate.GetComponent<SpriteRenderer>().sprite = HGateSprite;
+            }
+        } else if (Input.GetKeyDown(deleteGate)) {
+            selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
         }
 
         selectedGate = GameObject.Find("gate["+selectedColNum+"]["+selectedRowNum+"]");
