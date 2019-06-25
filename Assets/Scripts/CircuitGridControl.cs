@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Linq;
 using UnityEngine;
 
 public class CircuitGridControl : MonoBehaviour
@@ -54,8 +57,10 @@ public class CircuitGridControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        selectedColNum = (int) System.Char.GetNumericValue(selectedGate.name[5]);
-        selectedRowNum = (int) System.Char.GetNumericValue(selectedGate.name[8]);
+        // extract column number and row number from name
+        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        selectedColNum = index[0];
+        selectedRowNum = index[1];
 
         if (Input.GetKeyDown(moveDown)) {
             selectedRowNum ++;
