@@ -45,8 +45,8 @@ public class CircuitGridControl : MonoBehaviour
             for (int j = 0; j < rowMax; j++)
             {
                 int index = i + j * rowMax;
-                gateArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + j * rowHeight, yOffset + i * columnHeight), 
-                    Quaternion.Euler(new Vector3(0f, 0f, 90f)));  // initiate gates with 90 degrees rotation
+                gateArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + i * columnHeight, yOffset + -j * rowHeight), 
+                    Quaternion.identity);
                 gateArray[index].name = "gate["+i+"]["+j+"]";
             }
         }
