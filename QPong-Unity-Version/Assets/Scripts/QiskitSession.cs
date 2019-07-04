@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 public class QiskitSession : MonoBehaviour
 {
     public bool launchQASM;
+    public string qasmString;
+    
     void Start()
     {
         
@@ -16,15 +18,14 @@ public class QiskitSession : MonoBehaviour
         if (launchQASM)
         {
             launchQASM = false;
-            StartCoroutine(SendRequest());
+            StartCoroutine(SendRequest(qasmString));
         }
     }
-
-
-    IEnumerator SendRequest()
+    
+    IEnumerator SendRequest(string qasmString)
     {
         // Example with the Hadamard gate
-        string qasmString = "include \"qelib1.inc\"; qreg q[1]; creg c[1]; h q[0]; measure q[0] -> c[0];";
+        // string qasmString = "include \"qelib1.inc\"; qreg q[1]; creg c[1]; h q[0]; measure q[0] -> c[0];";
         Debug.Log("Input QASM String: "+ qasmString);
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("qasm", qasmString));

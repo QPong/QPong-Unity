@@ -676,6 +676,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchQASM: 1
+  qasmString: include "qelib1.inc"; qreg q[1]; creg c[1]; h q[0]; measure q[0] ->
+    c[0];
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
