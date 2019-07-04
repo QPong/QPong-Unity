@@ -14,10 +14,12 @@ public class CircuitGridControl : MonoBehaviour
     public int rowHeight = 5;
     public float xOffset = -51f;
     public float yOffset = -35f;
-    private GameObject[] gateArray;  //1D array of gate
+    public string[] gateArray; // array of string representing gates
+    private GameObject[] gateObjectArray;  //1D array of gate
     public GameObject selectedGate;
     public int selectedColNum;
     public int selectedRowNum;
+    public int selectedIndex;
     public GameObject cursor;
 
     public Sprite XGateSprite;
@@ -39,15 +41,18 @@ public class CircuitGridControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gateArray = new GameObject[columnMax * rowMax];
-        for (int i = 0; i < columnMax; i++)
+        gateArray = new string[rowMax * columnMax];
+        gateObjectArray = new GameObject[rowMax * columnMax];
+        
+        for (int i = 0; i < rowMax; i++)
         {
-            for (int j = 0; j < rowMax; j++)
+            for (int j = 0; j < columnMax; j++)
             {
-                int index = i + j * rowMax;
-                gateArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + i * columnHeight, yOffset + -j * rowHeight), 
+                int index = i * columnMax + j;
+                gateArray[index] = "I";
+                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + j * columnHeight, yOffset + -i * rowHeight), 
                     Quaternion.identity);
-                gateArray[index].name = "gate["+i+"]["+j+"]";
+                gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
         }
         selectedGate = GameObject.Find("gate[0][0]");
@@ -59,8 +64,8 @@ public class CircuitGridControl : MonoBehaviour
     {
         // extract column number and row number from name
         var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-        selectedColNum = index[0];
-        selectedRowNum = index[1];
+        selectedRowNum = index[0];
+        selectedColNum = index[1];
 
         if (Input.GetKeyDown(moveDown)) {
             selectedRowNum ++;
@@ -84,35 +89,53 @@ public class CircuitGridControl : MonoBehaviour
             selectedRowNum = 0;
         }
 
+        selectedIndex = selectedRowNum * columnMax + selectedColNum;
         if (Input.GetKeyDown(addXGate)) {
-            if (selectedGate.GetComponent<SpriteRenderer>().sprite == XGateSprite) {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            if (gateArray[selectedIndex] == "X") {
+                gateArray[selectedIndex] = "I";
             } else {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = XGateSprite;
+                gateArray[selectedIndex] = "X";
             }
         } else if (Input.GetKeyDown(addYGate)) {
-            if (selectedGate.GetComponent<SpriteRenderer>().sprite == YGateSprite) {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            if (gateArray[selectedIndex] == "Y") {
+                gateArray[selectedIndex] = "I";
             } else {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = YGateSprite;
+                gateArray[selectedIndex] = "Y";
             }
         } else if (Input.GetKeyDown(addZGate)) {
-            if (selectedGate.GetComponent<SpriteRenderer>().sprite == ZGateSprite) {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            if (gateArray[selectedIndex] == "Z") {
+                gateArray[selectedIndex] = "I";
             } else {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = ZGateSprite;
+                gateArray[selectedIndex] = "Z";
             }
         } else if (Input.GetKeyDown(addHGate)) {
-            if (selectedGate.GetComponent<SpriteRenderer>().sprite == HGateSprite) {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+            if (gateArray[selectedIndex] == "H") {
+                gateArray[selectedIndex] = "I";
             } else {
-                selectedGate.GetComponent<SpriteRenderer>().sprite = HGateSprite;
+                gateArray[selectedIndex] = "H";
             }
-        } else if (Input.GetKeyDown(deleteGate)) {
-            selectedGate.GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
         }
 
-        selectedGate = GameObject.Find("gate["+selectedColNum+"]["+selectedRowNum+"]");
+        // Update gateObjectArray based on changes in the gateArray
+        for (int i = 0; i < rowMax; i++)
+        {
+            for (int j = 0; j < columnMax; j++)
+            {
+                int gate_index = i * columnMax + j;
+                if (gateArray[gate_index] == "I"){
+                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+                } else if (gateArray[gate_index] == "X") {
+                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = XGateSprite;
+                } else if (gateArray[gate_index] == "Y") {
+                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = YGateSprite;
+                } else if (gateArray[gate_index] == "Z") {
+                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = ZGateSprite;
+                } else if (gateArray[gate_index] == "H") {
+                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = HGateSprite;
+                }
+            }
+        }
+        selectedGate = GameObject.Find("gate["+selectedRowNum+"]["+selectedColNum+"]");
         cursor.transform.position = selectedGate.transform.position;
     }
 }
