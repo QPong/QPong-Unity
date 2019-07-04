@@ -47,3 +47,10 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 .DS_Store
+*.xml
+*.pyc
+*.iml
+model/.DS_Store
+utils/.DS_Store
+utils/data/.DS_Store
+viz/.DS_Store
