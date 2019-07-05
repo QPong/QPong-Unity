@@ -30,7 +30,7 @@ public class CircuitGridClient : MonoBehaviour
         Debug.Log("Send Gate Array: "+ gateArrayString);
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("gate_array", gateArrayString));
-        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8001/api/run/gate_array", formData);
+        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8888/api/run/gate_array", formData);
         yield return www.SendWebRequest();
         Debug.Log("Response: " + www.downloadHandler.text);
     }
