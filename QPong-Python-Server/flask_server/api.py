@@ -12,10 +12,11 @@ def run_qasm(qasm, backend_to_run="qasm_simulator", api_token=None, shots=1024, 
     job_sim = execute(qc, backend, shots=shots, memory=memory)
     sim_result = job_sim.result()
     if memory:
-    	return sim_result.get_memory(qc)
+        return sim_result.get_memory(qc)
     else:
-    	return sim_result.get_counts(qc)
+        return sim_result.get_counts(qc)
+
 
 def backend_configuration(backend_to_run="qasm_simulator"):
     backend = Aer.get_backend(backend_to_run)
-    return backend.configuration().as_dict();
+    return backend.configuration().as_dict()
