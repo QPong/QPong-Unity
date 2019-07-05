@@ -23,6 +23,7 @@ public class CircuitGridControl : MonoBehaviour
     public int selectedRowNum;
     public int selectedIndex;
     public GameObject cursor;
+    public bool updateCircuit;
 
     // Variables for gate sprites
     public Sprite XGateSprite;
@@ -95,56 +96,66 @@ public class CircuitGridControl : MonoBehaviour
         }
 
         selectedIndex = selectedRowNum * columnMax + selectedColNum;
-
+        selectedGate = GameObject.Find("gate["+selectedRowNum+"]["+selectedColNum+"]");
+        cursor.transform.position = selectedGate.transform.position;
 
         // Handle adding and removing gates
         if (Input.GetKeyDown(addXGate)) {
+            updateCircuit = true;
             if (gateArray[selectedIndex] == "X") {
                 gateArray[selectedIndex] = "I";
             } else {
                 gateArray[selectedIndex] = "X";
             }
         } else if (Input.GetKeyDown(addYGate)) {
+            updateCircuit = true;
             if (gateArray[selectedIndex] == "Y") {
                 gateArray[selectedIndex] = "I";
             } else {
                 gateArray[selectedIndex] = "Y";
             }
         } else if (Input.GetKeyDown(addZGate)) {
+            updateCircuit = true;
             if (gateArray[selectedIndex] == "Z") {
                 gateArray[selectedIndex] = "I";
             } else {
                 gateArray[selectedIndex] = "Z";
             }
         } else if (Input.GetKeyDown(addHGate)) {
+            updateCircuit = true;
             if (gateArray[selectedIndex] == "H") {
                 gateArray[selectedIndex] = "I";
             } else {
                 gateArray[selectedIndex] = "H";
             }
+        } else if (Input.GetKeyDown(deleteGate)) {
+            updateCircuit = true;
+            gateArray[selectedIndex] = "I";
         }
 
 
-        // Update gateObjectArray based on changes in the gateArray
-        for (int i = 0; i < rowMax; i++)
-        {
-            for (int j = 0; j < columnMax; j++)
+        // Update gateObjectArray based on changes in the gateArray, if any
+        if (updateCircuit) {
+            updateCircuit = false;
+            for (int i = 0; i < rowMax; i++)
             {
-                int gate_index = i * columnMax + j;
-                if (gateArray[gate_index] == "I"){
-                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
-                } else if (gateArray[gate_index] == "X") {
-                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = XGateSprite;
-                } else if (gateArray[gate_index] == "Y") {
-                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = YGateSprite;
-                } else if (gateArray[gate_index] == "Z") {
-                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = ZGateSprite;
-                } else if (gateArray[gate_index] == "H") {
-                    gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = HGateSprite;
+                for (int j = 0; j < columnMax; j++)
+                {
+                    int gate_index = i * columnMax + j;
+                    if (gateArray[gate_index] == "I"){
+                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+                    } else if (gateArray[gate_index] == "X") {
+                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = XGateSprite;
+                    } else if (gateArray[gate_index] == "Y") {
+                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = YGateSprite;
+                    } else if (gateArray[gate_index] == "Z") {
+                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = ZGateSprite;
+                    } else if (gateArray[gate_index] == "H") {
+                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = HGateSprite;
+                    }
                 }
             }
         }
-        selectedGate = GameObject.Find("gate["+selectedRowNum+"]["+selectedColNum+"]");
-        cursor.transform.position = selectedGate.transform.position;
+        
     }
 }

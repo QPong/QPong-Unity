@@ -477,7 +477,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 10644040ff66f48139dac6ec9d82a908, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a603172c459ca41c7947a5214c55c6a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -651,6 +651,7 @@ MonoBehaviour:
   selectedRowNum: 0
   selectedIndex: 0
   cursor: {fileID: 0}
+  updateCircuit: 0
   XGateSprite: {fileID: 21300000, guid: 6d0bc2d0f3abc4e95b1b5823da2177c3, type: 3}
   YGateSprite: {fileID: 21300000, guid: 3699d071f94634e9bbb39fb15241d360, type: 3}
   ZGateSprite: {fileID: 21300000, guid: 78f1a49c58ead41a5b2692bfb89e58cb, type: 3}
