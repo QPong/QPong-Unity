@@ -14,6 +14,8 @@ public class CircuitGridControl : MonoBehaviour
     public int rowHeight = 5;
     public float xOffset = -51f;
     public float yOffset = -35f;
+
+    // Variables for gate array
     public string[] gateArray; // array of string representing gates
     private GameObject[] gateObjectArray;  //1D array of gate
     public GameObject selectedGate;
@@ -22,12 +24,14 @@ public class CircuitGridControl : MonoBehaviour
     public int selectedIndex;
     public GameObject cursor;
 
+    // Variables for gate sprites
     public Sprite XGateSprite;
     public Sprite YGateSprite;
     public Sprite ZGateSprite;
     public Sprite HGateSprite;
     public Sprite emptyGateSprite;
 
+    // Variables for inputs
     public KeyCode moveUp = KeyCode.W;
     public KeyCode moveDown = KeyCode.S;
     public KeyCode moveLeft = KeyCode.A;
@@ -62,11 +66,12 @@ public class CircuitGridControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // extract column number and row number from name
+        // Extract column number and row number from name
         var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
         selectedRowNum = index[0];
         selectedColNum = index[1];
 
+        // Handle moving cursor
         if (Input.GetKeyDown(moveDown)) {
             selectedRowNum ++;
         } else if (Input.GetKeyDown(moveUp)) {
@@ -90,6 +95,9 @@ public class CircuitGridControl : MonoBehaviour
         }
 
         selectedIndex = selectedRowNum * columnMax + selectedColNum;
+
+
+        // Handle adding and removing gates
         if (Input.GetKeyDown(addXGate)) {
             if (gateArray[selectedIndex] == "X") {
                 gateArray[selectedIndex] = "I";
@@ -115,6 +123,7 @@ public class CircuitGridControl : MonoBehaviour
                 gateArray[selectedIndex] = "H";
             }
         }
+
 
         // Update gateObjectArray based on changes in the gateArray
         for (int i = 0; i < rowMax; i++)
