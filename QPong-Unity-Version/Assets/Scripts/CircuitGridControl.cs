@@ -137,6 +137,7 @@ public class CircuitGridControl : MonoBehaviour
         // Update gateObjectArray based on changes in the gateArray, if any
         if (updateCircuit) {
             updateCircuit = false;
+            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().sendGateArray = true;
             for (int i = 0; i < rowMax; i++)
             {
                 for (int j = 0; j < columnMax; j++)

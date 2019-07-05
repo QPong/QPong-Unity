@@ -20,9 +20,11 @@ public class CircuitGridClient : MonoBehaviour
 
     void Update()
     {
-        var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
-        Debug.Log(gateArrayString);
-        StartCoroutine(SendRequest(gateArrayString));
+        if (sendGateArray) {
+            sendGateArray = false;
+            var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
+            StartCoroutine(SendRequest(gateArrayString));
+        }
     }
 
     IEnumerator SendRequest(string gateArrayString)
