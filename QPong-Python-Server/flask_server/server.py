@@ -5,10 +5,15 @@ from flask import Flask
 from api import run_qasm
 from api import backend_configuration
 import json
+import json_tricks
 
 from model.circuit_grid_model import CircuitGridModel
 from model import circuit_node_types as node_types
 from controls.circuit_grid import CircuitGridNode
+
+from qiskit import BasicAer, execute, ClassicalRegister
+from utils.states import comp_basis_states
+from copy import deepcopy
 
 app = Flask(__name__)
 
@@ -74,7 +79,15 @@ def send_gate_array():
             circuit_grid_model.set_node(i, j, node)
 
     print(circuit_grid_model.compute_circuit().qasm())
-    return circuit_grid_model.compute_circuit().qasm()
+
+    circuit = circuit_grid_model.compute_circuit()
+    shot_num = 1000
+    backend_sv_sim = BasicAer.get_backend('statevector_simulator')
+    job_sim = execute(circuit, backend_sv_sim, shots=shot_num)
+    result_sim = job_sim.result()
+    quantum_state = result_sim.get_statevector(circuit, decimals=3)
+
+    return json_tricks.dumps(quantum_state)
 
 
 if __name__ == '__main__':
