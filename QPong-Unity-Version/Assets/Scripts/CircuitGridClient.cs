@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json; 
 
 public class CircuitGridClient : MonoBehaviour
 {
@@ -35,5 +37,28 @@ public class CircuitGridClient : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8008/api/run/gate_array", formData);
         yield return www.SendWebRequest();
         Debug.Log("Response: " + www.downloadHandler.text);
+        
+        // Deserialize stateVector from JSON
+        var obj = JsonConvert.DeserializeObject<RootObject>(www.downloadHandler.text);
+        var numberOfState = obj.shape[0];
+        Complex[] stateVector = new Complex[numberOfState];
+        double[] stateProbability = new double[numberOfState];
+        for (int i = 0; i < numberOfState; i++){
+            stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0],obj.__ndarray__[i].__complex__[1]);
+            stateProbability[i] = Complex.Pow(stateVector[i],2).Magnitude;
+        }
+        Debug.Log("State Probability: ["+string.Join(", ", stateProbability)+"]");
     }
+
+    public class DataObject{
+        public double[] __complex__ { get; set; }
+    }
+
+    public class RootObject{
+        public DataObject[] __ndarray__ { get; set; }
+        public string dtype { get; set; }
+        public int[] shape { get; set; }
+    }
+
+
 }
