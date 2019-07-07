@@ -13,11 +13,16 @@ public class CircuitGridClient : MonoBehaviour
     public string gateArrayString;
     private GameObject CircuitGrid;
     private CircuitGridControl CircuitGridControlScript;
+
+    public GameObject[] paddleArray;
     
     void Start()
     {
         GameObject CircuitGrid = GameObject.Find("CircuitGrid");
         CircuitGridControl CircuitGridControlScript = CircuitGrid.GetComponent<CircuitGridControl>();
+        // paddleArray = CircuitGridControlScript.paddleArray;
+        var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
+        StartCoroutine(SendRequest(gateArrayString));
     }
 
     void Update()
@@ -43,11 +48,15 @@ public class CircuitGridClient : MonoBehaviour
         var numberOfState = obj.shape[0];
         Complex[] stateVector = new Complex[numberOfState];
         double[] stateProbability = new double[numberOfState];
+        paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
         for (int i = 0; i < numberOfState; i++){
             stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0],obj.__ndarray__[i].__complex__[1]);
             stateProbability[i] = Complex.Pow(stateVector[i],2).Magnitude;
+            paddleArray[i].GetComponent<SpriteRenderer> ().color = new Color (1,1,1,(float)stateProbability[i]);
         }
         Debug.Log("State Probability: ["+string.Join(", ", stateProbability)+"]");
+
+
     }
 
     public class DataObject{

@@ -8,6 +8,8 @@ using UnityEngine;
 public class CircuitGridControl : MonoBehaviour
 {
     public GameObject emptyGate;
+    public GameObject paddle;
+    public GameObject[] paddleArray;
     public int columnMax = 15;
     public int rowMax = 3;
     public int columnHeight = 5;
@@ -62,6 +64,17 @@ public class CircuitGridControl : MonoBehaviour
         }
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
+
+        int numberOfState = (int) Math.Pow(2, rowMax);
+        paddleArray = new GameObject[numberOfState];
+        for (int i = 0; i < numberOfState; i++)
+        {
+            Vector3 paddlePosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.18f,0));
+            paddlePosition.z = 0f;
+            paddleArray[i] = (GameObject)Instantiate(paddle, paddlePosition, Quaternion.identity);
+            paddleArray[i].name = "paddle1["+i+"]";
+
+        }
     }
 
     // Update is called once per frame
