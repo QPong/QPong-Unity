@@ -30,7 +30,8 @@ public class CircuitGridClient : MonoBehaviour
         if (sendGateArray) {
             sendGateArray = false;
             var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
-            StartCoroutine(SendRequest(gateArrayString));
+            //StartCoroutine(SendRequest(gateArrayString));
+            StartCoroutine(Measurement(gateArrayString));
         }
     }
 
@@ -55,8 +56,16 @@ public class CircuitGridClient : MonoBehaviour
             paddleArray[i].GetComponent<SpriteRenderer> ().color = new Color (1,1,1,(float)stateProbability[i]);
         }
         Debug.Log("State Probability: ["+string.Join(", ", stateProbability)+"]");
+    }
 
-
+    IEnumerator Measurement(string gateArrayString)
+    {
+        Debug.Log("Send Gate Array: "+ gateArrayString);
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("gate_array", gateArrayString));
+        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8008/api/run/measurement", formData);
+        yield return www.SendWebRequest();
+        Debug.Log("State in decimal: " + www.downloadHandler.text);
     }
 
     public class DataObject{
