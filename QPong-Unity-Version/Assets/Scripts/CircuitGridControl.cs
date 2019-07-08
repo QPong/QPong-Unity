@@ -44,6 +44,7 @@ public class CircuitGridControl : MonoBehaviour
     public KeyCode addZGate = KeyCode.Z;
     public KeyCode addHGate = KeyCode.H;
     public KeyCode deleteGate = KeyCode.Space;
+    public KeyCode measure = KeyCode.Return;
 
     // Start is called before the first frame update
     void Start()
@@ -144,13 +145,15 @@ public class CircuitGridControl : MonoBehaviour
         } else if (Input.GetKeyDown(deleteGate)) {
             updateCircuit = true;
             gateArray[selectedIndex] = "I";
+        } else if (Input.GetKeyDown(measure)) {
+            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().doMeasurementFlag = true;
         }
 
 
         // Update gateObjectArray based on changes in the gateArray, if any
         if (updateCircuit) {
             updateCircuit = false;
-            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().sendGateArray = true;
+            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().getStatevectorFlag = true;
             for (int i = 0; i < rowMax; i++)
             {
                 for (int j = 0; j < columnMax; j++)
@@ -170,6 +173,5 @@ public class CircuitGridControl : MonoBehaviour
                 }
             }
         }
-        
     }
 }

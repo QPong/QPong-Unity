@@ -10,9 +10,9 @@ public class BallControl : MonoBehaviour
     void GoBall(){
         float rand = Random.Range(0, 2);
         if (rand < 1) {
-            rb2d.velocity = new Vector2(1,1) * speed;
+            rb2d.velocity = new Vector2(1,-1) * speed;
         } else {
-            rb2d.velocity = new Vector2(-1,1) * speed;
+            rb2d.velocity = new Vector2(-1,-1) * speed;
         }
     }
 

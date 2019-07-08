@@ -54,8 +54,8 @@ def qasm():
     return jsonify(ret)
 
 
-@app.route('/api/run/gate_array', methods=['POST'])
-def send_gate_array():
+@app.route('/api/run/get_statevector', methods=['POST'])
+def get_statevector():
     gate_array_string = request.form.get('gate_array')
     print("--------------")
     print(gate_array_string)
@@ -88,8 +88,8 @@ def send_gate_array():
     return json_tricks.dumps(quantum_state)
 
 
-@app.route('/api/run/measurement', methods=['POST'])
-def measurement():
+@app.route('/api/run/do_measurement', methods=['POST'])
+def do_measurement():
     gate_array_string = request.form.get('gate_array')
     print("--------------")
     print(gate_array_string)
