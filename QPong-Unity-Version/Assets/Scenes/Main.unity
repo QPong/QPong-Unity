@@ -265,7 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xOffset: 40
   centerOffset: 45
-  winScore: 7
+  winScore: 20
   layout: {fileID: 11400000, guid: 9d26dd4ef666a4edfbedaeb324c895f9, type: 2}
 --- !u!4 &447822111
 Transform:
@@ -922,6 +922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419376955}
   - component: {fileID: 1419376957}
+  - component: {fileID: 1419376956}
   m_Layer: 0
   m_Name: BottomMeasurementWall
   m_TagString: Untagged
@@ -937,12 +938,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419376954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -45, z: 0}
+  m_LocalPosition: {x: 0, y: -40, z: 0}
   m_LocalScale: {x: 110, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2130859451}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1419376956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419376954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa21dff8037214eada00b95cb8728e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &1419376957
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -967,7 +980,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 3}
   m_EdgeRadius: 0
 --- !u!1 &1490309213
 GameObject:

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json; 
@@ -9,7 +10,6 @@ using Newtonsoft.Json;
 public class CircuitGridClient : MonoBehaviour
 {
     // Start is called before the first frame update
-
     public bool getStatevectorFlag;
     public bool doMeasurementFlag;
     public string gateArrayString;
@@ -86,6 +86,11 @@ public class CircuitGridClient : MonoBehaviour
         // make the measured state visible and enable collider
         paddleArray[stateInDecimal].GetComponent<SpriteRenderer> ().color = new Color (1,1,1,1);
         paddleArray[stateInDecimal].GetComponent<BoxCollider2D> ().enabled = true;
+        
+        // Show statevector representation again sometime after measurement
+        yield return new WaitForSeconds(0.3f);
+        Debug.Log("Waited");
+        StartCoroutine(getStatevector(gateArrayString));
     }
 
     public class DataObject{
