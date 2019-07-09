@@ -269,6 +269,7 @@ MonoBehaviour:
   yOffset: 120
   centerOffset: 70
   winScore: 7
+  xOffsetWinMessage: 150
   layout: {fileID: 11400000, guid: 9d26dd4ef666a4edfbedaeb324c895f9, type: 2}
 --- !u!4 &447822111
 Transform:
@@ -678,6 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
+  startDirection: 0
 --- !u!50 &811516244
 Rigidbody2D:
   serializedVersion: 4
@@ -1228,7 +1230,7 @@ MonoBehaviour:
   balVelY: 0
   random: 0
   speed: 35
-  randomRange: 7
+  randomRange: 10
 --- !u!61 &1867437826
 BoxCollider2D:
   m_ObjectHideFlags: 0
