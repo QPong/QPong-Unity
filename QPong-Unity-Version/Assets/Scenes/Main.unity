@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 1144738772}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Player
+  m_TagString: QuantumPaddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 1867437825}
   m_Layer: 0
   m_Name: Paddle2
-  m_TagString: Player
+  m_TagString: ClassicalPaddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

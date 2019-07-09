@@ -29,12 +29,45 @@ public class BallControl : MonoBehaviour
         Invoke("GoBall", 1);
     }
 
-    void OnCollisionEnter2D(Collision2D coll){
-        if (coll.collider.CompareTag("Player")){
-            Vector2 vel;
-            vel.x = rb2d.velocity.x * 1.1f;
-            vel.y = (rb2d.velocity.y / 2.0f) + (coll.collider.attachedRigidbody.velocity.y / 3.0f);
-            rb2d.velocity = vel;
+    void OnCollisionEnter2D(Collision2D col) {
+        // Hit the classical paddle?
+        if (col.gameObject.CompareTag("ClassicalPaddle")) {
+            // Calculate hit Factor
+            float x = hitFactor(transform.position,
+                            col.transform.position,
+                            col.collider.bounds.size.x);
+
+            // Calculate direction, make length=1 via .normalized
+            Vector2 dir = new Vector2(x, -1).normalized;
+
+            // Set Velocity with dir * speed
+            GetComponent<Rigidbody2D>().velocity = dir * speed * 1.1f;
+            Debug.Log("Hit Classical Paddle");
         }
+
+        // Hit the quantum paddle?
+        if (col.gameObject.CompareTag("QuantumPaddle")) {
+            // Calculate hit Factor
+            float x = hitFactor(transform.position,
+                            col.transform.position,
+                            col.collider.bounds.size.x);
+
+            // Calculate direction, make length=1 via .normalized
+            Vector2 dir = new Vector2(x, 1).normalized;
+
+            // Set Velocity with dir * speed
+            GetComponent<Rigidbody2D>().velocity = dir * speed * 1.1f;
+            Debug.Log("Hit Quantum Paddle");
+        }
+    }
+
+    float hitFactor(Vector2 ballPos, Vector2 racketPos, float racketWidth) {
+        // ascii art:
+        // ||  1 <- at the top of the racket
+        // ||
+        // ||  0 <- at the middle of the racket
+        // ||
+        // || -1 <- at the bottom of the racket
+        return (ballPos.x - racketPos.x) / racketWidth;
     }
 }

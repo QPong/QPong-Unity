@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ball
   - Gate
+  - QuantumPaddle
+  - ClassicalPaddle
   layers:
   - Default
   - TransparentFX
