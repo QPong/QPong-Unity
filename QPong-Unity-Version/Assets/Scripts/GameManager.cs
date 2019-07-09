@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int yOffset = 120;
     public int centerOffset = 70;
     public int winScore = 7;
+    public int xOffsetWinMessage = 150;
 
     public GUISkin layout;
 
@@ -43,19 +44,22 @@ public class GameManager : MonoBehaviour
         GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset + yOffset, 100, 200), "" + PlayerScore1);
         GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset - yOffset, 100, 200), "" + PlayerScore2);
 
-        if (GUI.Button(new Rect(Screen.width / 2 - 60, Screen.height - 60, 120, 50), "RESTART", centeredButtonStyle)){
+        if (GUI.Button(new Rect(Screen.width / 2 - 200, 50, 400, 150), "RESTART", centeredButtonStyle)){
             PlayerScore1 = 0;
             PlayerScore2 = 0;
             theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
         }
 
         if (PlayerScore1 >= winScore){
-            Debug.Log("PLAYER ONE WINS");
-            GUI.Label(new Rect(Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER ONE WINS");
+            Debug.Log("Quantum computer wins");
+            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500, 2000, 1000), 
+                "You demonstrated quantum supremacy for the first time in huaman history!",
+                    centeredLabelStyle);
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         } else if (PlayerScore2 >= winScore){
-            Debug.Log("PLAYER TWO WINS");
-            GUI.Label(new Rect(Screen.width / 2 - 150, 200, 2000, 1000), "PLAYER TWO WINS");
+            Debug.Log("Classical computer wins");
+            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500, 2000, 1000), 
+                "Classical computer still rules the world.", centeredLabelStyle);
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
     }
