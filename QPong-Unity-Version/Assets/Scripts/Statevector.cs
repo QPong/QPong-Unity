@@ -5,7 +5,7 @@ using UnityEngine;
 public class Statevector : MonoBehaviour
 {
     public GUISkin layout;
-    public float xOffset = 40;
+    public float xOffset = 30;
     public float yOffset = 0.84f;
     // Start is called before the first frame update
     void Start()

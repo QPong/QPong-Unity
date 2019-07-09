@@ -6,11 +6,12 @@ public class BallControl : MonoBehaviour
 {
     public float speed = 30;
     public int startDirection;
+    public float startPosition = 8;
     private Rigidbody2D rb2d;
 
     void GoBall(){
         float rand = Random.Range(-2f, 2f);
-        float startDirection = Random.Range(-1f,1f);
+        float startDirection = Random.Range(-1f, 1f);
         if (startDirection > 0) {
             rb2d.velocity = new Vector2(rand,-1).normalized * speed;
         } else {
@@ -27,7 +28,7 @@ public class BallControl : MonoBehaviour
 
     void ResetBall(){
         rb2d.velocity = Vector2.zero;
-        transform.position = Vector2.zero;
+        transform.position = new Vector2(0, startPosition);
     }
 
     void RestartGame(){
