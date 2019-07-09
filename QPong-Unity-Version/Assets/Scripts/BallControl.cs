@@ -5,11 +5,17 @@ using UnityEngine;
 public class BallControl : MonoBehaviour
 {
     public float speed = 30;
+    public int startDirection;
     private Rigidbody2D rb2d;
 
     void GoBall(){
         float rand = Random.Range(-2f, 2f);
-        rb2d.velocity = new Vector2(rand,-1) * speed;
+        float startDirection = Random.Range(-1f,1f);
+        if (startDirection > 0) {
+            rb2d.velocity = new Vector2(rand,-1).normalized * speed;
+        } else {
+            rb2d.velocity = new Vector2(rand,1).normalized * speed;
+        }
     }
 
     // Start is called before the first frame update
@@ -41,7 +47,7 @@ public class BallControl : MonoBehaviour
             Vector2 dir = new Vector2(x, -1).normalized;
 
             // Set Velocity with dir * speed
-            GetComponent<Rigidbody2D>().velocity = dir * speed * 1.1f;
+            rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
             Debug.Log("Hit Classical Paddle");
         }
 
@@ -56,7 +62,7 @@ public class BallControl : MonoBehaviour
             Vector2 dir = new Vector2(x, 1).normalized;
 
             // Set Velocity with dir * speed
-            GetComponent<Rigidbody2D>().velocity = dir * speed * 1.1f;
+            rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
             Debug.Log("Hit Quantum Paddle");
         }
     }
