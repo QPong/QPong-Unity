@@ -8,12 +8,8 @@ public class BallControl : MonoBehaviour
     private Rigidbody2D rb2d;
 
     void GoBall(){
-        float rand = Random.Range(0, 2);
-        if (rand < 1) {
-            rb2d.velocity = new Vector2(1,-1) * speed;
-        } else {
-            rb2d.velocity = new Vector2(-1,-1) * speed;
-        }
+        float rand = Random.Range(-2f, 2f);
+        rb2d.velocity = new Vector2(rand,-1) * speed;
     }
 
     // Start is called before the first frame update
