@@ -263,8 +263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7ce869094d1413183e3cfe4c9bfab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xOffset: 40
-  centerOffset: 45
+  xOffset: 50
+  yOffset: 120
+  centerOffset: 70
   winScore: 20
   layout: {fileID: 11400000, guid: 9d26dd4ef666a4edfbedaeb324c895f9, type: 2}
 --- !u!4 &447822111

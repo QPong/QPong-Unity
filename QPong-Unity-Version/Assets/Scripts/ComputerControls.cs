@@ -9,8 +9,8 @@ public class ComputerControls : MonoBehaviour
     public float balPosX;
     public float balVelY;
     public float random;
-    public float speed = 50f;
-    public float randomRange = 5f;
+    public float speed = 35f;
+    public float randomRange = 7f;
 
     // Start is called before the first frame update
     void Start()
