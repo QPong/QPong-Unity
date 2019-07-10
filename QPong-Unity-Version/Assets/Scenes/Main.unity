@@ -530,10 +530,10 @@ MonoBehaviour:
   selectedIndex: 0
   cursor: {fileID: 0}
   updateCircuit: 0
-  XGateSprite: {fileID: 21300000, guid: 6d0bc2d0f3abc4e95b1b5823da2177c3, type: 3}
-  YGateSprite: {fileID: 21300000, guid: 3699d071f94634e9bbb39fb15241d360, type: 3}
-  ZGateSprite: {fileID: 21300000, guid: 78f1a49c58ead41a5b2692bfb89e58cb, type: 3}
-  HGateSprite: {fileID: 21300000, guid: 6c5dec9f0aa9148728cc1df7ff408903, type: 3}
+  XGateSprite: {fileID: 21300000, guid: 5ceeaaf0899464a29a0d929ce12203b1, type: 3}
+  YGateSprite: {fileID: 21300000, guid: 3df9b01be42fb434f8e8a972d2867322, type: 3}
+  ZGateSprite: {fileID: 21300000, guid: e8e6da50cf4d34eb5a3e8dce343ae1f0, type: 3}
+  HGateSprite: {fileID: 21300000, guid: 9b08aeb36ae384fa0826ac062f662ab9, type: 3}
   emptyGateSprite: {fileID: 21300000, guid: a603172c459ca41c7947a5214c55c6a3, type: 3}
   moveUp: 119
   moveDown: 115
@@ -680,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   startDirection: 0
+  startPosition: 8
 --- !u!50 &811516244
 Rigidbody2D:
   serializedVersion: 4
