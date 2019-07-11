@@ -16,7 +16,6 @@ from utils.states import comp_basis_states
 from copy import deepcopy
 
 app = Flask(__name__)
-print("HI")
 
 @app.route('/')
 def welcome():
@@ -128,10 +127,6 @@ def do_measurement():
     state_in_decimal = int(list(counts.keys())[0], 2)
 
     return str(state_in_decimal)
-
-def run(outsideapp):
-   outsideapp.run(host='127.0.0.1', port=8008)
-   app = outsideapp
 
 
 if __name__ == '__main__':
