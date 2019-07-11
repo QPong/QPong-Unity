@@ -107,7 +107,6 @@ public class CircuitGridClient : MonoBehaviour
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("gate_array", gatesString));
-        print("URl " + uri);
         using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, formData))
         {
             print(uri);
