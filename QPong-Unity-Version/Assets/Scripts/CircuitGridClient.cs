@@ -5,7 +5,9 @@ using System.Numerics;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
+
+public enum Endpoint { get_statevector, do_measurement }
 
 public class CircuitGridClient : MonoBehaviour
 {
@@ -51,7 +53,7 @@ public class CircuitGridClient : MonoBehaviour
     private void GetStateVector(string gateString)
     {
         Debug.Log("Send Gate Array: "+ gateString);
-        string urlString = API_URL + API_VERSION + "get_statevector";
+        string urlString = API_URL + API_VERSION + Endpoint.get_statevector;
         StartCoroutine(PostRequest(urlString, gateString, (results) => {
 
             // Deserialize stateVector from JSON
@@ -80,7 +82,7 @@ public class CircuitGridClient : MonoBehaviour
     private void DoMeasurement(string gatesString)
     {
         Debug.Log("Send Gate Array: "+ gatesString);
-        string urlString = API_URL + API_VERSION + "do_measurement";
+        string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
         StartCoroutine(PostRequest(urlString, gatesString, (results) =>
         {
             paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
@@ -105,6 +107,7 @@ public class CircuitGridClient : MonoBehaviour
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("gate_array", gatesString));
+        print("URl " + uri);
         using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, formData))
         {
             print(uri);
