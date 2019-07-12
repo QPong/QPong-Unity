@@ -456,11 +456,11 @@ MonoBehaviour:
   YGateSprite: {fileID: 21300000, guid: 3df9b01be42fb434f8e8a972d2867322, type: 3}
   ZGateSprite: {fileID: 21300000, guid: e8e6da50cf4d34eb5a3e8dce343ae1f0, type: 3}
   HGateSprite: {fileID: 21300000, guid: 9b08aeb36ae384fa0826ac062f662ab9, type: 3}
-  emptyGateSprite: {fileID: 21300000, guid: a603172c459ca41c7947a5214c55c6a3, type: 3}
-  moveUp: 119
-  moveDown: 115
-  moveLeft: 97
-  moveRight: 100
+  emptyGateSprite: {fileID: 21300000, guid: f8e4347fe1a544d2daa30c921e9c6664, type: 3}
+  moveUp: 273
+  moveDown: 274
+  moveLeft: 276
+  moveRight: 275
   addXGate: 120
   addYGate: 121
   addZGate: 122
