@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+from pathlib import Path
+import sys
+
+# add project path to PYTHONPATH in order to run server.py as a script
+project_path = str(Path().resolve().parent)
+sys.path.append(project_path)
+
 from flask import request
 from flask import jsonify
 from flask import Flask
@@ -17,9 +24,11 @@ from copy import deepcopy
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def welcome():
     return "Hi Qiskiter!"
+
 
 @app.route('/api/backend/configuration')
 def backend_config():
