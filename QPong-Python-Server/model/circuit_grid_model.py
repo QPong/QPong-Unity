@@ -18,7 +18,7 @@ import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister
 
 from model import circuit_node_types as node_types
-from utils.parameters import CIRCUIT_DEPTH
+CIRCUIT_DEPTH = 3
 
 
 class CircuitGridModel:

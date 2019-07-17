@@ -13,9 +13,8 @@ from api import run_qasm
 from api import backend_configuration
 import json_tricks
 
-from model.circuit_grid_model import CircuitGridModel
+from model.circuit_grid_model import CircuitGridModel, CircuitGridNode
 from model import circuit_node_types as node_types
-from controls.circuit_grid import CircuitGridNode
 
 from qiskit import BasicAer, execute, ClassicalRegister
 from copy import deepcopy
