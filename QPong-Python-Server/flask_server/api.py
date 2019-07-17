@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from qiskit import QuantumRegister, ClassicalRegister
 from qiskit import QuantumCircuit, Aer, execute, IBMQ
 
 

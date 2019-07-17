@@ -20,11 +20,9 @@ import pygame
 
 from model import circuit_node_types as node_types
 from model.circuit_grid_model import CircuitGridNode
-from utils.colors import BLACK, WHITE, MAGENTA
 from utils.navigation import MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT
 from utils.resources import load_image
-from utils.parameters import WIDTH_UNIT, LINE_WIDTH, GRID_HEIGHT, GRID_WIDTH, GATE_TILE_WIDTH, GATE_TILE_HEIGHT, \
-    CIRCUIT_DEPTH, QUBIT_NUM, WINDOW_HEIGHT
+from utils.parameters import WIDTH_UNIT, GRID_HEIGHT, GRID_WIDTH, GATE_TILE_WIDTH, GATE_TILE_HEIGHT, QUBIT_NUM, WINDOW_HEIGHT
 
 
 class CircuitGrid(pygame.sprite.RenderPlain):
@@ -311,24 +309,6 @@ class CircuitGrid(pygame.sprite.RenderPlain):
                 self.circuit_grid_model.set_node(wire_idx, column_num, circuit_grid_node)
 
 
-class CircuitGridBackground(pygame.sprite.Sprite):
-    """Background for circuit grid"""
-
-    def __init__(self, circuit_grid_model):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = pygame.Surface([GRID_HEIGHT * QUBIT_NUM, WINDOW_HEIGHT])
-        self.image.convert()
-        self.image.fill(WHITE)
-        self.rect = self.image.get_rect()
-        pygame.draw.rect(self.image, BLACK, self.rect, LINE_WIDTH)
-
-        for wire_num in range(circuit_grid_model.max_wires):
-            pygame.draw.line(self.image, BLACK,
-                             ((wire_num + 0.5) * GRID_HEIGHT, GRID_WIDTH * 0.5),
-                             ((wire_num + 0.5) * GRID_HEIGHT, self.rect.height - (GRID_WIDTH * 0.5)), LINE_WIDTH)
-
-
 class CircuitGridGate(pygame.sprite.Sprite):
     """Images for nodes"""
 
@@ -366,8 +346,8 @@ class CircuitGridGate(pygame.sprite.Sprite):
                 self.image, self.rect = load_image('gate_images/rx_gate.png', -1,
                                                    rotation_angle=self.gate_image_rotation)
                 self.rect = self.image.get_rect()
-                pygame.draw.arc(self.image, MAGENTA, self.rect, 0, node.radians % (2 * np.pi), 6)
-                pygame.draw.arc(self.image, MAGENTA, self.rect, node.radians % (2 * np.pi), 2 * np.pi, 1)
+                pygame.draw.arc(self.image, (255, 0, 255), self.rect, 0, node.radians % (2 * np.pi), 6)
+                pygame.draw.arc(self.image, (255, 0, 255), self.rect, node.radians % (2 * np.pi), 2 * np.pi, 1)
             else:
                 self.image, self.rect = load_image('gate_images/x_gate.png', -1,
                                                    rotation_angle=self.gate_image_rotation)
@@ -377,8 +357,8 @@ class CircuitGridGate(pygame.sprite.Sprite):
                 self.image, self.rect = load_image('gate_images/ry_gate.png', -1,
                                                    rotation_angle=self.gate_image_rotation)
                 self.rect = self.image.get_rect()
-                pygame.draw.arc(self.image, MAGENTA, self.rect, 0, node.radians % (2 * np.pi), 6)
-                pygame.draw.arc(self.image, MAGENTA, self.rect, node.radians % (2 * np.pi), 2 * np.pi, 1)
+                pygame.draw.arc(self.image, (255, 0, 255), self.rect, 0, node.radians % (2 * np.pi), 6)
+                pygame.draw.arc(self.image, (255, 0, 255), self.rect, node.radians % (2 * np.pi), 2 * np.pi, 1)
             else:
                 self.image, self.rect = load_image('gate_images/y_gate.png', -1,
                                                    rotation_angle=self.gate_image_rotation)
@@ -388,8 +368,8 @@ class CircuitGridGate(pygame.sprite.Sprite):
                 self.image, self.rect = load_image('gate_images/rz_gate.png', -1,
                                                    rotation_angle=self.gate_image_rotation)
                 self.rect = self.image.get_rect()
-                pygame.draw.arc(self.image, MAGENTA, self.rect, 0, node.radians % (2 * np.pi), 6)
-                pygame.draw.arc(self.image, MAGENTA, self.rect, node.radians % (2 * np.pi), 2 * np.pi, 1)
+                pygame.draw.arc(self.image, (255, 0, 255), self.rect, 0, node.radians % (2 * np.pi), 6)
+                pygame.draw.arc(self.image, (255, 0, 255), self.rect, node.radians % (2 * np.pi), 2 * np.pi, 1)
             else:
                 self.image, self.rect = load_image('gate_images/z_gate.png', -1,
                                                    rotation_angle=self.gate_image_rotation)

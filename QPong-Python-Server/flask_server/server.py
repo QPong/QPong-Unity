@@ -11,7 +11,6 @@ from flask import jsonify
 from flask import Flask
 from api import run_qasm
 from api import backend_configuration
-import json
 import json_tricks
 
 from model.circuit_grid_model import CircuitGridModel
@@ -19,7 +18,6 @@ from model import circuit_node_types as node_types
 from controls.circuit_grid import CircuitGridNode
 
 from qiskit import BasicAer, execute, ClassicalRegister
-from utils.states import comp_basis_states
 from copy import deepcopy
 
 app = Flask(__name__)
