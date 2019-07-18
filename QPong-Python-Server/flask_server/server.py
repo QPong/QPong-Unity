@@ -17,7 +17,6 @@ from copy import deepcopy
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def welcome():
     return "Hi Qiskiter!"

@@ -160,15 +160,15 @@ public class CircuitGridControl : MonoBehaviour
                 {
                     int gate_index = i * columnMax + j;
                     if (gateArray[gate_index] == "I"){
-                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = emptyGateSprite;
+                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(emptyGateSprite);
                     } else if (gateArray[gate_index] == "X") {
-                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = XGateSprite;
+                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(XGateSprite);
                     } else if (gateArray[gate_index] == "Y") {
-                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = YGateSprite;
+                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(YGateSprite);
                     } else if (gateArray[gate_index] == "Z") {
-                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = ZGateSprite;
+                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(ZGateSprite);
                     } else if (gateArray[gate_index] == "H") {
-                        gateObjectArray[gate_index].GetComponent<SpriteRenderer>().sprite = HGateSprite;
+                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(HGateSprite);
                     }
                 }
             }
