@@ -52,7 +52,6 @@ public class CircuitGridClient : MonoBehaviour
 
     private void GetStateVector(string gateString)
     {
-        Debug.Log("Send Gate Array: "+ gateString);
         string urlString = API_URL + API_VERSION + Endpoint.get_statevector;
         StartCoroutine(PostRequest(urlString, gateString, (results) => {
 
@@ -72,18 +71,18 @@ public class CircuitGridClient : MonoBehaviour
         }));
     }
 
-    IEnumerator DelayStateVector(string gatesString, float delay)
+    IEnumerator DelayStateVector(string gateString, float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        GetStateVector(gatesString);
+        GetStateVector(gateString);
     }
 
-    private void DoMeasurement(string gatesString)
+    private void DoMeasurement(string gateString)
     {
-        Debug.Log("Send Gate Array: "+ gatesString);
+        Debug.Log("Send Gate Array: "+ gateString);
         string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
-        StartCoroutine(PostRequest(urlString, gatesString, (results) =>
+        StartCoroutine(PostRequest(urlString, gateString, (results) =>
         {
             paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
             for (int i = 0; i < 8; i++)
@@ -103,13 +102,13 @@ public class CircuitGridClient : MonoBehaviour
 
     }
 
-    public IEnumerator PostRequest(string uri, string gatesString, Action<string> completionHandler)
+    public IEnumerator PostRequest(string url, string gateString, Action<string> completionHandler)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("gate_array", gatesString));
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, formData))
+        formData.Add(new MultipartFormDataSection("gate_array", gateString));
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
         {
-            print(uri);
+            print(url);
             // Request and wait for return
             yield return webRequest.SendWebRequest();
 
