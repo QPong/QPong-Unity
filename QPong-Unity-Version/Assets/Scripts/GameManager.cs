@@ -15,11 +15,13 @@ public class GameManager : MonoBehaviour
     public GUISkin layout;
 
     GameObject theBall;
+    GameObject theCircuitGrid;
 
     // Start is called before the first frame update
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
+        theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
         //Output the current screen window width in the console
         Debug.Log("Screen Width : " + Screen.width);
         Debug.Log("Screen Height : " + Screen.height);
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
             PlayerScore1 = 0;
             PlayerScore2 = 0;
             theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
+            theCircuitGrid.SendMessage("ResetCircuit", 0.5f, SendMessageOptions.RequireReceiver);
         }
 
         if (PlayerScore1 >= winScore){

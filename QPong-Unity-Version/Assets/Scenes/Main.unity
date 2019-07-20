@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xOffset: 50
   yOffset: 120
-  centerOffset: 70
+  centerOffset: 285
   winScore: 7
   xOffsetWinMessage: 150
   layout: {fileID: 11400000, guid: 9d26dd4ef666a4edfbedaeb324c895f9, type: 2}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 507773453}
   m_Layer: 0
   m_Name: CircuitGrid
-  m_TagString: Untagged
+  m_TagString: CircuitGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

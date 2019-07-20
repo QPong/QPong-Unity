@@ -174,4 +174,16 @@ public class CircuitGridControl : MonoBehaviour
             }
         }
     }
+    void ResetCircuit()
+    {
+        for (int i = 0; i < qubitNumber; i++)
+        {
+            for (int j = 0; j < circuitDepth; j++)
+            {
+                int index = i * circuitDepth + j;
+                gateArray[index] = "I";
+            }
+        }
+        updateCircuit = true;
+    }
 }
