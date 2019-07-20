@@ -269,7 +269,7 @@ MonoBehaviour:
   yOffset: 120
   centerOffset: 285
   winScore: 7
-  xOffsetWinMessage: 150
+  yOffsetWinMessage: -700
   layout: {fileID: 11400000, guid: 9d26dd4ef666a4edfbedaeb324c895f9, type: 2}
 --- !u!4 &447822111
 Transform:

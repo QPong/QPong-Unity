@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public int yOffset = 120;
     public int centerOffset = 70;
     public int winScore = 7;
-    public int xOffsetWinMessage = 150;
+    public int yOffsetWinMessage = 150;
 
     public GUISkin layout;
 
@@ -54,13 +54,13 @@ public class GameManager : MonoBehaviour
 
         if (PlayerScore1 >= winScore){
             Debug.Log("Quantum computer wins");
-            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500, 2000, 1000), 
+            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "You demonstrated quantum supremacy for the first time in huaman history!",
                     centeredLabelStyle);
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         } else if (PlayerScore2 >= winScore){
             Debug.Log("Classical computer wins");
-            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500, 2000, 1000), 
+            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "Classical computer still rules the world.", centeredLabelStyle);
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
