@@ -765,7 +765,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144738771}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1154,7 +1154,6 @@ MonoBehaviour:
   random: 0
   speed: 35
   randomRange: 10
-  pos: {x: 0, y: 0, z: 0}
   boundX: 34.5
 --- !u!61 &1867437826
 BoxCollider2D:
