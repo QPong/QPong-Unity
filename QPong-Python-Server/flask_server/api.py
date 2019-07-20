@@ -7,7 +7,6 @@ import json_tricks
 from model.circuit_grid_model import CircuitGridModel, CircuitGridNode
 from model import circuit_node_types as node_types
 
-QUBIT_NUM = 3
 
 def statevector(circuit_dimension, gate_string):
     circuit = circuit_from_string(circuit_dimension, gate_string)
@@ -26,7 +25,7 @@ def measurement(circuit_dimension, gate_string):
     shot_num = 1
 
     backend_sv_sim = BasicAer.get_backend('qasm_simulator')
-    cr = ClassicalRegister(QUBIT_NUM)
+    cr = ClassicalRegister(circuit.width())  # create classical register for each quantum register
     measure_circuit = deepcopy(circuit)  # make a copy of circuit
     measure_circuit.add_register(cr)  # add classical registers for measurement readout
     measure_circuit.measure(measure_circuit.qregs[0], measure_circuit.cregs[0])
