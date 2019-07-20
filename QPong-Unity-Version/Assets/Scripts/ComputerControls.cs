@@ -11,7 +11,6 @@ public class ComputerControls : MonoBehaviour
     public float random;
     public float speed = 35f;
     public float randomRange = 7f;
-    public Vector3 pos;
     public float boundX = 35.0f;
 
     // Start is called before the first frame update
@@ -64,17 +63,18 @@ public class ComputerControls : MonoBehaviour
         random = Random.Range(-randomRange, randomRange);
 
         // Limit paddle position on screen
-        pos = transform.position;
+        var pos = transform.position;
         if (pos.x > boundX) {
             pos.x = boundX;
         }
         else if (pos.x < -boundX) {
             pos.x = -boundX;
         }
+        transform.position = pos;
     }
     void ResetPaddle()
     {
-        pos = transform.position;
+        var pos = transform.position;
         pos.x = 0;
         transform.position = pos;
     }
