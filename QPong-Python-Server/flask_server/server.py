@@ -22,21 +22,23 @@ def welcome():
 
 @app.route('/api/run/get_statevector', methods=['POST'])
 def get_statevector():
-    gate_array_string = request.form.get('gate_array')
+    circuit_dimension = request.form.get('circuit_dimension')
+    gate_string = request.form.get('gate_array')
     print("--------------")
-    print(gate_array_string)
+    print(gate_string)
 
-    reply = statevector(gate_array_string)
+    reply = statevector(circuit_dimension, gate_string)
     return reply
 
 
 @app.route('/api/run/do_measurement', methods=['POST'])
 def do_measurement():
-    gate_array_string = request.form.get('gate_array')
+    circuit_dimension = request.form.get('circuit_dimension')
+    gate_string = request.form.get('gate_array')
     print("--------------")
-    print(gate_array_string)
+    print(gate_string)
 
-    reply = measurement(gate_array_string)
+    reply = measurement(circuit_dimension, gate_string)
     return reply
 
 
