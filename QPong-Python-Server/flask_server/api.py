@@ -8,6 +8,7 @@ from model.circuit_grid_model import CircuitGridModel, CircuitGridNode
 from model import circuit_node_types as node_types
 
 QUBIT_NUM = 3
+CIRCUIT_DEPTH = 15
 
 
 def statevector(gate_array_string):
@@ -42,8 +43,8 @@ def measurement(gate_array_string):
 
 def circuit_from_string(gate_array_string):
     gate_array = gate_array_string.split(',')
-    row_max = 3
-    column_max = 15
+    row_max = QUBIT_NUM
+    column_max = CIRCUIT_DEPTH
     circuit_grid_model = CircuitGridModel(row_max, column_max)
     for i in range(row_max):
         for j in range(column_max):
