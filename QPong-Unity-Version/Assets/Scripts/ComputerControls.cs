@@ -72,4 +72,10 @@ public class ComputerControls : MonoBehaviour
             pos.x = -boundX;
         }
     }
+    void ResetPaddle()
+    {
+        pos = transform.position;
+        pos.x = 0;
+        transform.position = pos;
+    }
 }

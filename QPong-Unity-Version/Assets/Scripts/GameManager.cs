@@ -16,12 +16,14 @@ public class GameManager : MonoBehaviour
 
     GameObject theBall;
     GameObject theCircuitGrid;
+    GameObject theClassicalPaddle;
 
     // Start is called before the first frame update
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
         theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
+        theClassicalPaddle = GameObject.FindGameObjectWithTag("ClassicalPaddle");
         //Output the current screen window width in the console
         Debug.Log("Screen Width : " + Screen.width);
         Debug.Log("Screen Height : " + Screen.height);
@@ -47,10 +49,7 @@ public class GameManager : MonoBehaviour
         GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset - yOffset, 100, 200), "" + PlayerScore2);
 
         if (GUI.Button(new Rect(Screen.width / 2 - 200, 50, 400, 150), "RESTART", centeredButtonStyle)){
-            PlayerScore1 = 0;
-            PlayerScore2 = 0;
-            theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
-            theCircuitGrid.SendMessage("ResetCircuit", 0.5f, SendMessageOptions.RequireReceiver);
+            RestartGame();
         }
 
         if (PlayerScore1 >= winScore){
@@ -65,5 +64,14 @@ public class GameManager : MonoBehaviour
                 "Classical computer still rules the world.", centeredLabelStyle);
             theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
+    }
+
+    void RestartGame()
+    {
+        PlayerScore1 = 0;
+            PlayerScore2 = 0;
+            theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
+            theCircuitGrid.SendMessage("ResetCircuit", 0.5f, SendMessageOptions.RequireReceiver);
+            theClassicalPaddle.SendMessage("ResetPaddle", 0.5f, SendMessageOptions.RequireReceiver);
     }
 }
