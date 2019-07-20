@@ -10,8 +10,8 @@ public class CircuitGridControl : MonoBehaviour
     public GameObject emptyGate;
     public GameObject paddle;
     public GameObject[] paddleArray;
-    public int columnMax = 15;
-    public int rowMax = 3;
+    public int circuitDepth = 3;
+    public int qubitNumber = 3;
     public int columnHeight = 5;
     public int rowHeight = 5;
     public float xOffset = -51f;
@@ -49,14 +49,14 @@ public class CircuitGridControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gateArray = new string[rowMax * columnMax];
-        gateObjectArray = new GameObject[rowMax * columnMax];
+        gateArray = new string[qubitNumber * circuitDepth];
+        gateObjectArray = new GameObject[qubitNumber * circuitDepth];
         
-        for (int i = 0; i < rowMax; i++)
+        for (int i = 0; i < qubitNumber; i++)
         {
-            for (int j = 0; j < columnMax; j++)
+            for (int j = 0; j < circuitDepth; j++)
             {
-                int index = i * columnMax + j;
+                int index = i * circuitDepth + j;
                 gateArray[index] = "I";
                 gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + j * columnHeight, yOffset + -i * rowHeight), 
                     Quaternion.identity);
@@ -66,7 +66,7 @@ public class CircuitGridControl : MonoBehaviour
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
 
-        int numberOfState = (int) Math.Pow(2, rowMax);
+        int numberOfState = (int) Math.Pow(2, qubitNumber);
         paddleArray = new GameObject[numberOfState];
         for (int i = 0; i < numberOfState; i++)
         {
@@ -97,19 +97,19 @@ public class CircuitGridControl : MonoBehaviour
             selectedColNum --;
         }
 
-        if (selectedColNum >= columnMax) {
-            selectedColNum = columnMax - 1;
+        if (selectedColNum >= circuitDepth) {
+            selectedColNum = circuitDepth - 1;
         } else if (selectedColNum < 0) {
             selectedColNum = 0;
         }
 
-        if (selectedRowNum >= rowMax) {
-            selectedRowNum = rowMax - 1;
+        if (selectedRowNum >= qubitNumber) {
+            selectedRowNum = qubitNumber - 1;
         } else if (selectedRowNum < 0) {
             selectedRowNum = 0;
         }
 
-        selectedIndex = selectedRowNum * columnMax + selectedColNum;
+        selectedIndex = selectedRowNum * circuitDepth + selectedColNum;
         selectedGate = GameObject.Find("gate["+selectedRowNum+"]["+selectedColNum+"]");
         cursor.transform.position = selectedGate.transform.position;
 
@@ -154,11 +154,11 @@ public class CircuitGridControl : MonoBehaviour
         if (updateCircuit) {
             updateCircuit = false;
             GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().getStatevectorFlag = true;
-            for (int i = 0; i < rowMax; i++)
+            for (int i = 0; i < qubitNumber; i++)
             {
-                for (int j = 0; j < columnMax; j++)
+                for (int j = 0; j < circuitDepth; j++)
                 {
-                    int gate_index = i * columnMax + j;
+                    int gate_index = i * circuitDepth + j;
                     if (gateArray[gate_index] == "I"){
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(emptyGateSprite);
                     } else if (gateArray[gate_index] == "X") {

@@ -439,8 +439,8 @@ MonoBehaviour:
     type: 3}
   paddle: {fileID: 1144738771}
   paddleArray: []
-  columnMax: 15
-  rowMax: 3
+  circuitDepth: 3
+  qubitNumber: 3
   columnHeight: 5
   rowHeight: 5
   xOffset: -35
@@ -481,9 +481,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getStatevectorFlag: 0
   doMeasurementFlag: 0
-  gateArrayString: 
-  numberOfQubits: 0
-  numberOfStates: 0
+  qubitNumber: 0
+  circuitDepth: 0
+  stateNumber: 0
   paddleArray: []
 --- !u!1 &519420028
 GameObject:

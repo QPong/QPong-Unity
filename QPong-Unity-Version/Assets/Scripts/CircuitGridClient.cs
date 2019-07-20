@@ -14,26 +14,30 @@ public class CircuitGridClient : MonoBehaviour
 
     private const string API_URL = "http://127.0.0.1:8008/";
     private const string API_VERSION = "api/run/";
+    private string circuitDimensionString;
 
     // Start is called before the first frame update
     public bool getStatevectorFlag;
     public bool doMeasurementFlag;
-    public int numberOfQubits;
-    public int numberOfStates;
+    public int qubitNumber;
+    public int circuitDepth;
+    public int stateNumber;
     private GameObject CircuitGrid;
     private CircuitGridControl CircuitGridControlScript;
-    private string gateArrayString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
+    private string gateString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
 
     public GameObject[] paddleArray;
     
     void Start()
     {
-        numberOfQubits = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().rowMax;
-        numberOfStates = (int) Math.Pow(2, numberOfQubits);
+        qubitNumber = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().qubitNumber;
+        circuitDepth = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().circuitDepth;
+        stateNumber = (int) Math.Pow(2, qubitNumber);
+        circuitDimensionString = string.Join(",", qubitNumber, circuitDepth);
         GameObject CircuitGrid = GameObject.Find("CircuitGrid");
         CircuitGridControl CircuitGridControlScript = CircuitGrid.GetComponent<CircuitGridControl>();
         // paddleArray = CircuitGridControlScript.paddleArray;
-        GetStateVector(gateArrayString);
+        GetStateVector(gateString);
     }
 
     //TODO: find out if there is ever an instance of both flags being true for one update, and do we need that to happen? can we optimize to just one?
@@ -41,27 +45,27 @@ public class CircuitGridClient : MonoBehaviour
     {
         if (getStatevectorFlag) {
             getStatevectorFlag = false;
-            GetStateVector(gateArrayString);
+            GetStateVector(gateString);
         }
        
         if (doMeasurementFlag) {
             doMeasurementFlag = false;
-            DoMeasurement(gateArrayString);
+            DoMeasurement(gateString);
         }
     }
 
     private void GetStateVector(string gateString)
     {
         string urlString = API_URL + API_VERSION + Endpoint.get_statevector;
-        StartCoroutine(PostRequest(urlString, gateString, (results) => {
+        StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) => {
 
             // Deserialize stateVector from JSON
             //TODO: come up with a better way to abstract this out
             var obj = JsonConvert.DeserializeObject<RootObject>(results);
-            Complex[] stateVector = new Complex[numberOfStates];
-            double[] stateProbability = new double[numberOfStates];
+            Complex[] stateVector = new Complex[stateNumber];
+            double[] stateProbability = new double[stateNumber];
             paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
-            for (int i = 0; i < numberOfStates; i++)
+            for (int i = 0; i < stateNumber; i++)
             {
                 stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0], obj.__ndarray__[i].__complex__[1]);
                 stateProbability[i] = Complex.Pow(stateVector[i], 2).Magnitude;
@@ -82,7 +86,7 @@ public class CircuitGridClient : MonoBehaviour
     {
         Debug.Log("Send Gate Array: "+ gateString);
         string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
-        StartCoroutine(PostRequest(urlString, gateString, (results) =>
+        StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) =>
         {
             paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
             for (int i = 0; i < 8; i++)
@@ -102,9 +106,10 @@ public class CircuitGridClient : MonoBehaviour
 
     }
 
-    public IEnumerator PostRequest(string url, string gateString, Action<string> completionHandler)
+    public IEnumerator PostRequest(string url, string circuitDimensionString, string gateString, Action<string> completionHandler)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("circuit_dimension", circuitDimensionString));
         formData.Add(new MultipartFormDataSection("gate_array", gateString));
         using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
         {

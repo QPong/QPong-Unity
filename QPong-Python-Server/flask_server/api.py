@@ -8,11 +8,9 @@ from model.circuit_grid_model import CircuitGridModel, CircuitGridNode
 from model import circuit_node_types as node_types
 
 QUBIT_NUM = 3
-CIRCUIT_DEPTH = 15
 
-
-def statevector(gate_array_string):
-    circuit = circuit_from_string(gate_array_string)
+def statevector(circuit_dimension, gate_string):
+    circuit = circuit_from_string(circuit_dimension, gate_string)
     shot_num = 1000
 
     backend_sv_sim = BasicAer.get_backend('statevector_simulator')
@@ -23,8 +21,8 @@ def statevector(gate_array_string):
     return json_tricks.dumps(quantum_state)
 
 
-def measurement(gate_array_string):
-    circuit = circuit_from_string(gate_array_string)
+def measurement(circuit_dimension, gate_string):
+    circuit = circuit_from_string(circuit_dimension, gate_string)
     shot_num = 1
 
     backend_sv_sim = BasicAer.get_backend('qasm_simulator')
@@ -41,10 +39,10 @@ def measurement(gate_array_string):
     return str(state_in_decimal)
 
 
-def circuit_from_string(gate_array_string):
-    gate_array = gate_array_string.split(',')
-    row_max = QUBIT_NUM
-    column_max = CIRCUIT_DEPTH
+def circuit_from_string(circuit_dimension, gate_string):
+    gate_array = gate_string.split(',')
+    row_max = int(circuit_dimension.split(',')[0])
+    column_max = int(circuit_dimension.split(',')[1])
     circuit_grid_model = CircuitGridModel(row_max, column_max)
     for i in range(row_max):
         for j in range(column_max):
