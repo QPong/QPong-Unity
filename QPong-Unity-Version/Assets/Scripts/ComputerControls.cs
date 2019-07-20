@@ -52,13 +52,7 @@ public class ComputerControls : MonoBehaviour
             }
         }
         // Get the AI to move back towards the centre when a new round begins
-        else {
-            if (rb2d.position.x > 0.1 && rb2d.position.x < -0.1) {
-                vel.x = -speed;
-            } else if (rb2d.position.x < -0.1 && rb2d.position.x < 0.1) {
-                vel.x = speed;
-            }
-        }
+
         rb2d.velocity = vel;
         random = Random.Range(-randomRange, randomRange);
 

@@ -101,7 +101,7 @@ public class CircuitGridClient : MonoBehaviour
             paddleArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
 
             //// Show statevector representation again sometime after measurement
-            StartCoroutine(DelayStateVector(gateString, 0.3f));
+            //StartCoroutine(DelayStateVector(gateString, 0.3f));
         }));
 
     }

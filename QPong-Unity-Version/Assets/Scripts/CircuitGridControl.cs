@@ -153,6 +153,7 @@ public class CircuitGridControl : MonoBehaviour
         // Update gateObjectArray based on changes in the gateArray, if any
         if (updateCircuit) {
             updateCircuit = false;
+            GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>().updateCircuit = true;
             GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().getStatevectorFlag = true;
             for (int i = 0; i < qubitNumber; i++)
             {
