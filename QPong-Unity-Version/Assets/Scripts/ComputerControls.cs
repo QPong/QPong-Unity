@@ -12,6 +12,7 @@ public class ComputerControls : MonoBehaviour
     public float speed = 35f;
     public float randomRange = 7f;
     public float boundX = 35.0f;
+    public float positionPrecision = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +30,10 @@ public class ComputerControls : MonoBehaviour
 
         // if the ball is moving towards computer paddle
         if (balVelY > 0) {
-            if (balPosX > rb2d.position.x + 0.2){
+            if (balPosX > rb2d.position.x + positionPrecision){
                 vel.x = speed;
             }
-            else if (balPosX < rb2d.position.x - 0.2) {
+            else if (balPosX < rb2d.position.x - positionPrecision) {
                 vel.x = -speed;
             }
             else {
@@ -41,10 +42,10 @@ public class ComputerControls : MonoBehaviour
         } 
         // if the ball is moving away, computer paddle moving is slowed down
         else if (balVelY < 0) {
-            if (balPosX > rb2d.position.x + 0.2){
+            if (balPosX > rb2d.position.x + positionPrecision){
                 vel.x = speed * 0.5f;
             }
-            else if (balPosX < rb2d.position.x - 0.2) {
+            else if (balPosX < rb2d.position.x - positionPrecision) {
                 vel.x = -speed * 0.5f;
             }
             else {
@@ -52,6 +53,17 @@ public class ComputerControls : MonoBehaviour
             }
         }
         // Get the AI to move back towards the centre when a new round begins
+        else {
+            if (rb2d.position.x > positionPrecision) {
+                vel.x = -speed;
+            } 
+            else if (rb2d.position.x < -positionPrecision) {
+                vel.x = speed;
+            } 
+            else if (rb2d.position.x <= positionPrecision && rb2d.position.x >= -positionPrecision) {
+                vel.x = 0;
+            }
+        }
 
         rb2d.velocity = vel;
         random = Random.Range(-randomRange, randomRange);
