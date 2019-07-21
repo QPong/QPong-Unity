@@ -4,79 +4,37 @@ using UnityEngine;
 
 public class ComputerControls : MonoBehaviour
 {
-    public Transform theBall;
+    public GameObject theBall;
     private Rigidbody2D rb2d;
-    public float balPosX;
-    public float balVelY;
-    public float random;
-    public float speed = 35f;
-    public float randomRange = 7f;
+    private Vector2 ballPos;
+    private float balVelY;
+    public float speed = 20f;
     public float boundX = 35.0f;
-    public float positionPrecision = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        theBall = GameObject.FindGameObjectWithTag("Ball").transform;
+        theBall = GameObject.FindGameObjectWithTag("Ball");
     }
 
     // Update is called once per frame
     void Update()
     {
-        balPosX = theBall.position.x + random;
-        balVelY = theBall.GetComponent<Rigidbody2D>().velocity.y;
-        Vector2 vel = rb2d.velocity;   
+        balVelY = theBall.GetComponent<Rigidbody2D>().velocity.y; 
 
         // if the ball is moving towards computer paddle
         if (balVelY > 0) {
-            if (balPosX > rb2d.position.x + positionPrecision){
-                vel.x = speed;
+            ballPos = theBall.transform.localPosition;
+
+            if (transform.localPosition.x > -boundX && ballPos.x < transform.localPosition.x) {
+                transform.localPosition += new Vector3 (-speed * Time.deltaTime, 0, 0);
             }
-            else if (balPosX < rb2d.position.x - positionPrecision) {
-                vel.x = -speed;
-            }
-            else {
-                vel.x = 0;
+
+            if (transform.localPosition.x < boundX && ballPos.x > transform.localPosition.x) {
+                transform.localPosition += new Vector3 (speed * Time.deltaTime, 0, 0);
             }
         } 
-        // if the ball is moving away, computer paddle moving is slowed down
-        else if (balVelY < 0) {
-            if (balPosX > rb2d.position.x + positionPrecision){
-                vel.x = speed * 0.5f;
-            }
-            else if (balPosX < rb2d.position.x - positionPrecision) {
-                vel.x = -speed * 0.5f;
-            }
-            else {
-                vel.x = 0;
-            }
-        }
-        // Get the AI to move back towards the centre when a new round begins
-        else {
-            if (rb2d.position.x > positionPrecision) {
-                vel.x = -speed;
-            } 
-            else if (rb2d.position.x < -positionPrecision) {
-                vel.x = speed;
-            } 
-            else if (rb2d.position.x <= positionPrecision && rb2d.position.x >= -positionPrecision) {
-                vel.x = 0;
-            }
-        }
-
-        rb2d.velocity = vel;
-        random = Random.Range(-randomRange, randomRange);
-
-        // Limit paddle position on screen
-        var pos = transform.position;
-        if (pos.x > boundX) {
-            pos.x = boundX;
-        }
-        else if (pos.x < -boundX) {
-            pos.x = -boundX;
-        }
-        transform.position = pos;
     }
     public void ResetPaddle()
     {
