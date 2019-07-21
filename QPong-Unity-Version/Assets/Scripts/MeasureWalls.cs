@@ -5,12 +5,18 @@ using UnityEngine;
 public class MeasureWalls : MonoBehaviour
 {
     public bool updateCircuit;
+    private Rigidbody2D rb2d;
+    CircuitGridClient circuitGridClientScript;
+    void Start(){
+        rb2d = GameObject.Find("Ball").GetComponent<Rigidbody2D>();
+        circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
+    }
     void OnTriggerEnter2D(Collider2D hitInfo){
         if (hitInfo.name == "Ball"){
             // trigger only if the ball is coming from up to down
-            if (GameObject.Find("Ball").GetComponent<Rigidbody2D>().velocity[1] < 0){
+            if (rb2d.velocity[1] < 0){
                 updateCircuit = false;
-                GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().doMeasurementFlag = true;
+                circuitGridClientScript.doMeasurementFlag = true;
                 //Debug.Log("Do Measurement!");
             }
         }
@@ -19,10 +25,10 @@ public class MeasureWalls : MonoBehaviour
     void OnTriggerStay2D(Collider2D hitInfo){
         if (hitInfo.name == "Ball"){
             // trigger only if the ball is coming from up to down
-            if (GameObject.Find("Ball").GetComponent<Rigidbody2D>().velocity[1] < 0){
+            if (rb2d.velocity[1] < 0){
                 if (updateCircuit){
                     updateCircuit = false;
-                    GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().doMeasurementFlag = true;
+                    circuitGridClientScript.doMeasurementFlag = true;
                     //Debug.Log("Do Measurement Again!");
                 }
             }
@@ -31,7 +37,7 @@ public class MeasureWalls : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D hitInfo){
         if (hitInfo.name == "Ball"){
-            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().getStatevectorFlag = true;
+            circuitGridClientScript.getStatevectorFlag = true;
             //Debug.Log("Get Statevector Again!");
         }
     }

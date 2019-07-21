@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  startDirection: 0
+  startDirection: -1
   startPosition: 30
   startPositionYOffset: 8
 --- !u!50 &811516244

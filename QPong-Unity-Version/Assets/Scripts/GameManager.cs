@@ -15,18 +15,23 @@ public class GameManager : MonoBehaviour
     public GUISkin layout;
 
     GameObject theBall;
+    BallControl ballControlScript;
     GameObject theCircuitGrid;
+    CircuitGridControl circuitGridControlScript;
     GameObject theClassicalPaddle;
+    ComputerControls classicalPaddleControlScript;
 
     // Start is called before the first frame update
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
+        ballControlScript = theBall.GetComponent<BallControl>();
+
         theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
+        circuitGridControlScript = theCircuitGrid.GetComponent<CircuitGridControl>();
+
         theClassicalPaddle = GameObject.FindGameObjectWithTag("ClassicalPaddle");
-        //Output the current screen window width in the console
-        Debug.Log("Screen Width : " + Screen.width);
-        Debug.Log("Screen Height : " + Screen.height);
+        classicalPaddleControlScript = theClassicalPaddle.GetComponent<ComputerControls>();
     }
 
     public static void Score(string wallID){
@@ -57,12 +62,12 @@ public class GameManager : MonoBehaviour
             GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "You demonstrated quantum supremacy for the first time in huaman history!",
                     centeredLabelStyle);
-            theBall.GetComponent<BallControl>().ResetBall(-1f);
+            ballControlScript.ResetBall(-1f);
         } else if (PlayerScore2 >= winScore){
             Debug.Log("Classical computer wins");
             GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "Classical computer still rules the world.", centeredLabelStyle);
-            theBall.GetComponent<BallControl>().ResetBall(-1f);
+            ballControlScript.ResetBall(-1f);
         }
     }
 
@@ -70,8 +75,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerScore1 = 0;
         PlayerScore2 = 0;
-        theBall.GetComponent<BallControl>().RestartRound(-1f);
-        theCircuitGrid.GetComponent<CircuitGridControl>().ResetCircuit();
-        theClassicalPaddle.GetComponent<ComputerControls>().ResetPaddle();
+        ballControlScript.RestartRound(-1f);
+        circuitGridControlScript.ResetCircuit();
+        classicalPaddleControlScript.ResetPaddle();
     }
 }

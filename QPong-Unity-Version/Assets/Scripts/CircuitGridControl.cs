@@ -45,12 +45,16 @@ public class CircuitGridControl : MonoBehaviour
     public KeyCode addHGate = KeyCode.H;
     public KeyCode deleteGate = KeyCode.Space;
     public KeyCode measure = KeyCode.Return;
+    CircuitGridClient circuitGridClientScript;
+    MeasureWalls measureWallScript;
 
     // Start is called before the first frame update
     void Start()
     {
         gateArray = new string[qubitNumber * circuitDepth];
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
+        circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
+        measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
         
         for (int i = 0; i < qubitNumber; i++)
         {
@@ -146,15 +150,15 @@ public class CircuitGridControl : MonoBehaviour
             updateCircuit = true;
             gateArray[selectedIndex] = "I";
         } else if (Input.GetKeyDown(measure)) {
-            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().doMeasurementFlag = true;
+            circuitGridClientScript.doMeasurementFlag = true;
         }
 
 
         // Update gateObjectArray based on changes in the gateArray, if any
         if (updateCircuit) {
             updateCircuit = false;
-            GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>().updateCircuit = true;
-            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().getStatevectorFlag = true;
+            measureWallScript.updateCircuit = true;
+            circuitGridClientScript.getStatevectorFlag = true;
             for (int i = 0; i < qubitNumber; i++)
             {
                 for (int j = 0; j < circuitDepth; j++)
