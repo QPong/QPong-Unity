@@ -175,7 +175,7 @@ public class CircuitGridControl : MonoBehaviour
             }
         }
     }
-    void ResetCircuit()
+    public void ResetCircuit()
     {
         for (int i = 0; i < qubitNumber; i++)
         {

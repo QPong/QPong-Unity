@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallControl : MonoBehaviour
 {
     public float speed = 30;
-    public float startDirection;
+    public float startDirection = -1f;
     public float startPosition = 30;
     public float startPositionYOffset = 8;
     private Rigidbody2D rb2d;
@@ -23,10 +23,10 @@ public class BallControl : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        Invoke("GoBall", 2); // wait for 2 seconds to give players time to get ready
+        RestartGame(startDirection);
     }
 
-    void ResetBall(float startSide){
+    public void ResetBall(float startSide){
         rb2d.velocity = Vector2.zero;
         if (startSide > 0){
             transform.position = new Vector2(0, startPosition + startPositionYOffset);

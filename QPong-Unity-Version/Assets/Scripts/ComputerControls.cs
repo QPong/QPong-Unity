@@ -66,7 +66,7 @@ public class ComputerControls : MonoBehaviour
         }
         transform.position = pos;
     }
-    void ResetPaddle()
+    public void ResetPaddle()
     {
         var pos = transform.position;
         pos.x = 0;
