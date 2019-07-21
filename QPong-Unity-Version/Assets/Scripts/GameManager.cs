@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerScore1 = 0;
         PlayerScore2 = 0;
-        theBall.GetComponent<BallControl>().RestartGame(-1f);
+        theBall.GetComponent<BallControl>().RestartRound(-1f);
         theCircuitGrid.GetComponent<CircuitGridControl>().ResetCircuit();
         theClassicalPaddle.GetComponent<ComputerControls>().ResetPaddle();
     }

@@ -23,7 +23,7 @@ public class BallControl : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        RestartGame(startDirection);
+        RestartRound(startDirection);
     }
 
     public void ResetBall(float startSide){
@@ -37,7 +37,7 @@ public class BallControl : MonoBehaviour
         
     }
 
-    public void RestartGame(float startSide){
+    public void RestartRound(float startSide){
         startDirection = startSide;
         ResetBall(startDirection);
         Invoke("GoBall", 1);

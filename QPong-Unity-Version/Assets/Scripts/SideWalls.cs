@@ -15,7 +15,7 @@ public class SideWalls : MonoBehaviour
             else if (wallName == "BottomWall"){
                 startSide = -1f;
             }
-            hitInfo.gameObject.GetComponent<BallControl>().RestartGame(startSide);
+            hitInfo.gameObject.GetComponent<BallControl>().RestartRound(startSide);
         }
     }
 
