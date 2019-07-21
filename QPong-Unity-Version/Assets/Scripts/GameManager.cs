@@ -69,9 +69,9 @@ public class GameManager : MonoBehaviour
     void RestartGame()
     {
         PlayerScore1 = 0;
-            PlayerScore2 = 0;
-            theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
-            theCircuitGrid.SendMessage("ResetCircuit", 0.5f, SendMessageOptions.RequireReceiver);
-            theClassicalPaddle.SendMessage("ResetPaddle", 0.5f, SendMessageOptions.RequireReceiver);
+        PlayerScore2 = 0;
+        theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
+        theCircuitGrid.SendMessage("ResetCircuit", 0.5f, SendMessageOptions.RequireReceiver);
+        theClassicalPaddle.SendMessage("ResetPaddle", 0.5f, SendMessageOptions.RequireReceiver);
     }
 }

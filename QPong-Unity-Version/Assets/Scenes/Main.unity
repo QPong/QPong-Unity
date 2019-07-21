@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bf11054bbd048a7948cb4c2da17f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSide: 0
 --- !u!1 &200222544
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   startDirection: 0
-  startPosition: 8
+  startPosition: 30
+  startPositionYOffset: 8
 --- !u!50 &811516244
 Rigidbody2D:
   serializedVersion: 4
@@ -1166,6 +1168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bf11054bbd048a7948cb4c2da17f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSide: 0
 --- !u!1 &1867437824
 GameObject:
   m_ObjectHideFlags: 0
