@@ -62,7 +62,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Classical computer wins");
             GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "Classical computer still rules the world.", centeredLabelStyle);
-            //theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
             theBall.GetComponent<BallControl>().ResetBall(-1f);
         }
     }
@@ -71,11 +70,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerScore1 = 0;
         PlayerScore2 = 0;
-        // theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
         theBall.GetComponent<BallControl>().RestartGame(-1f);
-        //theCircuitGrid.SendMessage("ResetCircuit", 0.5f, SendMessageOptions.RequireReceiver);
         theCircuitGrid.GetComponent<CircuitGridControl>().ResetCircuit();
-        //theClassicalPaddle.SendMessage("ResetPaddle", 0.5f, SendMessageOptions.RequireReceiver);
         theClassicalPaddle.GetComponent<ComputerControls>().ResetPaddle();
     }
 }
