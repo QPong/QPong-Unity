@@ -54,3 +54,5 @@ model/.DS_Store
 utils/.DS_Store
 utils/data/.DS_Store
 viz/.DS_Store
+QPong-Python-Server/Convert gate_array_string to circuit grid model.ipynb
+QPong-Python-Server/.ipynb_checkpoints/Convert gate_array_string to circuit grid model-checkpoint.ipynb

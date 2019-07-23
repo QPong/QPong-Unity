@@ -5,92 +5,118 @@ using System.Numerics;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
+
+public enum Endpoint { get_statevector, do_measurement }
 
 public class CircuitGridClient : MonoBehaviour
 {
+
+    private const string API_URL = "http://127.0.0.1:8008/";
+    private const string API_VERSION = "api/run/";
+    private string circuitDimensionString;
+
     // Start is called before the first frame update
     public bool getStatevectorFlag;
     public bool doMeasurementFlag;
-    public string gateArrayString;
-    public int numberOfQubits;
-    public int numberOfStates;
-    private GameObject CircuitGrid;
-    private CircuitGridControl CircuitGridControlScript;
+    public int qubitNumber;
+    public int circuitDepth;
+    public int stateNumber;
+    private string gateString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
 
     public GameObject[] paddleArray;
+    GameObject circuitGrid;
+    CircuitGridControl circuitGridControlScript;
     
     void Start()
     {
-        numberOfQubits = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().rowMax;
-        numberOfStates = (int) Math.Pow(2, numberOfQubits);
-        GameObject CircuitGrid = GameObject.Find("CircuitGrid");
-        CircuitGridControl CircuitGridControlScript = CircuitGrid.GetComponent<CircuitGridControl>();
-        // paddleArray = CircuitGridControlScript.paddleArray;
-        var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
-        StartCoroutine(getStatevector(gateArrayString));
+        circuitGrid = GameObject.Find("CircuitGrid");
+        circuitGridControlScript = circuitGrid.GetComponent<CircuitGridControl>();
+
+        qubitNumber = circuitGridControlScript.qubitNumber;
+        circuitDepth = circuitGridControlScript.circuitDepth;
+        stateNumber = (int) Math.Pow(2, qubitNumber);
+        circuitDimensionString = string.Join(",", qubitNumber, circuitDepth);
+        paddleArray = circuitGridControlScript.paddleArray;
+        GetStateVector(gateString);
     }
 
+    //TODO: find out if there is ever an instance of both flags being true for one update, and do we need that to happen? can we optimize to just one?
     void Update()
     {
         if (getStatevectorFlag) {
             getStatevectorFlag = false;
-            var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
-            StartCoroutine(getStatevector(gateArrayString));
+            GetStateVector(gateString);
         }
+       
         if (doMeasurementFlag) {
             doMeasurementFlag = false;
-            var gateArrayString = string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
-            StartCoroutine(doMeasurement(gateArrayString));
+            DoMeasurement(gateString);
         }
     }
 
-    IEnumerator getStatevector(string gateArrayString)
+    private void GetStateVector(string gateString)
     {
-        Debug.Log("Send Gate Array: "+ gateArrayString);
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("gate_array", gateArrayString));
-        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8008/api/run/get_statevector", formData);
-        yield return www.SendWebRequest();
-        Debug.Log("Response: " + www.downloadHandler.text);
-        
-        // Deserialize stateVector from JSON
-        var obj = JsonConvert.DeserializeObject<RootObject>(www.downloadHandler.text);
-        Complex[] stateVector = new Complex[numberOfStates];
-        double[] stateProbability = new double[numberOfStates];
-        paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
-        for (int i = 0; i < numberOfStates; i++){
-            stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0],obj.__ndarray__[i].__complex__[1]);
-            stateProbability[i] = Complex.Pow(stateVector[i], 2).Magnitude;
-            paddleArray[i].GetComponent<SpriteRenderer> ().color = new Color (1,1,1,(float)stateProbability[i]);
-        }
-        Debug.Log("State Probability: ["+string.Join(", ", stateProbability)+"]");
+        string urlString = API_URL + API_VERSION + Endpoint.get_statevector;
+        StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) => {
+
+            // Deserialize stateVector from JSON
+            // TODO: come up with a better way to abstract this out
+            var obj = JsonConvert.DeserializeObject<RootObject>(results);
+            Complex[] stateVector = new Complex[stateNumber];
+            double[] stateProbability = new double[stateNumber];
+            for (int i = 0; i < stateNumber; i++)
+            {
+                stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0], obj.__ndarray__[i].__complex__[1]);
+                stateProbability[i] = Complex.Pow(stateVector[i], 2).Magnitude;
+                paddleArray[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (float)stateProbability[i]);
+            }
+           // Debug.Log("State Probability: [" + string.Join(", ", stateProbability) + "]");
+        }));
     }
 
-    IEnumerator doMeasurement(string gateArrayString)
+    private void DoMeasurement(string gateString)
     {
-        Debug.Log("Send Gate Array: "+ gateArrayString);
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("gate_array", gateArrayString));
-        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8008/api/run/do_measurement", formData);
-        yield return www.SendWebRequest();
-        Debug.Log("State in decimal: " + www.downloadHandler.text);
+        Debug.Log("Send Gate Array: "+ gateString);
+        string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
+        StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) =>
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                // make all states invisible and disable colliders
+                paddleArray[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                paddleArray[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
+            int stateInDecimal = Int32.Parse(results);
+            // make the measured state visible and enable collider
+            paddleArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            paddleArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
+        }));
 
-        paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
-        for (int i = 0; i < 8; i++){
-            // make all states invisible and disable colliders
-            paddleArray[i].GetComponent<SpriteRenderer> ().color = new Color (1,1,1,0);
-            paddleArray[i].GetComponent<BoxCollider2D> ().enabled = false;
+    }
+
+    public IEnumerator PostRequest(string url, string circuitDimensionString, string gateString, Action<string> completionHandler)
+    {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("circuit_dimension", circuitDimensionString));
+        formData.Add(new MultipartFormDataSection("gate_array", gateString));
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, formData))
+        {
+            print(url);
+            // Request and wait for return
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                // Some Sort of error to be handled
+                // Debug.Log(": Error: " + webRequest.error);
+            }
+            else
+            {
+                completionHandler(webRequest.downloadHandler.text);
+
+            }
         }
-        int stateInDecimal = Int32.Parse(www.downloadHandler.text);
-        // make the measured state visible and enable collider
-        paddleArray[stateInDecimal].GetComponent<SpriteRenderer> ().color = new Color (1,1,1,1);
-        paddleArray[stateInDecimal].GetComponent<BoxCollider2D> ().enabled = true;
-        
-        // Show statevector representation again sometime after measurement
-        yield return new WaitForSeconds(0.3f);
-        Debug.Log("Waited");
-        StartCoroutine(getStatevector(gateArrayString));
     }
 
     public class DataObject{

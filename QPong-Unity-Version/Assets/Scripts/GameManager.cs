@@ -10,19 +10,28 @@ public class GameManager : MonoBehaviour
     public int yOffset = 120;
     public int centerOffset = 70;
     public int winScore = 7;
-    public int xOffsetWinMessage = 150;
+    public int yOffsetWinMessage = 150;
 
     public GUISkin layout;
 
     GameObject theBall;
+    BallControl ballControlScript;
+    GameObject theCircuitGrid;
+    CircuitGridControl circuitGridControlScript;
+    GameObject theClassicalPaddle;
+    ComputerControls classicalPaddleControlScript;
 
     // Start is called before the first frame update
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
-        //Output the current screen window width in the console
-        Debug.Log("Screen Width : " + Screen.width);
-        Debug.Log("Screen Height : " + Screen.height);
+        ballControlScript = theBall.GetComponent<BallControl>();
+
+        theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
+        circuitGridControlScript = theCircuitGrid.GetComponent<CircuitGridControl>();
+
+        theClassicalPaddle = GameObject.FindGameObjectWithTag("ClassicalPaddle");
+        classicalPaddleControlScript = theClassicalPaddle.GetComponent<ComputerControls>();
     }
 
     public static void Score(string wallID){
@@ -45,22 +54,29 @@ public class GameManager : MonoBehaviour
         GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset - yOffset, 100, 200), "" + PlayerScore2);
 
         if (GUI.Button(new Rect(Screen.width / 2 - 200, 50, 400, 150), "RESTART", centeredButtonStyle)){
-            PlayerScore1 = 0;
-            PlayerScore2 = 0;
-            theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
+            RestartGame();
         }
 
         if (PlayerScore1 >= winScore){
             Debug.Log("Quantum computer wins");
-            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500, 2000, 1000), 
+            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "You demonstrated quantum supremacy for the first time in huaman history!",
                     centeredLabelStyle);
-            theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
+            ballControlScript.ResetBall(-1f);
         } else if (PlayerScore2 >= winScore){
             Debug.Log("Classical computer wins");
-            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500, 2000, 1000), 
+            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000), 
                 "Classical computer still rules the world.", centeredLabelStyle);
-            theBall.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
+            ballControlScript.ResetBall(-1f);
         }
+    }
+
+    void RestartGame()
+    {
+        PlayerScore1 = 0;
+        PlayerScore2 = 0;
+        ballControlScript.RestartRound(-1f);
+        circuitGridControlScript.ResetCircuit();
+        classicalPaddleControlScript.ResetPaddle();
     }
 }
