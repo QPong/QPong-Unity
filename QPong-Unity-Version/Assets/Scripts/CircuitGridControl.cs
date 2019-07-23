@@ -29,8 +29,6 @@ public class CircuitGridControl : MonoBehaviour
 
     // Variables for gate sprites
     public Sprite XGateSprite;
-    public Sprite YGateSprite;
-    public Sprite ZGateSprite;
     public Sprite HGateSprite;
     public Sprite emptyGateSprite;
 
@@ -40,17 +38,18 @@ public class CircuitGridControl : MonoBehaviour
     public KeyCode moveLeft = KeyCode.A;
     public KeyCode moveRight = KeyCode.D;
     public KeyCode addXGate = KeyCode.X;
-    public KeyCode addYGate = KeyCode.Y;
-    public KeyCode addZGate = KeyCode.Z;
     public KeyCode addHGate = KeyCode.H;
     public KeyCode deleteGate = KeyCode.Space;
-    public KeyCode measure = KeyCode.Return;
+    CircuitGridClient circuitGridClientScript;
+    MeasureWalls measureWallScript;
 
     // Start is called before the first frame update
     void Start()
     {
         gateArray = new string[qubitNumber * circuitDepth];
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
+        circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
+        measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
         
         for (int i = 0; i < qubitNumber; i++)
         {
@@ -121,20 +120,6 @@ public class CircuitGridControl : MonoBehaviour
             } else {
                 gateArray[selectedIndex] = "X";
             }
-        } else if (Input.GetKeyDown(addYGate)) {
-            updateCircuit = true;
-            if (gateArray[selectedIndex] == "Y") {
-                gateArray[selectedIndex] = "I";
-            } else {
-                gateArray[selectedIndex] = "Y";
-            }
-        } else if (Input.GetKeyDown(addZGate)) {
-            updateCircuit = true;
-            if (gateArray[selectedIndex] == "Z") {
-                gateArray[selectedIndex] = "I";
-            } else {
-                gateArray[selectedIndex] = "Z";
-            }
         } else if (Input.GetKeyDown(addHGate)) {
             updateCircuit = true;
             if (gateArray[selectedIndex] == "H") {
@@ -145,15 +130,14 @@ public class CircuitGridControl : MonoBehaviour
         } else if (Input.GetKeyDown(deleteGate)) {
             updateCircuit = true;
             gateArray[selectedIndex] = "I";
-        } else if (Input.GetKeyDown(measure)) {
-            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().doMeasurementFlag = true;
         }
 
 
         // Update gateObjectArray based on changes in the gateArray, if any
         if (updateCircuit) {
             updateCircuit = false;
-            GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>().getStatevectorFlag = true;
+            measureWallScript.updateCircuit = true;
+            circuitGridClientScript.getStatevectorFlag = true;
             for (int i = 0; i < qubitNumber; i++)
             {
                 for (int j = 0; j < circuitDepth; j++)
@@ -163,15 +147,23 @@ public class CircuitGridControl : MonoBehaviour
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(emptyGateSprite);
                     } else if (gateArray[gate_index] == "X") {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(XGateSprite);
-                    } else if (gateArray[gate_index] == "Y") {
-                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(YGateSprite);
-                    } else if (gateArray[gate_index] == "Z") {
-                        gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(ZGateSprite);
                     } else if (gateArray[gate_index] == "H") {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(HGateSprite);
                     }
                 }
             }
         }
+    }
+    public void ResetCircuit()
+    {
+        for (int i = 0; i < qubitNumber; i++)
+        {
+            for (int j = 0; j < circuitDepth; j++)
+            {
+                int index = i * circuitDepth + j;
+                gateArray[index] = "I";
+            }
+        }
+        updateCircuit = true;
     }
 }

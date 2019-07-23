@@ -22,21 +22,22 @@ public class CircuitGridClient : MonoBehaviour
     public int qubitNumber;
     public int circuitDepth;
     public int stateNumber;
-    private GameObject CircuitGrid;
-    private CircuitGridControl CircuitGridControlScript;
     private string gateString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
 
     public GameObject[] paddleArray;
+    GameObject circuitGrid;
+    CircuitGridControl circuitGridControlScript;
     
     void Start()
     {
-        qubitNumber = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().qubitNumber;
-        circuitDepth = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().circuitDepth;
+        circuitGrid = GameObject.Find("CircuitGrid");
+        circuitGridControlScript = circuitGrid.GetComponent<CircuitGridControl>();
+
+        qubitNumber = circuitGridControlScript.qubitNumber;
+        circuitDepth = circuitGridControlScript.circuitDepth;
         stateNumber = (int) Math.Pow(2, qubitNumber);
         circuitDimensionString = string.Join(",", qubitNumber, circuitDepth);
-        GameObject CircuitGrid = GameObject.Find("CircuitGrid");
-        CircuitGridControl CircuitGridControlScript = CircuitGrid.GetComponent<CircuitGridControl>();
-        // paddleArray = CircuitGridControlScript.paddleArray;
+        paddleArray = circuitGridControlScript.paddleArray;
         GetStateVector(gateString);
     }
 
@@ -60,11 +61,10 @@ public class CircuitGridClient : MonoBehaviour
         StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) => {
 
             // Deserialize stateVector from JSON
-            //TODO: come up with a better way to abstract this out
+            // TODO: come up with a better way to abstract this out
             var obj = JsonConvert.DeserializeObject<RootObject>(results);
             Complex[] stateVector = new Complex[stateNumber];
             double[] stateProbability = new double[stateNumber];
-            paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
             for (int i = 0; i < stateNumber; i++)
             {
                 stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0], obj.__ndarray__[i].__complex__[1]);
@@ -75,20 +75,12 @@ public class CircuitGridClient : MonoBehaviour
         }));
     }
 
-    IEnumerator DelayStateVector(string gateString, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        GetStateVector(gateString);
-    }
-
     private void DoMeasurement(string gateString)
     {
         Debug.Log("Send Gate Array: "+ gateString);
         string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
         StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) =>
         {
-            paddleArray = GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().paddleArray;
             for (int i = 0; i < 8; i++)
             {
                 // make all states invisible and disable colliders
@@ -99,9 +91,6 @@ public class CircuitGridClient : MonoBehaviour
             // make the measured state visible and enable collider
             paddleArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             paddleArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
-
-            //// Show statevector representation again sometime after measurement
-            StartCoroutine(DelayStateVector(gateString, 0.3f));
         }));
 
     }

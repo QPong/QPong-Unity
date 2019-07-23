@@ -5,13 +5,13 @@ using UnityEngine;
 public class BallControl : MonoBehaviour
 {
     public float speed = 30;
-    public int startDirection;
-    public float startPosition = 8;
+    public float startDirection = -1f;
+    public float startPosition = 30;
+    public float startPositionYOffset = 8;
     private Rigidbody2D rb2d;
 
     void GoBall(){
         float rand = Random.Range(-2f, 2f);
-        float startDirection = Random.Range(-1f, 1f);
         if (startDirection > 0) {
             rb2d.velocity = new Vector2(rand,-1).normalized * speed;
         } else {
@@ -23,16 +23,23 @@ public class BallControl : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        Invoke("GoBall", 2); // wait for 2 seconds to give players time to get ready
+        RestartRound(startDirection);
     }
 
-    void ResetBall(){
+    public void ResetBall(float startSide){
         rb2d.velocity = Vector2.zero;
-        transform.position = new Vector2(0, startPosition);
+        if (startSide > 0){
+            transform.position = new Vector2(0, startPosition + startPositionYOffset);
+        }
+        else if (startSide < 0){
+            transform.position = new Vector2(0, -startPosition + startPositionYOffset);
+        }
+        
     }
 
-    void RestartGame(){
-        ResetBall();
+    public void RestartRound(float startSide){
+        startDirection = startSide;
+        ResetBall(startDirection);
         Invoke("GoBall", 1);
     }
 
