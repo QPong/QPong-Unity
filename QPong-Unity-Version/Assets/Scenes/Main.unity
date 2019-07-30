@@ -440,16 +440,16 @@ MonoBehaviour:
     type: 3}
   paddle: {fileID: 3455475115324397340, guid: ffa7f1578294e4e07bba9fc374e13a44, type: 3}
   paddleArray: []
-  circuitDepth: 3
+  circuitDepth: 1
   qubitNumber: 3
-  columnHeight: 5
-  rowHeight: 5
-  xOffset: -35
-  yOffset: -56
+  columnHeight: 8
+  rowHeight: 8
+  xOffset: -30
+  yOffset: -61
   gateArray: []
   selectedGate: {fileID: 0}
-  selectedColNum: 0
   selectedRowNum: 0
+  selectedColNum: 0
   selectedIndex: 0
   cursor: {fileID: 0}
   updateCircuit: 0
