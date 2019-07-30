@@ -9,6 +9,9 @@ public class BallControl : MonoBehaviour
     public float startPosition = 30;
     public float startPositionYOffset = 8;
     private Rigidbody2D rb2d;
+    public AudioSource bouncePaddleSound;
+    public AudioSource bounceWallSound;
+    public AudioSource lostSound;
 
     void GoBall(){
         float rand = Random.Range(-2f, 2f);
@@ -23,6 +26,9 @@ public class BallControl : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        bouncePaddleSound = GameObject.Find("bouncePaddleSound").GetComponent<AudioSource>();
+        bounceWallSound = GameObject.Find("bounceWallSound").GetComponent<AudioSource>();
+        lostSound = GameObject.Find("lostSound").GetComponent<AudioSource>();
         RestartRound(startDirection);
     }
 
@@ -46,6 +52,7 @@ public class BallControl : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col) {
         // Hit the classical paddle?
         if (col.gameObject.CompareTag("ClassicalPaddle")) {
+            bouncePaddleSound.Play();
             // Calculate hit Factor
             float x = hitFactor(transform.position,
                             col.transform.position,
@@ -61,6 +68,7 @@ public class BallControl : MonoBehaviour
 
         // Hit the quantum paddle?
         if (col.gameObject.CompareTag("QuantumPaddle")) {
+            bouncePaddleSound.Play();
             // Calculate hit Factor
             float x = hitFactor(transform.position,
                             col.transform.position,
@@ -72,6 +80,16 @@ public class BallControl : MonoBehaviour
             // Set Velocity with dir * speed
             rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
             Debug.Log("Hit Quantum Paddle");
+        }
+
+        if (col.gameObject.CompareTag("Wall")) {
+            bounceWallSound.Play();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col){
+        if (col.gameObject.CompareTag("SideWalls")) {
+            lostSound.Play();
         }
     }
 
