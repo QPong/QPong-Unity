@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 86695678049790264}
   - component: {fileID: 86695678049790265}
   - component: {fileID: 86695678049790270}
-  - component: {fileID: 8103251663172420609}
-  - component: {fileID: 8925883658784879888}
+  - component: {fileID: 2021045679}
+  - component: {fileID: 2021045678}
+  - component: {fileID: 5183732246991857759}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -147,8 +148,8 @@ MonoBehaviour:
   startDirection: -1
   startPosition: 30
   startPositionYOffset: 8
-  bounce: {fileID: 0}
---- !u!82 &8103251663172420609
+  audioPlayer: {fileID: 0}
+--- !u!82 &2021045679
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +159,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d75e8c4eeece7416f928a10e0d276860, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -244,7 +245,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &8925883658784879888
+--- !u!114 &2021045678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86695678049790271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf2573698a7646c280e060655048a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bouncePaddle: {fileID: 8300000, guid: f8302523dfe9e42148f09d7d89caceb9, type: 3}
+  bounceWall: {fileID: 8300000, guid: d75e8c4eeece7416f928a10e0d276860, type: 3}
+  lostSound: {fileID: 8300000, guid: a1b2df41b9e67419e894a9b1d9c4e04d, type: 3}
+--- !u!82 &5183732246991857759
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,7 +270,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f8302523dfe9e42148f09d7d89caceb9, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
