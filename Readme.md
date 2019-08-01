@@ -8,7 +8,9 @@ In the dawn of the Quantum Era, a primitive 3-qubit Quantum Computer is trying t
 ## Installation
 To compile the game, you will need to install Python and three required packages. To do that, you need to use command line tool.
 
-The python libraries that you use are `qiskit`, `flask`, and `json_tricks`
+The python libraries that you need to use are `qiskit`, `flask`, and `json_tricks`. To install these python libraries, `cd` to `QPong-Python-Server` and run 
+
+    pip install -r requirements.txt
 
 The Python server lives in a subfolder of the project.  `cd` to `QPong-Python-Server/flask_server` and run 
 
