@@ -1,6 +1,6 @@
 # QPong
 
-This is a quantum version of classic game Pong using IBM Qikist and Unity. This game was initiated in IBM Qiskit Camp 2019 by Huang Junye, Jarrod Reilly, Anastasia Jeffery and James Weaver.  This port over to Unity is being done by Huang Junye, Gregory Boland, & Ivan Duran.
+This is a quantum version of classic game Pong using IBM [Qikist](https://github.com/Qiskit/qiskit) and Unity. This game was initiated in IBM Qiskit Camp 2019 by [Huang Junye](https://github.com/HuangJunye), Jarrod Reilly, Anastasia Jeffery and [James Weaver](https://github.com/JavaFXpert). (The original python version can be found [here](https://github.com/HuangJunye/QPong))  This port over to Unity is being done by [Huang Junye](https://github.com/HuangJunye), [Gregory Boland](https://github.com/boland25), & [Ivan Duran](https://github.com/filemaster).
 
 ## Story
 In the dawn of the Quantum Era, a primitive 3-qubit Quantum Computer is trying to challenge the Classical Computer, the long-time ruler of the Computer Empire. Your mission is to use your Human Intelligence to help the Quantum Computer defeat the Classical Computer and demonstrate "quantum supremacy" for the first time in human history. The battle field of the Quantum-Classic war is none other than the classic Pong game.
@@ -8,7 +8,9 @@ In the dawn of the Quantum Era, a primitive 3-qubit Quantum Computer is trying t
 ## Installation
 To compile the game, you will need to install Python and three required packages. To do that, you need to use command line tool.
 
-The python libraries that you use are `qiskit`, `flask`, and `json_tricks`
+The python libraries that you need to use are `qiskit`, `flask`, and `json_tricks`. To install these python libraries, `cd` to `QPong-Python-Server` and run 
+
+    pip install -r requirements.txt
 
 The Python server lives in a subfolder of the project.  `cd` to `QPong-Python-Server/flask_server` and run 
 
