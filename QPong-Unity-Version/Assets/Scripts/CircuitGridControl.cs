@@ -21,8 +21,8 @@ public class CircuitGridControl : MonoBehaviour
     public string[] gateArray; // array of string representing gates
     private GameObject[] gateObjectArray;  //1D array of gate
     public GameObject selectedGate;
-    public int selectedColNum;
     public int selectedRowNum;
+    public int selectedColNum;
     public int selectedIndex;
     public GameObject cursor;
     public bool updateCircuit;
@@ -57,7 +57,7 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + j * columnHeight, yOffset + -i * rowHeight), 
+                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + i * columnHeight, yOffset + -j * rowHeight), 
                     Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
@@ -82,8 +82,8 @@ public class CircuitGridControl : MonoBehaviour
     {
         // Extract column number and row number from name
         var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-        selectedRowNum = index[0];
-        selectedColNum = index[1];
+        selectedColNum = index[0];
+        selectedRowNum = index[1];
 
         // Handle moving cursor
         if (Input.GetKeyDown(moveDown)) {
@@ -96,20 +96,20 @@ public class CircuitGridControl : MonoBehaviour
             selectedColNum --;
         }
 
-        if (selectedColNum >= circuitDepth) {
-            selectedColNum = circuitDepth - 1;
-        } else if (selectedColNum < 0) {
-            selectedColNum = 0;
-        }
-
-        if (selectedRowNum >= qubitNumber) {
-            selectedRowNum = qubitNumber - 1;
+        if (selectedRowNum >= circuitDepth) {
+            selectedRowNum = circuitDepth - 1;
         } else if (selectedRowNum < 0) {
             selectedRowNum = 0;
         }
 
-        selectedIndex = selectedRowNum * circuitDepth + selectedColNum;
-        selectedGate = GameObject.Find("gate["+selectedRowNum+"]["+selectedColNum+"]");
+        if (selectedColNum >= qubitNumber) {
+            selectedColNum = qubitNumber - 1;
+        } else if (selectedColNum < 0) {
+            selectedColNum = 0;
+        }
+
+        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
+        selectedGate = GameObject.Find("gate["+selectedColNum+"]["+selectedRowNum+"]");
         cursor.transform.position = selectedGate.transform.position;
 
         // Handle adding and removing gates
