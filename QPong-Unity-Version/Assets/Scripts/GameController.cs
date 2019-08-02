@@ -38,10 +38,10 @@ public class GameController : MonoBehaviour
 
     // Use this for initialization
     private void Start () {
-        player = GetComponent<Player>();
+        player = Storage.Instance.LoadPlayerData();
 	}
 
-    public void OpenScene (Scenes scene) {
+    private void OpenScene (Scenes scene) {
         SceneManager.LoadScene(scene.ToString());
     }
 
@@ -51,5 +51,9 @@ public class GameController : MonoBehaviour
         if (previousScene.name == Scenes.Game.ToString()) {
 
         }
+    }
+
+    public void StartGame() {
+        OpenScene(Scenes.Game);
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class Player : MonoBehaviour
-{
+[System.Serializable]
+
+public class Player {
     public int playerScore { get; private set; }
     public int computerScore { get; private set; }
 
@@ -18,5 +17,9 @@ public class Player : MonoBehaviour
 
     public void AddPointsToComputer(int points=1){
         computerScore += points;
+    }
+
+    private void SavePlayer() {
+        Storage.Instance.SavePlayerData(this);
     }
 }
