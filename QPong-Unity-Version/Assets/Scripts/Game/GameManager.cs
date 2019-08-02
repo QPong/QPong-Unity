@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!player) {
+        if (player == null) {
             player = GameController.Instance.player;
         }
 

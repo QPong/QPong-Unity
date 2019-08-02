@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameHUD : MonoBehaviour
 {
@@ -37,14 +35,6 @@ public class GameHUD : MonoBehaviour
             GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000),
                 messageToShow, centeredLabelStyle);
         }
-
-        // Are we going to allow the user to restart the game.
-        /*
-        if (GUI.Button(new Rect(Screen.width / 2 - 200, 50, 400, 150), "RESTART", centeredButtonStyle)){
-
-            //GameController.RestartGame();
-        }
-         */
     }
 
     public void showPlayerWinMessage() {
