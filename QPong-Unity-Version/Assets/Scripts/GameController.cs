@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     }
 
     // Global vars
+    [HideInInspector]
     public Player player;
 
     private void Awake()
@@ -31,12 +32,13 @@ public class GameController : MonoBehaviour
 
     private void OnDestroy()
     {
+        player.ResetScores();
         SceneManager.activeSceneChanged -= LevelWasLoaded;
     }
 
     // Use this for initialization
     private void Start () {
-
+        player = GetComponent<Player>();
 	}
 
     public void OpenScene (Scenes scene) {
