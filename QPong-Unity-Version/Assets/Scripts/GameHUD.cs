@@ -17,12 +17,15 @@ public class GameHUD : MonoBehaviour
     public string computerWinMessage = "Classical computer still rules the world.";
     private bool showEndMessage = false;
     private string messageToShow;
-    private GUIStyle centeredLabelStyle = GUI.skin.GetStyle("Label");
-    private GUIStyle centeredButtonStyle = GUI.skin.GetStyle("Button");
+    // private GUIStyle centeredLabelStyle = GUI.skin.GetStyle("Label");
+    // private GUIStyle centeredButtonStyle = GUI.skin.GetStyle("Button");
 
     public GUISkin layout;
     void OnGUI(){
         GUI.skin = layout;
+
+        var centeredLabelStyle = GUI.skin.GetStyle("Label");
+        var centeredButtonStyle = GUI.skin.GetStyle("Button");
 
         centeredLabelStyle.alignment = TextAnchor.UpperCenter;
         centeredButtonStyle.alignment = TextAnchor.MiddleCenter;
@@ -55,5 +58,10 @@ public class GameHUD : MonoBehaviour
 
     public void removeWinMessage() {
         showEndMessage = false;
+    }
+
+    public void UpdateScores() {
+        PlayerScore1 = GameController.Instance.player.playerScore;
+        PlayerScore2 = GameController.Instance.player.computerScore;
     }
 }

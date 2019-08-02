@@ -5,10 +5,15 @@ using UnityEngine;
 public class SideWalls : MonoBehaviour
 {
     public float startSide;
+    private GameManager gameManager;
+
+    private void Start() {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
     void OnTriggerEnter2D(Collider2D hitInfo){
         if (hitInfo.name == "Ball"){
             string wallName = transform.name;
-            GameManager.Score(wallName);
+            gameManager.Score(wallName);
             if (wallName == "TopWall"){
                 startSide = 1f;
             }

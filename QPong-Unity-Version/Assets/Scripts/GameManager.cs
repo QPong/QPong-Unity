@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameController.Instance.player;
         theBall = GameObject.FindGameObjectWithTag("Ball");
         ballControlScript = theBall.GetComponent<BallControl>();
 
@@ -30,16 +29,21 @@ public class GameManager : MonoBehaviour
         classicalPaddleControlScript = theClassicalPaddle.GetComponent<ComputerControls>();
     }
 
-    public static void Score(string wallID){
+    public void Score(string wallID){
         if (wallID == "TopWall"){
-            GameController.Instance.player.AddPointsToPlayer();
+            player.AddPointsToPlayer();
         } else {
-            GameController.Instance.player.AddPointsToComputer();
+            player.AddPointsToComputer();
         }
+        gameHUD.UpdateScores();
     }
 
-    void update()
+    void Update()
     {
+        if (!player) {
+            player = GameController.Instance.player;
+        }
+
         if (player.playerScore >= winScore){
             Debug.Log("Quantum computer wins");
             gameHUD.showPlayerWinMessage();
@@ -55,6 +59,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         player.ResetScores();
+        gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
         circuitGridControlScript.ResetCircuit();
         classicalPaddleControlScript.ResetPaddle();

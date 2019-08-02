@@ -12,6 +12,7 @@ TagManager:
   - Sound
   - SideWalls
   - Wall
+  - GameManager
   layers:
   - Default
   - TransparentFX
