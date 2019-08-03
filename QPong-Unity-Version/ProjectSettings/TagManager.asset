@@ -9,6 +9,10 @@ TagManager:
   - QuantumPaddle
   - ClassicalPaddle
   - CircuitGrid
+  - Sound
+  - SideWalls
+  - Wall
+  - GameManager
   layers:
   - Default
   - TransparentFX
