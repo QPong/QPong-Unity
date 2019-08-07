@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 // Game enums
-public enum Scenes { MainMenu = 0, Game, Ranking, Credits};
+public enum Scenes { MainMenu = 0, Game, EndGame, Ranking, Credits};
 
 public class Definitions : MonoBehaviour {
     // Static singleton Instance

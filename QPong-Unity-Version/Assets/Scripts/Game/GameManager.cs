@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
         theClassicalPaddle = GameObject.FindGameObjectWithTag("ClassicalPaddle");
         classicalPaddleControlScript = theClassicalPaddle.GetComponent<ComputerControls>();
+
+        gameHUD.UpdateScores();
     }
 
     public void Score(string wallID){
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        Debug.Log("Restart Game");
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
