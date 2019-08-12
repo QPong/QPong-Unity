@@ -56,4 +56,8 @@ public class GameController : MonoBehaviour
     public void StartGame() {
         OpenScene(Scenes.Game);
     }
+
+    public void LoadMainMenu() {
+        OpenScene(Scenes.MainMenu);
+    }
 }
