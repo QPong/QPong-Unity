@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown) {
+        //Player needs to hit the Start button to start the game instead of any button
+        if (Input.GetButtonDown("Start")) {
             GameController.Instance.StartGame();
         }
     }
