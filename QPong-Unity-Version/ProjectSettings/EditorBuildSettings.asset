@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: ff7bd689746c94da482b12a3f7f78895
   - enabled: 1
+    path: Assets/Scenes/Ranking.unity
+    guid: 00cd43bc9191345a9a528e5a072508a2
+  - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: 5c5150a985dfb4509b902336e2b94774
   m_configObjects: {}
