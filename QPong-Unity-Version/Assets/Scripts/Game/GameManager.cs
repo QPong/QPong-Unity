@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
-        circuitGridControlScript.ResetCircuit();
         classicalPaddleControlScript.ResetPaddle();
     }
 }
