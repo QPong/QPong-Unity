@@ -18,7 +18,7 @@ public class Player {
     public float timeScore = Mathf.Infinity;
     public int rankLength = 10;
 
-    private List<HSPlayer> playersRanking = new List<HSPlayer>();
+    public List<HSPlayer> playersRanking = new List<HSPlayer>();
 
     public void ResetScores() {
         playerScore = 0;
@@ -52,6 +52,9 @@ public class Player {
         while (playersRanking.Count > rankLength) {
             playersRanking.Remove(playersRanking.Last());
         }
+
+        ResetScores();
+        Storage.Instance.SavePlayerData(this);
     }
 
     public float WorstScoreInRanking() {
