@@ -65,5 +65,9 @@ public class GameController : MonoBehaviour
     public void ShowRanking() {
         OpenScene(Scenes.Ranking);
     }
+
+    public void ShowHighscore() {
+        OpenScene(Scenes.HighScore);
+    }
     #endregion
 }

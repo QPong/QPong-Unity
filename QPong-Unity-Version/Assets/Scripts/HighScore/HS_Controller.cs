@@ -23,6 +23,7 @@ public class HS_Controller : MonoBehaviour
         if (Input.GetButtonDown("Start")) {
             // Done. Save score and back to main menu
             // TODO: Save Scores
+            GameController.Instance.player.StoreNewHighScore(hud.UserName());
             GameController.Instance.LoadMainMenu();
         }
 
@@ -40,11 +41,11 @@ public class HS_Controller : MonoBehaviour
         if (hVvalue > 0f) {
             // Select next initial
             selectedInitial += 1;
-            selectedInitial = selectedInitial % 3;
+            selectedInitial = (3 + selectedInitial) % 3;
         } else if (hVvalue < 0f) {
             // Select previous initial
             selectedInitial -= 1;
-            selectedInitial = selectedInitial % 3;
+            selectedInitial = (3 + selectedInitial) % 3;
         }
 
         // Check vertical movement

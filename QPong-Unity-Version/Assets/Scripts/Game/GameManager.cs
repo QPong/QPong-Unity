@@ -63,9 +63,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(showGameOverTime);
 
         // TODO: Check high scores before to move to main menu
-        GameController.Instance.LoadMainMenu();
+        if (player.WorstScoreInRanking() > Time.timeSinceLevelLoad) {
+            player.timeScore = Time.timeSinceLevelLoad;
+            GameController.Instance.ShowHighscore();
+        } else {
+            GameController.Instance.LoadMainMenu();
+        }
     }
-
 
     public void RestartGame()
     {

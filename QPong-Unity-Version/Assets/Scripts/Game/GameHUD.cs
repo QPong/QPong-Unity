@@ -8,15 +8,12 @@ public class GameHUD : MonoBehaviour
     public int xOffset = 50;
     public int yOffset = 120;
     public int centerOffset = 70;
-    public int winScore = 7;
     public int yOffsetWinMessage = 150;
 
     public string playerWinMessage = "You demonstrated quantum supremacy for the first time in human history!";
     public string computerWinMessage = "Classical computer still rules the world.";
     private bool showEndMessage = false;
     private string messageToShow;
-    // private GUIStyle centeredLabelStyle = GUI.skin.GetStyle("Label");
-    // private GUIStyle centeredButtonStyle = GUI.skin.GetStyle("Button");
 
     public GUISkin layout;
     void OnGUI(){
