@@ -51,14 +51,14 @@ public class CircuitGridControl : MonoBehaviour
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
         measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
-        
+        ResetCircuit();
         for (int i = 0; i < qubitNumber; i++)
         {
             for (int j = 0; j < circuitDepth; j++)
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+ spacer, yOffset + -j * rowHeight), 
+                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+ spacer, yOffset + -j * rowHeight),
                     Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
@@ -156,7 +156,7 @@ public class CircuitGridControl : MonoBehaviour
             }
         }
     }
-    public void ResetCircuit()
+    void ResetCircuit()
     {
         for (int i = 0; i < qubitNumber; i++)
         {
