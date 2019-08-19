@@ -48,6 +48,7 @@ public class CircuitGridControl : MonoBehaviour
     void Start()
     {
         gateArray = new string[qubitNumber * circuitDepth];
+        Debug.Log("GAEAT ARRAY LENGTH " + gateArray.Length);
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
         measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
