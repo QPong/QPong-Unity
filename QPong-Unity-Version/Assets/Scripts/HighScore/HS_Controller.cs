@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HS_Controller : MonoBehaviour
 {
+    public Animator animator;
     HS_HUD hud;
     int selectedInitial;
     bool joystickReleased = true;
@@ -17,12 +18,12 @@ public class HS_Controller : MonoBehaviour
     void Update()
     {
         CheckKeyPressed();
+        animator.SetInteger("Transition", selectedInitial);
     }
 
     void CheckKeyPressed() {
         if (Input.GetButtonDown("Start")) {
             // Done. Save score and back to main menu
-            // TODO: Save Scores
             GameController.Instance.player.StoreNewHighScore(hud.UserName());
             GameController.Instance.LoadMainMenu();
         }
