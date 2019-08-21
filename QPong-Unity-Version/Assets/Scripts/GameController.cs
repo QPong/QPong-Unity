@@ -53,7 +53,21 @@ public class GameController : MonoBehaviour
         }
     }
 
+    #region Load Specific Scenes
     public void StartGame() {
         OpenScene(Scenes.Game);
     }
+
+    public void LoadMainMenu() {
+        OpenScene(Scenes.MainMenu);
+    }
+
+    public void ShowRanking() {
+        OpenScene(Scenes.Ranking);
+    }
+
+    public void ShowHighscore() {
+        OpenScene(Scenes.HighScore);
+    }
+    #endregion
 }

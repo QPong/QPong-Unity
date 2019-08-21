@@ -16,6 +16,7 @@ public class CircuitGridControl : MonoBehaviour
     public int rowHeight = 5;
     public float xOffset = -51f;
     public float yOffset = -35f;
+    public float spacer = 10f;
 
     // Variables for gate array
     public string[] gateArray; // array of string representing gates
@@ -50,17 +51,18 @@ public class CircuitGridControl : MonoBehaviour
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
         measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
-        
+        ResetCircuit();
         for (int i = 0; i < qubitNumber; i++)
         {
             for (int j = 0; j < circuitDepth; j++)
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2(xOffset + i * columnHeight, yOffset + -j * rowHeight), 
+                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+ spacer, yOffset + -j * rowHeight),
                     Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
+            spacer += 11;
         }
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
@@ -154,7 +156,7 @@ public class CircuitGridControl : MonoBehaviour
             }
         }
     }
-    public void ResetCircuit()
+    void ResetCircuit()
     {
         for (int i = 0; i < qubitNumber; i++)
         {

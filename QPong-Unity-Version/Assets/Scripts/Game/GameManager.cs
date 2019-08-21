@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public GameHUD gameHUD;
     public int winScore = 7;
+    public int showGameOverTime = 5;
 
     GameObject theBall;
     BallControl ballControlScript;
@@ -25,6 +27,9 @@ public class GameManager : MonoBehaviour
 
         theClassicalPaddle = GameObject.FindGameObjectWithTag("ClassicalPaddle");
         classicalPaddleControlScript = theClassicalPaddle.GetComponent<ComputerControls>();
+
+        player = GameController.Instance.player;
+        RestartGame();
     }
 
     public void Score(string wallID){
@@ -45,21 +50,32 @@ public class GameManager : MonoBehaviour
         if (player.playerScore >= winScore){
             Debug.Log("Quantum computer wins");
             gameHUD.showPlayerWinMessage();
-            ballControlScript.ResetBall(-1f);
+            StartCoroutine(GameOver());
         } else if (player.computerScore >= winScore){
             Debug.Log("Classical computer wins");
             gameHUD.showComputerWinMessage();
-            ballControlScript.ResetBall(-1f);
+            StartCoroutine(GameOver());
         }
     }
 
+    IEnumerator GameOver() {
+        ballControlScript.ResetBall(-1f);
+        yield return new WaitForSeconds(showGameOverTime);
+
+        // TODO: Check high scores before to move to main menu
+        if (player.WorstScoreInRanking() > Time.timeSinceLevelLoad) {
+            player.timeScore = Time.timeSinceLevelLoad;
+            GameController.Instance.ShowHighscore();
+        } else {
+            GameController.Instance.LoadMainMenu();
+        }
+    }
 
     public void RestartGame()
     {
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
-        circuitGridControlScript.ResetCircuit();
         classicalPaddleControlScript.ResetPaddle();
     }
 }
