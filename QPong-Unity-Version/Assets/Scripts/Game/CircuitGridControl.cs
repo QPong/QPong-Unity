@@ -59,11 +59,12 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+ spacer, yOffset + -j * rowHeight),
-                    Quaternion.identity);
-                gateObjectArray[index].name = "gate["+i+"]["+j+"]";
+               //gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, yOffset + -j * rowHeight),
+               //     Quaternion.identity);
+               gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
+               gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
-            spacer += 11;
+            spacer += 6;
         }
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
