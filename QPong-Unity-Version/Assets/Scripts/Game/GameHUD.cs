@@ -37,8 +37,8 @@ Ivan Duran
         var centeredLabelStyle = GUI.skin.GetStyle("Label");
         var centeredCreditStyle = GUI.skin.GetStyle("TextField");
 
-        centeredLabelStyle.alignment = TextAnchor.UpperCenter;
-        centeredCreditStyle.alignment = TextAnchor.UpperCenter;
+        centeredLabelStyle.alignment = TextAnchor.MiddleCenter;
+        centeredCreditStyle.alignment = TextAnchor.MiddleCenter;
 
         // Show scores
         GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset + yOffset, 100, 200), "" + PlayerScore1);

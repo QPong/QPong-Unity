@@ -364,7 +364,7 @@ MonoBehaviour:
   xOffset: 60
   yOffset: 160
   centerOffset: 290
-  yOffsetWinMessage: -400
+  yOffsetWinMessage: -1000
   yOffsetCreditString: 500
   playerWinMessage: You demonstrated quantum supremacy for the first time in human
     history!
