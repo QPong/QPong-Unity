@@ -38,10 +38,12 @@ public class GameHUD : MonoBehaviour
     }
 
     public void showPlayerWinMessage() {
-        GameController.Instance.EndGame();
+        messageToShow = playerWinMessage;
+        showEndMessage = true;
     }
     public void showComputerWinMessage() {
-        GameController.Instance.EndGame();
+        messageToShow = computerWinMessage;
+        showEndMessage = true;
     }
 
     public void removeWinMessage() {

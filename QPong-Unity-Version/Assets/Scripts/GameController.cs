@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private GameManager gameManager;
     // Static singleton Instance
     private static GameController instance;
 
@@ -55,15 +54,6 @@ public class GameController : MonoBehaviour
     }
 
     public void StartGame() {
-        OpenScene(Scenes.Game);
-    }
-
-    public void EndGame() {
-        OpenScene(Scenes.EndGame);
-    }
-
-    public void RestartGame() {
-        player.ResetScores();
         OpenScene(Scenes.Game);
     }
 }
