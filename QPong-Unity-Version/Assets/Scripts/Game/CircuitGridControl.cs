@@ -34,10 +34,6 @@ public class CircuitGridControl : MonoBehaviour
     public Sprite emptyGateSprite;
 
     // Variables for inputs
-    public KeyCode moveUp = KeyCode.W;
-    public KeyCode moveDown = KeyCode.S;
-    public KeyCode moveLeft = KeyCode.A;
-    public KeyCode moveRight = KeyCode.D;
     public KeyCode addXGate = KeyCode.X;
     public KeyCode addHGate = KeyCode.H;
     public KeyCode deleteGate = KeyCode.Space;
@@ -89,28 +85,7 @@ public class CircuitGridControl : MonoBehaviour
         selectedColNum = index[0];
         selectedRowNum = index[1];
 
-        // Handle moving cursor
-        if (Input.GetKeyDown(moveDown)) {
-            selectedRowNum ++;
-        } else if (Input.GetKeyDown(moveUp)) {
-            selectedRowNum --;
-        } else if (Input.GetKeyDown(moveRight)) {
-            selectedColNum ++;
-        } else if (Input.GetKeyDown(moveLeft)) {
-            selectedColNum --;
-        }
-
-        if (selectedRowNum >= circuitDepth) {
-            selectedRowNum = circuitDepth - 1;
-        } else if (selectedRowNum < 0) {
-            selectedRowNum = 0;
-        }
-
-        if (selectedColNum >= qubitNumber) {
-            selectedColNum = qubitNumber - 1;
-        } else if (selectedColNum < 0) {
-            selectedColNum = 0;
-        }
+    
 
         selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
         selectedGate = GameObject.Find("gate["+selectedColNum+"]["+selectedRowNum+"]");
