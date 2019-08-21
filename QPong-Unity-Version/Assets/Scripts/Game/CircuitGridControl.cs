@@ -48,7 +48,6 @@ public class CircuitGridControl : MonoBehaviour
     void Start()
     {
         gateArray = new string[qubitNumber * circuitDepth];
-        Debug.Log("GAEAT ARRAY LENGTH " + gateArray.Length);
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
         measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
@@ -59,9 +58,10 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-               //gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, yOffset + -j * rowHeight),
+               //gateObjectArray[index] = (GameObject)Instantiate(emptyGate,  new Vector2((xOffset + i * columnHeight)+spacer, yOffset + -j * rowHeight),
                //     Quaternion.identity);
-               gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
+                //NOTE: this placement is for the large arcade screen, if the screen changes size, this will probably have to be updated
+                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
                gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
             spacer += 6;
@@ -138,6 +138,36 @@ public class CircuitGridControl : MonoBehaviour
 
 
         UpdateCircuit();
+    }
+
+    public void MoveCursor(JoystickButtonMaps direction)
+    {
+        // Extract column number and row number from name
+        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        selectedColNum = index[0];
+        selectedRowNum = index[1];
+
+        if (direction == JoystickButtonMaps.left)
+        {
+            selectedColNum--;
+        } else
+        {
+            selectedColNum++;
+        }
+
+
+        if (selectedColNum >= qubitNumber)
+        {
+            selectedColNum = qubitNumber - 1;
+        }
+        else if (selectedColNum < 0)
+        {
+            selectedColNum = 0;
+        }
+        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
+        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
+        cursor.transform.position = selectedGate.transform.position;
+
     }
 
     void UpdateCircuit()

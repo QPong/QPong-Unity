@@ -91,15 +91,26 @@ public class GameManager : MonoBehaviour
     private void PollForButtonInput()
     {
 
-        ArcadeButtonGates gateButtonPressed = arcadeButtonInput.isButtonPressed();
         if (Input.GetButtonDown("Start"))
         {
                 //TODO: this is where we can go to reset the game or maybe even close it out and go back to the app selection screen
             
         }
+        if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
+        {
+            //TODO: set up the move cursor to the left
+            print("BACK");
+            circuitGridControlScript.MoveCursor(JoystickButtonMaps.left);
+        }
+        if (Input.GetKeyDown(JoystickButtonMaps.right.ToString()) || Input.GetKeyDown(JoystickButtonMaps.d.ToString()))
+        {
+            //TODO: setup the move cursor to the right
+            print("FORWARD");
+            circuitGridControlScript.MoveCursor(JoystickButtonMaps.right);
+        }
 
-        // Board Movement
-        if (gateButtonPressed != ArcadeButtonGates.None)
+        ArcadeButtonGates gateButtonPressed = arcadeButtonInput.isButtonPressed();
+        if (gateButtonPressed != ArcadeButtonGates.None) 
         {
             // print("what is gate buton " + gateButtonPressed);
             PressedGate(gateButtonPressed);
