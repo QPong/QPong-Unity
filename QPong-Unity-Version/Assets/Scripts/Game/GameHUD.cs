@@ -48,8 +48,8 @@ Ivan Duran
         if (showEndMessage) {
             GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000),
                 messageToShow, centeredLabelStyle);
-            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetCreditString, 2000, 1200),
-                creditString, centeredCreditStyle);
+            // GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetCreditString, 2000, 1200),
+            //    creditString, centeredCreditStyle);
         }
     }
 
