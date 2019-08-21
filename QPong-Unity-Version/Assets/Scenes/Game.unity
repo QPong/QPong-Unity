@@ -361,10 +361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df683c427364c74876ac1207f81f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xOffset: 50
-  yOffset: 120
-  centerOffset: 70
-  winScore: 7
+  xOffset: 60
+  yOffset: 160
+  centerOffset: 290
   yOffsetWinMessage: -400
   playerWinMessage: You demonstrated quantum supremacy for the first time in human
     history!
