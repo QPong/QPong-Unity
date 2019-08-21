@@ -136,8 +136,13 @@ public class CircuitGridControl : MonoBehaviour
         }
 
 
-        // Update gateObjectArray based on changes in the gateArray, if any
-        if (updateCircuit) {
+        UpdateCircuit();
+    }
+
+    void UpdateCircuit()
+    {
+        if (updateCircuit)
+        {
             updateCircuit = false;
             measureWallScript.updateCircuit = true;
             circuitGridClientScript.getStatevectorFlag = true;
@@ -146,17 +151,23 @@ public class CircuitGridControl : MonoBehaviour
                 for (int j = 0; j < circuitDepth; j++)
                 {
                     int gate_index = i * circuitDepth + j;
-                    if (gateArray[gate_index] == "I"){
+                    if (gateArray[gate_index] == "I")
+                    {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(emptyGateSprite);
-                    } else if (gateArray[gate_index] == "X") {
+                    }
+                    else if (gateArray[gate_index] == "X")
+                    {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(XGateSprite);
-                    } else if (gateArray[gate_index] == "H") {
+                    }
+                    else if (gateArray[gate_index] == "H")
+                    {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(HGateSprite);
                     }
                 }
             }
         }
     }
+
     void ResetCircuit()
     {
         for (int i = 0; i < qubitNumber; i++)
