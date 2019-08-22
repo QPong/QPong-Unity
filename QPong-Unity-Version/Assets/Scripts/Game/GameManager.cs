@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
         classicalPaddleControlScript = theClassicalPaddle.GetComponent<ComputerControls>();
 
         arcadeButtonInput = gameObject.GetComponent<ArcadeButtonInput>();
-        print("arcade buton input " + arcadeButtonInput);
         player = GameController.Instance.player;
 
         RestartGame();
@@ -81,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        print("player " + player);
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);

@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        player = Storage.Instance.LoadPlayerData();
         DontDestroyOnLoad(transform.gameObject);
     }
 
