@@ -1,14 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 
 [System.Serializable]
-public class HSPlayer {
+public class HSPlayer: IEquatable<HSPlayer>, IComparable<HSPlayer> {
     public string initials;
     public int playerScore;
     public int computerScore;
     public float timeScore;
 
+    public override bool Equals(object obj) {
+        if (obj == null)
+            return false;
+        HSPlayer objAsHSPlayer = obj as HSPlayer;
+        if (objAsHSPlayer == null)
+            return false;
+        else
+            return Equals(objAsHSPlayer);
+    }
+
+    public int CompareTo(HSPlayer other) {
+        if (other == null)
+            return 1;
+        else if (this.playerScore != other.playerScore)
+            return other.playerScore.CompareTo(this.playerScore);
+        else if (this.computerScore != other.computerScore)
+            return this.computerScore.CompareTo(other.computerScore);
+        return this.timeScore.CompareTo(other.timeScore);
+    }
+
+    public override int GetHashCode() {
+        return playerScore;
+    }
+
+    public bool Equals(HSPlayer other) {
+        if (other == null)
+            return false;
+        else if (this.playerScore != other.playerScore)
+            return (this.playerScore.Equals(other.playerScore));
+        else if (this.computerScore != other.computerScore)
+            return (other.computerScore.Equals(this.computerScore));
+        else
+            return (other.timeScore.Equals(this.timeScore));
+    }
 }
 
 [System.Serializable]
@@ -48,7 +83,9 @@ public class Player {
 
         playersRanking.Add(newScore);
 
-        playersRanking = playersRanking.OrderBy(x => x.timeScore).ToList();
+        // playersRanking = playersRanking.OrderBy(x => x.timeScore).ToList();
+
+        playersRanking.Sort();
 
         while (playersRanking.Count > rankLength) {
             playersRanking.Remove(playersRanking.Last());
