@@ -10,6 +10,7 @@ public class HSPlayer: IEquatable<HSPlayer>, IComparable<HSPlayer> {
     public int computerScore;
     public float timeScore;
 
+    #region Sort (IEquatable - IComparable)
     public override bool Equals(object obj) {
         if (obj == null)
             return false;
@@ -44,6 +45,7 @@ public class HSPlayer: IEquatable<HSPlayer>, IComparable<HSPlayer> {
         else
             return (other.timeScore.Equals(this.timeScore));
     }
+    #endregion
 }
 
 [System.Serializable]
@@ -82,9 +84,6 @@ public class Player {
         newScore.timeScore = timeScore;
 
         playersRanking.Add(newScore);
-
-        // playersRanking = playersRanking.OrderBy(x => x.timeScore).ToList();
-
         playersRanking.Sort();
 
         while (playersRanking.Count > rankLength) {
