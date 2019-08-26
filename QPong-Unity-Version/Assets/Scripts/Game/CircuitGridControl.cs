@@ -85,35 +85,52 @@ public class CircuitGridControl : MonoBehaviour
         selectedColNum = index[0];
         selectedRowNum = index[1];
 
-    
+
 
         selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
-        selectedGate = GameObject.Find("gate["+selectedColNum+"]["+selectedRowNum+"]");
+        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
+        cursor.transform.position = selectedGate.transform.position;
+    }
+
+    public void AddGate(ArcadeButtonGates gate)
+    {
+        // Extract column number and row number from name
+        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        selectedColNum = index[0];
+        selectedRowNum = index[1];
+
+        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
+        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
         cursor.transform.position = selectedGate.transform.position;
 
-        // Handle adding and removing gates
-        if (Input.GetKeyDown(addXGate)) {
+        if (gate == ArcadeButtonGates.xi)
+        {
             updateCircuit = true;
-            if (gateArray[selectedIndex] == "X") {
+            if (gateArray[selectedIndex] == "X")
+            {
                 gateArray[selectedIndex] = "I";
-            } else {
+            }
+            else
+            {
                 gateArray[selectedIndex] = "X";
             }
-        } else if (Input.GetKeyDown(addHGate)) {
+        }
+        if (gate == ArcadeButtonGates.hi)
+        {
             updateCircuit = true;
-            if (gateArray[selectedIndex] == "H") {
+            if (gateArray[selectedIndex] == "H")
+            {
                 gateArray[selectedIndex] = "I";
-            } else {
+            }
+            else
+            {
                 gateArray[selectedIndex] = "H";
             }
-        } else if (Input.GetKeyDown(deleteGate)) {
-            updateCircuit = true;
-            gateArray[selectedIndex] = "I";
         }
-
-
         UpdateCircuit();
+
     }
+
 
     public void MoveCursor(JoystickButtonMaps direction)
     {

@@ -133,9 +133,11 @@ public class GameManager : MonoBehaviour
         {
             case ArcadeButtonGates.xi:
                 print("XI");
+                circuitGridControlScript.AddGate(gateName);
                 break;
             case ArcadeButtonGates.hi:
                 print("HI");
+                circuitGridControlScript.AddGate(gateName);
                 break;
             default:
                 print("we no use these yet");
