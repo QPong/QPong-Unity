@@ -8,10 +8,13 @@ public class RowHUD : MonoBehaviour
     public Text score;
     public Text time;
 
-    public void UpdateScore(int index, HSPlayer player) {
-        position.text = index.ToString();
+    public void UpdateScore(HSPlayer player) {
         initials.text = player.initials;
         score.text = player.playerScore.ToString() + "-" + player.computerScore.ToString();
         time.text = player.timeScore.ToString("F1");
+    }
+
+    public void UpdateIndex(int index) {
+        position.text = index.ToString();
     }
 }

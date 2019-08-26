@@ -69,9 +69,10 @@ public class GameManager : MonoBehaviour
         ballControlScript.ResetBall(-1f);
         yield return new WaitForSeconds(showGameOverTime);
 
-        // TODO: Check high scores before to move to main menu
-        if (player.WorstScoreInRanking() > Time.timeSinceLevelLoad) {
-            player.timeScore = Time.timeSinceLevelLoad;
+        // Check high scores before to move to main menu
+        player.timeScore = Time.timeSinceLevelLoad;
+
+        if (player.CheckHighScore()) {
             GameController.Instance.ShowHighscore();
         } else {
             GameController.Instance.LoadMainMenu();
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Start"))
         {
                 //TODO: this is where we can go to reset the game or maybe even close it out and go back to the app selection screen
-            
+
         }
         if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
         {
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
         }
 
         ArcadeButtonGates gateButtonPressed = arcadeButtonInput.isButtonPressed();
-        if (gateButtonPressed != ArcadeButtonGates.None) 
+        if (gateButtonPressed != ArcadeButtonGates.None)
         {
             // print("what is gate buton " + gateButtonPressed);
             PressedGate(gateButtonPressed);
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void PressedGate(ArcadeButtonGates gateName)
     {
-       
+
         //NOTE: my next step is to implement this
         //arcadeButtonController.ButtonPressed(gateName);
         switch (gateName)
