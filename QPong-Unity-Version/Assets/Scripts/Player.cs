@@ -21,6 +21,7 @@ public class Player {
     public List<HSPlayer> playersRanking = new List<HSPlayer>();
 
     public void ResetScores() {
+        Debug.Log("get this far");
         playerScore = 0;
         computerScore = 0;
         timeScore = Mathf.Infinity;

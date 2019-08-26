@@ -34,10 +34,6 @@ public class CircuitGridControl : MonoBehaviour
     public Sprite emptyGateSprite;
 
     // Variables for inputs
-    public KeyCode moveUp = KeyCode.W;
-    public KeyCode moveDown = KeyCode.S;
-    public KeyCode moveLeft = KeyCode.A;
-    public KeyCode moveRight = KeyCode.D;
     public KeyCode addXGate = KeyCode.X;
     public KeyCode addHGate = KeyCode.H;
     public KeyCode deleteGate = KeyCode.Space;
@@ -58,11 +54,13 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject)Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+ spacer, yOffset + -j * rowHeight),
-                    Quaternion.identity);
-                gateObjectArray[index].name = "gate["+i+"]["+j+"]";
+               //gateObjectArray[index] = (GameObject)Instantiate(emptyGate,  new Vector2((xOffset + i * columnHeight)+spacer, yOffset + -j * rowHeight),
+               //     Quaternion.identity);
+                //NOTE: this placement is for the large arcade screen, if the screen changes size, this will probably have to be updated
+                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
+               gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
-            spacer += 11;
+            spacer += 6;
         }
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
@@ -87,28 +85,7 @@ public class CircuitGridControl : MonoBehaviour
         selectedColNum = index[0];
         selectedRowNum = index[1];
 
-        // Handle moving cursor
-        if (Input.GetKeyDown(moveDown)) {
-            selectedRowNum ++;
-        } else if (Input.GetKeyDown(moveUp)) {
-            selectedRowNum --;
-        } else if (Input.GetKeyDown(moveRight)) {
-            selectedColNum ++;
-        } else if (Input.GetKeyDown(moveLeft)) {
-            selectedColNum --;
-        }
-
-        if (selectedRowNum >= circuitDepth) {
-            selectedRowNum = circuitDepth - 1;
-        } else if (selectedRowNum < 0) {
-            selectedRowNum = 0;
-        }
-
-        if (selectedColNum >= qubitNumber) {
-            selectedColNum = qubitNumber - 1;
-        } else if (selectedColNum < 0) {
-            selectedColNum = 0;
-        }
+    
 
         selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
         selectedGate = GameObject.Find("gate["+selectedColNum+"]["+selectedRowNum+"]");
@@ -135,8 +112,43 @@ public class CircuitGridControl : MonoBehaviour
         }
 
 
-        // Update gateObjectArray based on changes in the gateArray, if any
-        if (updateCircuit) {
+        UpdateCircuit();
+    }
+
+    public void MoveCursor(JoystickButtonMaps direction)
+    {
+        // Extract column number and row number from name
+        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        selectedColNum = index[0];
+        selectedRowNum = index[1];
+
+        if (direction == JoystickButtonMaps.left)
+        {
+            selectedColNum--;
+        } else
+        {
+            selectedColNum++;
+        }
+
+
+        if (selectedColNum >= qubitNumber)
+        {
+            selectedColNum = qubitNumber - 1;
+        }
+        else if (selectedColNum < 0)
+        {
+            selectedColNum = 0;
+        }
+        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
+        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
+        cursor.transform.position = selectedGate.transform.position;
+
+    }
+
+    void UpdateCircuit()
+    {
+        if (updateCircuit)
+        {
             updateCircuit = false;
             measureWallScript.updateCircuit = true;
             circuitGridClientScript.getStatevectorFlag = true;
@@ -145,17 +157,23 @@ public class CircuitGridControl : MonoBehaviour
                 for (int j = 0; j < circuitDepth; j++)
                 {
                     int gate_index = i * circuitDepth + j;
-                    if (gateArray[gate_index] == "I"){
+                    if (gateArray[gate_index] == "I")
+                    {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(emptyGateSprite);
-                    } else if (gateArray[gate_index] == "X") {
+                    }
+                    else if (gateArray[gate_index] == "X")
+                    {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(XGateSprite);
-                    } else if (gateArray[gate_index] == "H") {
+                    }
+                    else if (gateArray[gate_index] == "H")
+                    {
                         gateObjectArray[gate_index].GetComponent<Gate>().SetGateIcon(HGateSprite);
                     }
                 }
             }
         }
     }
+
     void ResetCircuit()
     {
         for (int i = 0; i < qubitNumber; i++)

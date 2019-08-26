@@ -15,6 +15,7 @@ public class ArcadeButtonInput : MonoBehaviour
             {
                 ArcadeButtonGates button;
                 System.Enum.TryParse<ArcadeButtonGates>(buttonName, out button);
+                print("button " + button);
                 return button;
             }
         }
