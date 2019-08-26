@@ -77,11 +77,12 @@ public class Player {
     }
 
     public void StoreNewHighScore(string initials) {
-        HSPlayer newScore = new HSPlayer();
-        newScore.initials = initials;
-        newScore.playerScore = playerScore;
-        newScore.computerScore = computerScore;
-        newScore.timeScore = timeScore;
+        HSPlayer newScore = new HSPlayer {
+            initials = initials,
+            playerScore = playerScore,
+            computerScore = computerScore,
+            timeScore = timeScore
+        };
 
         playersRanking.Add(newScore);
         playersRanking.Sort();
@@ -94,9 +95,19 @@ public class Player {
         Storage.Instance.SavePlayerData(this);
     }
 
-    public float WorstScoreInRanking() {
+    public bool CheckHighScore() {
         // If rank is not full return infinite to allow any score
-        if (playersRanking.Count < rankLength) return Mathf.Infinity;
-        return playersRanking.Last().timeScore;
+        if (playersRanking.Count < rankLength) return true;
+
+        // Compare current score with worst high score
+        HSPlayer newScore = new HSPlayer {
+            playerScore = playerScore,
+            computerScore = computerScore,
+            timeScore = timeScore};
+
+        List <HSPlayer> hs = new List <HSPlayer> {playersRanking.Last(), newScore};
+
+        hs.Sort();
+        return (hs.First() == newScore);
     }
 }
