@@ -6,9 +6,11 @@ public class GameManager : MonoBehaviour
     public GameHUD gameHUD;
     public int winScore = 7;
     public int showGameOverTime = 5;
+    public int numberOfState = 8;
 
     GameObject theBall;
-    SuperposedBallControl ballControlScript;
+    public SuperposedBallControl ballControlScript;
+    public GameObject[] ballArray;
     GameObject theCircuitGrid;
     CircuitGridControl circuitGridControlScript;
     GameObject theClassicalPaddle;
@@ -20,8 +22,30 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        theBall = GameObject.Find("ball0");
+        ballArray = new GameObject[numberOfState];
+        for (int i = 0; i < numberOfState; i++)
+        {
+            Vector3 ballPosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.5f,0));
+            ballPosition.z = 0f;
+            //ballArray[i] = (GameObject)Instantiate(ball, ballPosition, Quaternion.identity);
+            ballArray[i] = GameObject.Find("ball"+i);
+            //ballArray[i].name = "ball"+i;
+            // hide the balls
+            ballArray[i].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0.2f, 0.3f);
+            ballArray[i].GetComponent<BoxCollider2D>().enabled = false;
+            
+            // show ball0 and enable collider
+            if (i == 0) {
+                ballArray[i].GetComponent<SpriteRenderer>().color = new Color(1f, 0.2f, 1f, 1f);
+                ballArray[i].GetComponent<BoxCollider2D>().enabled = true;
+            }
+
+        }
+        theBall = ballArray[0];
         ballControlScript = theBall.GetComponent<SuperposedBallControl>();
+        // enable collider
+        //theBall.GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
+        //theBall.GetComponent<BoxCollider2D>().enabled = true;
 
         theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
         circuitGridControlScript = theCircuitGrid.GetComponent<CircuitGridControl>();

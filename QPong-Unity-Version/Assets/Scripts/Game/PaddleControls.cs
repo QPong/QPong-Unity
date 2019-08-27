@@ -13,17 +13,21 @@ public class PaddleControls : MonoBehaviour
     public bool instantiateBallFlag;
     GameObject circuitGrid;
     CircuitGridControl circuitGridControlScript;
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
         circuitGrid = GameObject.Find("CircuitGrid");
         circuitGridControlScript = circuitGrid.GetComponent<CircuitGridControl>();
-        ballArray = circuitGridControlScript.ballArray;
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        ballArray = gameManager.ballArray;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // generate ball if the state probability > 0
         if (GetComponent<SpriteRenderer>().color.a > 0) {
             if (instantiateBallFlag) {
                 instantiateBallFlag = false;
@@ -32,7 +36,13 @@ public class PaddleControls : MonoBehaviour
                 //ballObject.name = "ball"+name[name.Length-1];
                 //ballObject.GetComponent<SuperposedBallControl>().stateProbability = GetComponent<SpriteRenderer>().color.a;
                 int stateInDecimal = (int) Char.GetNumericValue(name[name.Length-1]);
-                ballArray[stateInDecimal].transform.position = ballPosition;            
+                ballArray[stateInDecimal].transform.position = ballPosition;
+                // change sprite, color and enable collider
+                // ballArray[stateInDecimal].GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
+                ballArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(0.2f, 1f, 1f, 0.3f);
+                ballArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
+                // kick the ball
+                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().GoBall();            
             }
         } 
         else {

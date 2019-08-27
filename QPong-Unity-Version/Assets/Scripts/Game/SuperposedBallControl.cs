@@ -17,7 +17,7 @@ public class SuperposedBallControl : MonoBehaviour
     CircuitGridControl circuitGridControlScript;
     public float stateProbability;
 
-    void GoBall(){
+    public void GoBall(){
         float rand = Random.Range(-2f, 2f);
         if (startDirection > 0) {
             rb2d.velocity = new Vector2(rand,-1).normalized * speed;
@@ -30,7 +30,6 @@ public class SuperposedBallControl : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-
         circuitGrid = GameObject.Find("CircuitGrid");
         circuitGridControlScript = circuitGrid.GetComponent<CircuitGridControl>();
         paddleArray = circuitGridControlScript.paddleArray;
@@ -51,6 +50,9 @@ public class SuperposedBallControl : MonoBehaviour
 
     public void RestartRound(float startSide){
         startDirection = startSide;
+        // make the ball visible and enable collider
+        GetComponent<SpriteRenderer>().color = new Color(1f, 0.2f, 1f, 1f);
+        GetComponent<BoxCollider2D>().enabled = true;
         ResetBall(startDirection);
         Invoke("GoBall", 1);
     }
@@ -73,6 +75,7 @@ public class SuperposedBallControl : MonoBehaviour
                 // Hit the quantum paddle?
         if (col.gameObject.CompareTag("QuantumPaddle")) {
             float stateProbability = col.gameObject.GetComponent<SpriteRenderer>().color.a;
+            // if quantum state has no superposition
             if (stateProbability == 1) {
                 // Calculate hit Factor
                 float x = hitFactor(transform.position,
@@ -86,14 +89,22 @@ public class SuperposedBallControl : MonoBehaviour
                 rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
                 Debug.Log("Hit Quantum Paddle");
             }
+            // if quantum state has superposition
             else {
                 Debug.Log("State Probability: "+stateProbability);
                 for (int i = 0; i < 8; i++)
                 {
+                    /*
                     // generate a ball in all paddles with finite probability, except the paddle in contact with the ball
                     if (col.gameObject.name != circuitGridControlScript.paddleArray[i].name) {
                         circuitGridControlScript.paddleArray[i].GetComponent<PaddleControls>().instantiateBallFlag = true;
                     }
+                    */
+                    // hide the incoming ball and disable collider
+                    GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
+                    GetComponent<BoxCollider2D>().enabled = false;
+                    // generate a ball in all paddles with finite probability
+                    circuitGridControlScript.paddleArray[i].GetComponent<PaddleControls>().instantiateBallFlag = true;
                 }
                 
             }

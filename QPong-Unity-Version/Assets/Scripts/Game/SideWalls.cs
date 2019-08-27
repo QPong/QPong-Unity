@@ -6,9 +6,11 @@ public class SideWalls : MonoBehaviour
 {
     public float startSide;
     private GameManager gameManager;
+    SuperposedBallControl ballControlScript;
 
     private void Start() {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        ballControlScript = gameManager.ballControlScript;
     }
     void OnTriggerEnter2D(Collider2D hitInfo){
         if (hitInfo.tag == "Ball"){
@@ -20,7 +22,8 @@ public class SideWalls : MonoBehaviour
             else if (wallName == "BottomWall"){
                 startSide = -1f;
             }
-            hitInfo.gameObject.GetComponent<SuperposedBallControl>().RestartRound(startSide);
+            // Restart with ball0
+            ballControlScript.RestartRound(startSide);
         }
     }
 
