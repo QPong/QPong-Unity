@@ -25,6 +25,11 @@ public class SuperposedBallControl : MonoBehaviour
             rb2d.velocity = new Vector2(rand,1).normalized * speed;
         }
     }
+    // always start the ball upwards when the ball hits quantum paddle to avoid getting stuck
+    public void StartQuantumBall(){
+        float rand = Random.Range(-2f, 2f);
+        rb2d.velocity = new Vector2(rand,1).normalized * speed;
+    }
 
     // Start is called before the first frame update
     void Start()

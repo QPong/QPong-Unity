@@ -42,7 +42,7 @@ public class PaddleControls : MonoBehaviour
                 ballArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(0.2f, 1f, 1f, 0.3f);
                 ballArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
                 // kick the ball
-                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().GoBall();            
+                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().StartQuantumBall();            
             }
         } 
         else {
