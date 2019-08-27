@@ -22,18 +22,20 @@ public class ComputerControls : MonoBehaviour
     {
         // find the closes ball
         theBall = FindClosestBall();
+        //theBall = GameObject.Find("ball0");
         balVelY = theBall.GetComponent<Rigidbody2D>().velocity.y; 
+        Debug.Log("Delta Time: "+Time.deltaTime);
 
         // if the ball is moving towards computer paddle
         if (balVelY > 0) {
-            ballPos = theBall.transform.localPosition;
+            ballPos = theBall.transform.position;
 
-            if (transform.localPosition.x > -boundX && ballPos.x < transform.localPosition.x) {
-                transform.localPosition += new Vector3 (-speed * Time.deltaTime, 0, 0);
+            if (transform.position.x > -boundX && ballPos.x < transform.position.x) {
+                transform.position += new Vector3 (-speed * Time.deltaTime, 0, 0);
             }
 
-            if (transform.localPosition.x < boundX && ballPos.x > transform.localPosition.x) {
-                transform.localPosition += new Vector3 (speed * Time.deltaTime, 0, 0);
+            if (transform.position.x < boundX && ballPos.x > transform.position.x) {
+                transform.position += new Vector3 (speed * Time.deltaTime, 0, 0);
             }
         } 
     }
@@ -54,7 +56,7 @@ public class ComputerControls : MonoBehaviour
         foreach (GameObject ball in balls)
         {
             // skip hidden balls
-            if (ball.GetComponent<SuperposedBallControl>().ballType !="HiddenBall") {
+            if (ball.GetComponent<SuperposedBallControl>().ballType != "HiddenBall") {
                 float yDistance = transform.position.y - ball.transform.position.y;
                 if (yDistance < distance)
                 {
