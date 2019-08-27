@@ -18,12 +18,17 @@ public class MeasureWallsForClassicalPaddle : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hitInfo){
         if (hitInfo.tag == "Ball"){
             Debug.Log("Trigger!");
-            // trigger only if the ball is going up
-            if ((rb2d.velocity[1] > 0) && measureFlag) {
-                updateCircuit = false;
-                measureFlag = false;
-                circuitGridClientScript.doMeasurementFlag = true;
-                Debug.Log("Do Measurement!");
+            Debug.Log(hitInfo.gameObject.GetComponent<SuperposedBallControl>().ballType);
+            // trigger only if the ball type is quantum ball
+            if (hitInfo.gameObject.GetComponent<SuperposedBallControl>().ballType == "QuantumBall") {
+                // trigger only if the ball is going up
+                Debug.Log("Quantum Ball!");
+                if ((rb2d.velocity[1] > 0) && measureFlag) {
+                    updateCircuit = false;
+                    measureFlag = false;
+                    circuitGridClientScript.doMeasurementFlag = true;
+                    Debug.Log("Do Measurement!");
+                }
             }
         }
     }

@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
             ballArray[i] = GameObject.Find("ball"+i);
             //ballArray[i].name = "ball"+i;
             // hide the balls
+            ballArray[i].GetComponent<SuperposedBallControl>().ballType = "HiddenBall";
             ballArray[i].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0.2f, 0.3f);
             ballArray[i].GetComponent<BoxCollider2D>().enabled = false;
             
             // show ball0 and enable collider
             if (i == 0) {
+                ballArray[i].GetComponent<SuperposedBallControl>().ballType = "ClassicalBall";
                 ballArray[i].GetComponent<SpriteRenderer>().color = new Color(1f, 0.2f, 1f, 1f);
                 ballArray[i].GetComponent<BoxCollider2D>().enabled = true;
             }

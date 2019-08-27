@@ -101,11 +101,13 @@ public class CircuitGridClient : MonoBehaviour
             {
                 if (i==stateInDecimal) {
                     // make the measured state visible and enable collider
+                    ballArray[i].GetComponent<SuperposedBallControl>().ballType = "ClassicalBall";
                     ballArray[i].GetComponent<SpriteRenderer>().color = new Color(1f, 0.2f, 1f, 1f);
                     ballArray[i].GetComponent<BoxCollider2D>().enabled = true;
                 }
                 else {
                     // make the other states invisible and disable collider
+                    ballArray[i].GetComponent<SuperposedBallControl>().ballType = "HiddenBall";
                     ballArray[i].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0.2f, 0.3f);
                     ballArray[i].GetComponent<BoxCollider2D>().enabled = false;
                 }

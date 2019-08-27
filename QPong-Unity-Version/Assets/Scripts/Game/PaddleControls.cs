@@ -39,6 +39,7 @@ public class PaddleControls : MonoBehaviour
                 ballArray[stateInDecimal].transform.position = ballPosition;
                 // change sprite, color and enable collider
                 // ballArray[stateInDecimal].GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
+                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().ballType = "QuantumBall";
                 ballArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(0.2f, 1f, 1f, 0.3f);
                 ballArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
                 // kick the ball

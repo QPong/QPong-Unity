@@ -16,6 +16,7 @@ public class SuperposedBallControl : MonoBehaviour
     GameObject circuitGrid;
     CircuitGridControl circuitGridControlScript;
     public float stateProbability;
+    public string ballType;
 
     public void GoBall(){
         float rand = Random.Range(-2f, 2f);
@@ -106,6 +107,7 @@ public class SuperposedBallControl : MonoBehaviour
                     }
                     */
                     // hide the incoming ball and disable collider
+                    ballType = "QuantumBall";
                     GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
                     GetComponent<BoxCollider2D>().enabled = false;
                     // generate a ball in all paddles with finite probability
