@@ -35,13 +35,10 @@ public class PaddleControls : MonoBehaviour
             if (instantiateBallFlag) {
                 instantiateBallFlag = false;
                 Vector3 ballPosition = new Vector3(transform.position.x, transform.position.y+3, 0f);
-                //ballObject = Instantiate(ball, ballPosition, Quaternion.identity);
-                //ballObject.name = "ball"+name[name.Length-1];
-                //ballObject.GetComponent<SuperposedBallControl>().stateProbability = GetComponent<SpriteRenderer>().color.a;
+
                 int stateInDecimal = (int) Char.GetNumericValue(name[name.Length-1]);
                 ballArray[stateInDecimal].transform.position = ballPosition;
                 // change sprite, color and enable collider
-                // ballArray[stateInDecimal].GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
                 ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().ballType = "QuantumBall";
 
                 // save gateString at the moment of collision with quantum paddle for measurement later

@@ -59,6 +59,7 @@ public class SuperposedBallControl : MonoBehaviour
     public void RestartRound(float startSide){
         startDirection = startSide;
         // make the ball visible and enable collider
+        GetComponent<SuperposedBallControl>().ballType = "ClassicalBall";
         GetComponent<SpriteRenderer>().color = new Color(1f, 0.2f, 1f, 1f);
         GetComponent<BoxCollider2D>().enabled = true;
         ResetBall(startDirection);
@@ -109,7 +110,7 @@ public class SuperposedBallControl : MonoBehaviour
                     }
                     */
                     // hide the incoming ball and disable collider
-                    ballType = "QuantumBall";
+                    ballType = "HiddenBall";
                     GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
                     GetComponent<BoxCollider2D>().enabled = false;
                     // generate a ball in all paddles with finite probability
