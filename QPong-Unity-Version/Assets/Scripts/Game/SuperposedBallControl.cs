@@ -35,7 +35,7 @@ public class SuperposedBallControl : MonoBehaviour
         circuitGridControlScript = circuitGrid.GetComponent<CircuitGridControl>();
         paddleArray = circuitGridControlScript.paddleArray;
         //RestartRound(startDirection);
-        GoBall();
+        //GoBall();
     }
 
     public void ResetBall(float startSide){

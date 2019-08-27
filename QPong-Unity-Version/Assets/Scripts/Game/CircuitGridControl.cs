@@ -75,17 +75,19 @@ public class CircuitGridControl : MonoBehaviour
             paddleArray[i].name = "paddle"+i;
 
         }
-        /* 
-        ballArray = new GameObject[stateNumber];
-        for (int i = 0; i < stateNumber; i++)
+        
+        ballArray = new GameObject[numberOfState];
+        for (int i = 0; i < numberOfState; i++)
         {
-            Vector3 ballPosition = Camera.main.ScreenToWorldPoint(new Vector3((5*i+1f)*Screen.width/stateNumber, Screen.height*0.5f,0));
+            Vector3 ballPosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.5f,0));
             ballPosition.z = 0f;
             ballArray[i] = (GameObject)Instantiate(ball, ballPosition, Quaternion.identity);
-            ballArray[i].name = "ball["+i+"]";
+            ballArray[i].name = "ball"+i;
+            // hide the balls
+            ballArray[i].GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
+            ballArray[i].GetComponent<BoxCollider2D>().enabled = false;
 
         }
-        */
     }
 
     // Update is called once per frame

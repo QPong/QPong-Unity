@@ -20,7 +20,7 @@ public class SideWalls : MonoBehaviour
             else if (wallName == "BottomWall"){
                 startSide = -1f;
             }
-            hitInfo.gameObject.GetComponent<BallControl>().RestartRound(startSide);
+            hitInfo.gameObject.GetComponent<SuperposedBallControl>().RestartRound(startSide);
         }
     }
 

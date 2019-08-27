@@ -25,6 +25,7 @@ public class CircuitGridClient : MonoBehaviour
     private string gateString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
 
     public GameObject[] paddleArray;
+    public GameObject[] ballArray;
     GameObject circuitGrid;
     CircuitGridControl circuitGridControlScript;
     public Sprite classicalBallSprite;
@@ -39,6 +40,7 @@ public class CircuitGridClient : MonoBehaviour
         stateNumber = (int) Math.Pow(2, qubitNumber);
         circuitDimensionString = string.Join(",", qubitNumber, circuitDepth);
         paddleArray = circuitGridControlScript.paddleArray;
+        ballArray = circuitGridControlScript.ballArray;
         GetStateVector(gateString);
     }
 
@@ -91,16 +93,17 @@ public class CircuitGridClient : MonoBehaviour
         {
             int stateInDecimal = Int32.Parse(results);
 
-            for (int i = 0; i <= 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (i==stateInDecimal) {
                     // make the measured state visible and enable collider
-                    GameObject.Find("ball"+stateInDecimal).GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
+                    ballArray[i].GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
+                    ballArray[i].GetComponent<BoxCollider2D>().enabled = true;
                 }
                 else {
-                    // destroy all other balls
-                    Destroy(GameObject.Find("ball"+i));
-                    
+                    // make the other states invisible and disable collider
+                    ballArray[i].GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
+                    ballArray[i].GetComponent<BoxCollider2D>().enabled = false;
                 }
 
             }

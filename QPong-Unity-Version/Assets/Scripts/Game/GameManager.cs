@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        theBall = GameObject.FindGameObjectWithTag("Ball");
+        theBall = GameObject.Find("ball0");
         ballControlScript = theBall.GetComponent<SuperposedBallControl>();
 
         theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
