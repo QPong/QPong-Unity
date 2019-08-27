@@ -21,7 +21,7 @@ public class ComputerControls : MonoBehaviour
     void Update()
     {
         // find the closes ball
-        theBall = FindClosestEnemy();
+        theBall = FindClosestBall();
         balVelY = theBall.GetComponent<Rigidbody2D>().velocity.y; 
 
         // if the ball is moving towards computer paddle
@@ -44,24 +44,27 @@ public class ComputerControls : MonoBehaviour
         transform.position = pos;
     }
 
-    public GameObject FindClosestEnemy()
+    public GameObject FindClosestBall()
     {
-        GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Ball");
-        GameObject closest = null;
+        GameObject[] balls;
+        balls = GameObject.FindGameObjectsWithTag("Ball");
+        GameObject closestBall = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
-        foreach (GameObject go in gos)
+        foreach (GameObject ball in balls)
         {
-            Vector3 diff = go.transform.position - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
+            // skip hidden balls
+            if (ball.GetComponent<SuperposedBallControl>().ballType !="HiddenBall") {
+                float yDistance = transform.position.y - ball.transform.position.y;
+                if (yDistance < distance)
+                {
+                    closestBall = ball;
+                    distance = yDistance;
+                }
             }
         }
-        Debug.Log("The Closest Ball: "+closest.name);
-        return closest;
+        Debug.Log("The Closest Ball: "+closestBall.name);
+        Debug.Log("Distance: "+distance);
+        return closestBall;
     }
 }
