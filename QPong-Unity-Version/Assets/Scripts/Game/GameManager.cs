@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public int showGameOverTime = 5;
 
     GameObject theBall;
-    BallControl ballControlScript;
+    SuperposedBallControl ballControlScript;
     GameObject theCircuitGrid;
     CircuitGridControl circuitGridControlScript;
     GameObject theClassicalPaddle;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         theBall = GameObject.FindGameObjectWithTag("Ball");
-        ballControlScript = theBall.GetComponent<BallControl>();
+        ballControlScript = theBall.GetComponent<SuperposedBallControl>();
 
         theCircuitGrid = GameObject.FindGameObjectWithTag("CircuitGrid");
         circuitGridControlScript = theCircuitGrid.GetComponent<CircuitGridControl>();
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
         }
-        print("Update while game is playing");
+        // print("Update while game is playing");
 
         // Check for Arcade controls
         PollForButtonInput();

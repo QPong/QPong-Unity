@@ -733,7 +733,7 @@ PrefabInstance:
     - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
       propertyPath: m_Name
-      value: QuantumBall
+      value: ball8
       objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}

@@ -91,7 +91,7 @@ public class CircuitGridClient : MonoBehaviour
         {
             int stateInDecimal = Int32.Parse(results);
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 if (i==stateInDecimal) {
                     // make the measured state visible and enable collider
