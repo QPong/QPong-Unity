@@ -55,11 +55,11 @@ public class CircuitGridClient : MonoBehaviour
             getStatevectorFlag = false;
             GetStateVector(gateString);
         }
-       
-        if (doMeasurementFlag) {
-            doMeasurementFlag = false;
-            DoMeasurement(gateString);
-        }
+        // DoMeasurement directly from measurement wall
+        //if (doMeasurementFlag) {
+        //    doMeasurementFlag = false;
+        //    DoMeasurement(gateString);
+        //}
     }
 
     private void GetStateVector(string gateString)
@@ -89,7 +89,7 @@ public class CircuitGridClient : MonoBehaviour
         }));
     }
 
-    private void DoMeasurement(string gateString)
+    public void DoMeasurement(string gateString)
     {
         Debug.Log("Send Gate Array: "+ gateString);
         string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
