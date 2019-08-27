@@ -16,7 +16,7 @@ public class MeasureWalls : MonoBehaviour
             // trigger only if the ball is coming from up to down
             if (rb2d.velocity[1] < 0){
                 updateCircuit = false;
-                circuitGridClientScript.doMeasurementFlag = true;
+                //circuitGridClientScript.doMeasurementFlag = true;
                 //Debug.Log("Do Measurement!");
             }
         }
@@ -28,7 +28,7 @@ public class MeasureWalls : MonoBehaviour
             if (rb2d.velocity[1] < 0){
                 if (updateCircuit){
                     updateCircuit = false;
-                    circuitGridClientScript.doMeasurementFlag = true;
+                    //circuitGridClientScript.doMeasurementFlag = true;
                     //Debug.Log("Do Measurement Again!");
                 }
             }
