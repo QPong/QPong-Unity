@@ -10,6 +10,8 @@ public class CircuitGridControl : MonoBehaviour
     public GameObject emptyGate;
     public GameObject paddle;
     public GameObject[] paddleArray;
+    public GameObject ball;
+    public GameObject[] ballArray;
     public int circuitDepth = 3;
     public int qubitNumber = 3;
     public int columnHeight = 5;
@@ -54,11 +56,9 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-               //gateObjectArray[index] = (GameObject)Instantiate(emptyGate,  new Vector2((xOffset + i * columnHeight)+spacer, yOffset + -j * rowHeight),
-               //     Quaternion.identity);
                 //NOTE: this placement is for the large arcade screen, if the screen changes size, this will probably have to be updated
                 gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
-               gateObjectArray[index].name = "gate["+i+"]["+j+"]";
+                gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
             spacer += 6;
         }
@@ -72,9 +72,20 @@ public class CircuitGridControl : MonoBehaviour
             Vector3 paddlePosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.18f,0));
             paddlePosition.z = 0f;
             paddleArray[i] = (GameObject)Instantiate(paddle, paddlePosition, Quaternion.identity);
-            paddleArray[i].name = "paddle1["+i+"]";
+            paddleArray[i].name = "paddle"+i;
 
         }
+        /* 
+        ballArray = new GameObject[stateNumber];
+        for (int i = 0; i < stateNumber; i++)
+        {
+            Vector3 ballPosition = Camera.main.ScreenToWorldPoint(new Vector3((5*i+1f)*Screen.width/stateNumber, Screen.height*0.5f,0));
+            ballPosition.z = 0f;
+            ballArray[i] = (GameObject)Instantiate(ball, ballPosition, Quaternion.identity);
+            ballArray[i].name = "ball["+i+"]";
+
+        }
+        */
     }
 
     // Update is called once per frame
