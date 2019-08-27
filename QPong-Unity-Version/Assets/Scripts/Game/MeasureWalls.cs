@@ -8,7 +8,7 @@ public class MeasureWalls : MonoBehaviour
     private Rigidbody2D rb2d;
     CircuitGridClient circuitGridClientScript;
     void Start(){
-        rb2d = GameObject.Find("Ball").GetComponent<Rigidbody2D>();
+        rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
     }
     void OnTriggerEnter2D(Collider2D hitInfo){

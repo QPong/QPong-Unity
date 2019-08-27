@@ -15,12 +15,12 @@ public class ComputerControls : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        theBall = GameObject.FindGameObjectWithTag("Ball");
     }
 
     // Update is called once per frame
     void Update()
     {
+        theBall = GameObject.FindGameObjectWithTag("Ball");
         balVelY = theBall.GetComponent<Rigidbody2D>().velocity.y; 
 
         // if the ball is moving towards computer paddle

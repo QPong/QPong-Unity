@@ -11,7 +11,7 @@ public class SideWalls : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
     void OnTriggerEnter2D(Collider2D hitInfo){
-        if (hitInfo.name == "Ball"){
+        if (hitInfo.tag == "Ball"){
             string wallName = transform.name;
             gameManager.Score(wallName);
             if (wallName == "TopWall"){

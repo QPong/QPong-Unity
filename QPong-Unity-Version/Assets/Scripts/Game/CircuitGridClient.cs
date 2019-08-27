@@ -27,7 +27,8 @@ public class CircuitGridClient : MonoBehaviour
     public GameObject[] paddleArray;
     GameObject circuitGrid;
     CircuitGridControl circuitGridControlScript;
-    
+    public Sprite classicalBallSprite;
+
     void Start()
     {
         circuitGrid = GameObject.Find("CircuitGrid");
@@ -70,6 +71,13 @@ public class CircuitGridClient : MonoBehaviour
                 stateVector[i] = new Complex(obj.__ndarray__[i].__complex__[0], obj.__ndarray__[i].__complex__[1]);
                 stateProbability[i] = Complex.Pow(stateVector[i], 2).Magnitude;
                 paddleArray[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (float)stateProbability[i]);
+                // Disable collider for paddles with 0 probability
+                if (stateProbability[i] == 0f) {
+                    paddleArray[i].GetComponent<BoxCollider2D>().enabled = false;
+                } else {
+                    paddleArray[i].GetComponent<BoxCollider2D>().enabled = true;
+                }
+
             }
            // Debug.Log("State Probability: [" + string.Join(", ", stateProbability) + "]");
         }));
@@ -81,16 +89,21 @@ public class CircuitGridClient : MonoBehaviour
         string urlString = API_URL + API_VERSION + Endpoint.do_measurement;
         StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) =>
         {
+            int stateInDecimal = Int32.Parse(results);
+
             for (int i = 0; i < 8; i++)
             {
-                // make all states invisible and disable colliders
-                paddleArray[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
-                paddleArray[i].GetComponent<BoxCollider2D>().enabled = false;
+                if (i==stateInDecimal) {
+                    // make the measured state visible and enable collider
+                    GameObject.Find("ball"+stateInDecimal).GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
+                }
+                else {
+                    // destroy all other balls
+                    Destroy(GameObject.Find("ball"+i));
+                    
+                }
+
             }
-            int stateInDecimal = Int32.Parse(results);
-            // make the measured state visible and enable collider
-            paddleArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            paddleArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
         }));
 
     }
