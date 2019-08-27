@@ -17,6 +17,8 @@ public class SuperposedBallControl : MonoBehaviour
     CircuitGridControl circuitGridControlScript;
     public float stateProbability;
     public string ballType;
+    // store the gateString at the moment of collision with quantum paddle for measurement
+    public string gateString;
 
     public void GoBall(){
         float rand = Random.Range(-2f, 2f);

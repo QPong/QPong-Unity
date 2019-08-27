@@ -13,12 +13,15 @@ public class PaddleControls : MonoBehaviour
     public bool instantiateBallFlag;
     GameObject circuitGrid;
     CircuitGridControl circuitGridControlScript;
+    CircuitGridClient circuitGridClientScript;
+    public string gateString;
     private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
         circuitGrid = GameObject.Find("CircuitGrid");
         circuitGridControlScript = circuitGrid.GetComponent<CircuitGridControl>();
+        circuitGridClientScript = circuitGrid.GetComponent<CircuitGridClient>();
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         ballArray = gameManager.ballArray;
@@ -40,6 +43,12 @@ public class PaddleControls : MonoBehaviour
                 // change sprite, color and enable collider
                 // ballArray[stateInDecimal].GetComponent<SpriteRenderer>().sprite = classicalBallSprite;
                 ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().ballType = "QuantumBall";
+
+                // save gateString at the moment of collision with quantum paddle for measurement later
+                gateString = circuitGridClientScript.gateString;
+                Debug.Log("Gate String for ball "+gateString);
+
+                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().gateString = gateString;
                 ballArray[stateInDecimal].GetComponent<SpriteRenderer>().color = new Color(0.2f, 1f, 1f, 0.3f);
                 ballArray[stateInDecimal].GetComponent<BoxCollider2D>().enabled = true;
                 // kick the ball

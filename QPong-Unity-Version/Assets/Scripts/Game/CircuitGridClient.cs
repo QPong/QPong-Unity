@@ -22,7 +22,7 @@ public class CircuitGridClient : MonoBehaviour
     public int qubitNumber;
     public int circuitDepth;
     public int stateNumber;
-    private string gateString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
+    public string gateString => string.Join(",", GameObject.Find("CircuitGrid").GetComponent<CircuitGridControl>().gateArray);
 
     public GameObject[] paddleArray;
     public GameObject[] ballArray;
