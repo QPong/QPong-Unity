@@ -23,6 +23,7 @@ public class SideWalls : MonoBehaviour
                 startSide = -1f;
             }
             // Restart with ball0
+            Debug.Log("Restart Round");
             ballControlScript.RestartRound(startSide);
         }
     }

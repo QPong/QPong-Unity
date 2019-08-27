@@ -17,12 +17,13 @@ public class MeasureWallsForClassicalPaddle : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D hitInfo){
         if (hitInfo.tag == "Ball"){
-            // trigger only if the ball is coming from up to down
-            if ((rb2d.velocity[1] > 0) & measureFlag) {
+            Debug.Log("Trigger!");
+            // trigger only if the ball is going up
+            if ((rb2d.velocity[1] > 0) && measureFlag) {
                 updateCircuit = false;
                 measureFlag = false;
                 circuitGridClientScript.doMeasurementFlag = true;
-                //Debug.Log("Do Measurement!");
+                Debug.Log("Do Measurement!");
             }
         }
     }
@@ -31,7 +32,7 @@ public class MeasureWallsForClassicalPaddle : MonoBehaviour
         if (hitInfo.tag == "Ball"){
             circuitGridClientScript.getStatevectorFlag = true;
             measureFlag = true;
-            //Debug.Log("Get Statevector Again!");
+            Debug.Log("Get Statevector Again!");
         }
     }
 }

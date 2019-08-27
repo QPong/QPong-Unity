@@ -69,5 +69,7 @@ Ivan Duran
     public void UpdateScores() {
         PlayerScore1 = GameController.Instance.player.playerScore;
         PlayerScore2 = GameController.Instance.player.computerScore;
+        Debug.Log("PlayerScore1: "+PlayerScore1);
+        Debug.Log("PlayerScore2: "+PlayerScore2);
     }
 }

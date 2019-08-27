@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
             player.AddPointsToComputer();
         }
         gameHUD.UpdateScores();
+        Debug.Log("Update Score");
     }
 
     void Update()
