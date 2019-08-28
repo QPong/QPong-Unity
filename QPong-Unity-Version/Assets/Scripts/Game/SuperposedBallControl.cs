@@ -29,9 +29,8 @@ public class SuperposedBallControl : MonoBehaviour
         }
     }
     // always start the ball upwards when the ball hits quantum paddle to avoid getting stuck
-    public void StartQuantumBall(){
-        float rand = Random.Range(-2f, 2f);
-        rb2d.velocity = new Vector2(rand,1).normalized * speed;
+    public void StartQuantumBall(Vector2 velocity){
+        rb2d.velocity = velocity;
     }
 
     // Start is called before the first frame update
@@ -81,8 +80,9 @@ public class SuperposedBallControl : MonoBehaviour
             rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
             Debug.Log("Hit Classical Paddle");
         }
-                // Hit the quantum paddle?
+        // Hit the quantum paddle?
         if (col.gameObject.CompareTag("QuantumPaddle")) {
+            Debug.Log("Hit Quantum Paddle");
             float stateProbability = col.gameObject.GetComponent<SpriteRenderer>().color.a;
             // if quantum state has no superposition
             if (stateProbability == 1) {
@@ -96,10 +96,20 @@ public class SuperposedBallControl : MonoBehaviour
 
                 // Set Velocity with dir * speed
                 rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
-                Debug.Log("Hit Quantum Paddle");
             }
             // if quantum state has superposition
             else {
+                // Calculate hit Factor
+                float x = hitFactor(transform.position,
+                            col.transform.position,
+                            col.collider.bounds.size.x);
+
+                // Calculate direction, make length=1 via .normalized
+                Vector2 dir = new Vector2(x, 1).normalized;
+
+                // Set Velocity with dir * speed
+                rb2d.velocity = dir * rb2d.velocity.magnitude * 1.1f;
+
                 Debug.Log("State Probability: "+stateProbability);
                 for (int i = 0; i < 8; i++)
                 {
@@ -109,6 +119,7 @@ public class SuperposedBallControl : MonoBehaviour
                     GetComponent<BoxCollider2D>().enabled = false;
                     // int collidedPaddleNumber = (int) Char.GetNumericValue(col.gameObject.name[col.gameObject.name.Length-1]);
                     // generate a ball in all paddles with finite probability
+                    circuitGridControlScript.paddleArray[i].GetComponent<PaddleControls>().incomingBallVelocity = rb2d.velocity;
                     circuitGridControlScript.paddleArray[i].GetComponent<PaddleControls>().instantiateBallFlag = true;
                 }
                 

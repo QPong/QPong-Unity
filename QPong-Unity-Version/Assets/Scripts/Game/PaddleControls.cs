@@ -16,6 +16,7 @@ public class PaddleControls : MonoBehaviour
     CircuitGridClient circuitGridClientScript;
     public string gateString;
     private GameManager gameManager;
+    public Vector2 incomingBallVelocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +49,7 @@ public class PaddleControls : MonoBehaviour
                 // pass a copy of gateString to the the balls
                 ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().gateString = gateString;
                 // kick the ball
-                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().StartQuantumBall();            
+                ballArray[stateInDecimal].GetComponent<SuperposedBallControl>().StartQuantumBall(incomingBallVelocity);            
             }
         } 
         else {
