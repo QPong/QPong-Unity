@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball5
       objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -281,6 +286,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
@@ -492,7 +502,7 @@ GameObject:
   - component: {fileID: 283195972}
   - component: {fileID: 283195974}
   - component: {fileID: 283195973}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,6 +595,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball1
       objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -663,7 +678,7 @@ GameObject:
   - component: {fileID: 419168289}
   - component: {fileID: 419168291}
   - component: {fileID: 419168290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,6 +858,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball3
       objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -978,7 +998,7 @@ GameObject:
   - component: {fileID: 497823989}
   - component: {fileID: 497823991}
   - component: {fileID: 497823990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1215,6 +1235,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball6
       objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1299,7 +1324,7 @@ GameObject:
   - component: {fileID: 678273974}
   - component: {fileID: 678273976}
   - component: {fileID: 678273975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1391,6 +1416,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
@@ -1605,6 +1635,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball2
       objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1683,7 +1718,7 @@ GameObject:
   - component: {fileID: 1177370565}
   - component: {fileID: 1177370567}
   - component: {fileID: 1177370566}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1775,7 +1810,7 @@ GameObject:
   - component: {fileID: 1192094292}
   - component: {fileID: 1192094294}
   - component: {fileID: 1192094293}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +1902,7 @@ GameObject:
   - component: {fileID: 1223623891}
   - component: {fileID: 1223623893}
   - component: {fileID: 1223623892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1957,7 +1992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1256432449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Balls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2003,6 +2038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ball7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778781277629181099, guid: abef340ec0a094208a2dc5e08f2b4612,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5778781277629181102, guid: abef340ec0a094208a2dc5e08f2b4612,
         type: 3}
@@ -2441,7 +2481,7 @@ GameObject:
   - component: {fileID: 1493500887}
   - component: {fileID: 1493500889}
   - component: {fileID: 1493500888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
