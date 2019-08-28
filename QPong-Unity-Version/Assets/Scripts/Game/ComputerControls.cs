@@ -10,6 +10,9 @@ public class ComputerControls : MonoBehaviour
     private float balVelY;
     public float speed = 20f;
     public float boundX = 35.0f;
+    public float screenWidth = 40f;
+    public float screenHeight = 60f;
+    public float screenSizeTolerance = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +25,7 @@ public class ComputerControls : MonoBehaviour
     {
         // find the closes ball
         theBall = FindClosestBall();
-        //theBall = GameObject.Find("ball0");
         balVelY = theBall.GetComponent<Rigidbody2D>().velocity.y; 
-        Debug.Log("Delta Time: "+Time.deltaTime);
 
         // if the ball is moving towards computer paddle
         if (balVelY > 0) {
@@ -57,11 +58,18 @@ public class ComputerControls : MonoBehaviour
         {
             // skip hidden balls
             if (ball.GetComponent<SuperposedBallControl>().ballType != "HiddenBall") {
-                float yDistance = transform.position.y - ball.transform.position.y;
-                if (yDistance < distance)
-                {
-                    closestBall = ball;
-                    distance = yDistance;
+                // skip the balls if they are out of the screen
+                if ((ball.transform.position.x > -(screenWidth + screenSizeTolerance)) && (ball.transform.position.x < (screenWidth + screenSizeTolerance))){
+                    
+                    if ((ball.transform.position.y > -(screenHeight + screenSizeTolerance)) && (ball.transform.position.y < (screenHeight + screenSizeTolerance))){
+
+                        float yDistance = transform.position.y - ball.transform.position.y;
+                        if (yDistance < distance)
+                        {
+                            closestBall = ball;
+                            distance = yDistance;
+                        }
+                    }
                 }
             }
         }
