@@ -103,16 +103,11 @@ public class SuperposedBallControl : MonoBehaviour
                 Debug.Log("State Probability: "+stateProbability);
                 for (int i = 0; i < 8; i++)
                 {
-                    /*
-                    // generate a ball in all paddles with finite probability, except the paddle in contact with the ball
-                    if (col.gameObject.name != circuitGridControlScript.paddleArray[i].name) {
-                        circuitGridControlScript.paddleArray[i].GetComponent<PaddleControls>().instantiateBallFlag = true;
-                    }
-                    */
                     // hide the incoming ball and disable collider
                     ballType = "HiddenBall";
                     GetComponent<SpriteRenderer>().color = new Color(10, 1, 1, 0.3f);
                     GetComponent<BoxCollider2D>().enabled = false;
+                    // int collidedPaddleNumber = (int) Char.GetNumericValue(col.gameObject.name[col.gameObject.name.Length-1]);
                     // generate a ball in all paddles with finite probability
                     circuitGridControlScript.paddleArray[i].GetComponent<PaddleControls>().instantiateBallFlag = true;
                 }
