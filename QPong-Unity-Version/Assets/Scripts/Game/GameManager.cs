@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
             circuitGridControlScript.MoveCursor(JoystickButtonMaps.right);
         }
 
+
         ArcadeButtonGates gateButtonPressed = arcadeButtonInput.isButtonPressed();
         if (gateButtonPressed != ArcadeButtonGates.None)
         {
