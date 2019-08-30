@@ -3,7 +3,7 @@
 // Game enums
 public enum Scenes { MainMenu = 0, Game, Ranking, Credits, HighScore};
 public enum ArcadeButtonGates { None, iz, zi, ih, hi, ix, xi, cz };
-public enum JoystickButtonMaps { left, right, a, d }
+public enum JoystickButtonMaps { left, right, up, down, a, d, w, z }
 
 public class Definitions : MonoBehaviour {
     // Static singleton Instance
