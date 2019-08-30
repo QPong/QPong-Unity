@@ -8,6 +8,7 @@ public class HS_Controller : MonoBehaviour
     HS_HUD hud;
     int selectedInitial;
     bool joystickReleased = true;
+
     void Start()
     {
         selectedInitial = 0;

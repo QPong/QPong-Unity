@@ -52,15 +52,13 @@ public class GameManager : MonoBehaviour
         }
 
         if (player.playerScore >= winScore){
-            Debug.Log("Quantum computer wins");
             gameHUD.showPlayerWinMessage();
             StartCoroutine(GameOver());
         } else if (player.computerScore >= winScore){
-            Debug.Log("Classical computer wins");
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
         }
-        print("Update while game is playing");
+
 
         // Check for Arcade controls
         PollForButtonInput();
@@ -82,7 +80,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        print("player " + player);
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
@@ -95,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetButtonDown("Start"))
         {
-            //TODO: this is where we can go to reset the game or maybe even close it out and go back to the app selection screen
+            //the game or maybe even close it out and go back to the app selection screen
             startButtonPressCount = Time.time;
             print("Start button press " + startButtonPressCount);
 
