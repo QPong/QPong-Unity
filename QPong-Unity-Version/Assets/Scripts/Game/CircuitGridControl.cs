@@ -12,9 +12,9 @@ public class CircuitGridControl : MonoBehaviour
     public GameObject[] paddleArray;
     public int circuitDepth = 3;
     public int qubitNumber = 3;
-    public int columnHeight = 5;
-    public int rowHeight = 5;
-    public float xOffset = -51f;
+    public float columnHeight = 0.01f;
+    public float rowHeight = 5;
+    public float xOffset = -0.03f;
     public float yOffset = -35f;
     public float spacer = 10f;
 
@@ -50,17 +50,17 @@ public class CircuitGridControl : MonoBehaviour
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
         measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
         ResetCircuit();
+
         for (int i = 0; i < qubitNumber; i++)
         {
             for (int j = 0; j < circuitDepth; j++)
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                //NOTE: this placement is for the large arcade screen, if the screen changes size, this will probably have to be updated
-                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
+                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2(Screen.width*(xOffset + i * columnHeight+spacer), -64), Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
-            spacer += 6;
+            spacer += 0.006f;
         }
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
