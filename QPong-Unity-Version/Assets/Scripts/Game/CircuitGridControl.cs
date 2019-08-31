@@ -65,13 +65,13 @@ public class CircuitGridControl : MonoBehaviour
 
         int numberOfState = (int) Math.Pow(2, qubitNumber);
         paddleArray = new GameObject[numberOfState];
-        var width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height; // Width of the screen
+        var width = Camera.main.orthographicSize * 8.0f * Screen.width / Screen.height; // Width of the screen
         for (int i = 0; i < numberOfState; i++)
         {
             Vector3 paddlePosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.18f,0));
             paddlePosition.z = 0f;
             paddleArray[i] = (GameObject)Instantiate(paddle, paddlePosition, Quaternion.identity);
-            paddleArray[i].transform.localScale = new Vector2(width/2.0f, width/10.0f);
+            paddleArray[i].transform.localScale = new Vector2(width/8.0f, width/40.0f);
             paddleArray[i].name = "paddle1["+i+"]";
 
         }

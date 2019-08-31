@@ -26,7 +26,8 @@ public class BallControl : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-       
+        var width = Camera.main.orthographicSize * 8.0f * Screen.width / Screen.height; // Width of the screen
+        transform.localScale = new Vector2(width/40.0f, width/40.0f);
         audioPlayer = GetComponent<AudioPlayer>();
         RestartRound(startDirection);
     }
