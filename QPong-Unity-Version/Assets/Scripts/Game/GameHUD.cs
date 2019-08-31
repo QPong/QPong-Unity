@@ -5,28 +5,13 @@ public class GameHUD : MonoBehaviour
 
     public static int PlayerScore1 = 0;
     public static int PlayerScore2 = 0;
-    public int xOffset = 50;
-    public int yOffset = 120;
-    public int centerOffset = 70;
-    public int yOffsetWinMessage = 150;
-    public int yOffsetCreditString = 500;
-
+    public float ScoreXOffset = 0.1f;
+    public float ScoreYOffset = 0.005f;
+    public float ScoreCenterOffset = 0.05f;
+    public float WinMessageXOffset = 0.05f;
+    public float WinMessageYOffset = 0.3f;
     public string playerWinMessage = "You demonstrated quantum supremacy for the first time in human history!";
     public string computerWinMessage = "Classical computer still rules the world.";
-    public string creditString = @"This game was initiated in 
-IBM Qiskit Camp 2019 by 
-
-Huang Junye
-Jarrod Reilly
-Anastasia Jeffery
-James Weaver
-
-Arcade version was made by 
-
-Huang Junye
-Gregory Boland
-Ivan Duran
-";
     private bool showEndMessage = false;
     private string messageToShow;
 
@@ -34,22 +19,20 @@ Ivan Duran
     void OnGUI(){
         GUI.skin = layout;
 
-        var centeredLabelStyle = GUI.skin.GetStyle("Label");
-        var centeredCreditStyle = GUI.skin.GetStyle("TextField");
-
-        centeredLabelStyle.alignment = TextAnchor.MiddleCenter;
-        centeredCreditStyle.alignment = TextAnchor.MiddleCenter;
+        var labelStyle = GUI.skin.GetStyle("Label");
+        labelStyle.alignment = TextAnchor.MiddleCenter;
+        labelStyle.fontSize = Screen.height / 20;
 
         // Show scores
-        GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset + yOffset, 100, 200), "" + PlayerScore1);
-        GUI.Label(new Rect(0 + xOffset, Screen.height/2 - centerOffset - yOffset, 100, 200), "" + PlayerScore2);
+        GUI.Label(new Rect(Screen.width * ScoreXOffset, Screen.height*(0.5f-ScoreCenterOffset+ScoreYOffset), 
+            Screen.height/40, Screen.height/20), "" + PlayerScore1);
+        GUI.Label(new Rect(Screen.width * ScoreXOffset, Screen.height*(0.5f-ScoreCenterOffset-ScoreYOffset), 
+            Screen.height/40, Screen.height/20), "" + PlayerScore2);
 
         // Show game over message and credits
         if (showEndMessage) {
-            GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetWinMessage, 2000, 1000),
-                messageToShow, centeredLabelStyle);
-            // GUI.Label(new Rect(Screen.width / 2 - 1000, Screen.height/2 - 500 + yOffsetCreditString, 2000, 1200),
-            //    creditString, centeredCreditStyle);
+            GUI.Label(new Rect(Screen.width*(WinMessageXOffset), Screen.height*(WinMessageYOffset), 
+                Screen.width*(1-2*WinMessageXOffset), Screen.height*0.25f), messageToShow, labelStyle);
         }
     }
 
