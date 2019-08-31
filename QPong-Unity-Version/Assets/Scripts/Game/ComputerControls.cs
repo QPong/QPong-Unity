@@ -16,6 +16,8 @@ public class ComputerControls : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         theBall = GameObject.FindGameObjectWithTag("Ball");
+        var width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
+        transform.localScale = new Vector2(width/2.0f, width/10.0f);
     }
 
     // Update is called once per frame

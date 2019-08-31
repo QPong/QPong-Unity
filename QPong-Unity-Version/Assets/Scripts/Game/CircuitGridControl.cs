@@ -54,11 +54,9 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-               //gateObjectArray[index] = (GameObject)Instantiate(emptyGate,  new Vector2((xOffset + i * columnHeight)+spacer, yOffset + -j * rowHeight),
-               //     Quaternion.identity);
                 //NOTE: this placement is for the large arcade screen, if the screen changes size, this will probably have to be updated
                 gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2((xOffset + i * columnHeight)+spacer, -64), Quaternion.identity);
-               gateObjectArray[index].name = "gate["+i+"]["+j+"]";
+                gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
             spacer += 6;
         }
@@ -67,11 +65,13 @@ public class CircuitGridControl : MonoBehaviour
 
         int numberOfState = (int) Math.Pow(2, qubitNumber);
         paddleArray = new GameObject[numberOfState];
+        var width = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height; // Width of the screen
         for (int i = 0; i < numberOfState; i++)
         {
             Vector3 paddlePosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.18f,0));
             paddlePosition.z = 0f;
             paddleArray[i] = (GameObject)Instantiate(paddle, paddlePosition, Quaternion.identity);
+            paddleArray[i].transform.localScale = new Vector2(width/2.0f, width/10.0f);
             paddleArray[i].name = "paddle1["+i+"]";
 
         }
