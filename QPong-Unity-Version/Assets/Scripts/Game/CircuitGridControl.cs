@@ -43,6 +43,8 @@ public class CircuitGridControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var width = Camera.main.orthographicSize * 8.0f * Screen.width / Screen.height; // Width of the screen
+        transform.localScale = new Vector2(width/5.0f, width);
         gateArray = new string[qubitNumber * circuitDepth];
         gateObjectArray = new GameObject[qubitNumber * circuitDepth];
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
@@ -65,12 +67,12 @@ public class CircuitGridControl : MonoBehaviour
 
         int numberOfState = (int) Math.Pow(2, qubitNumber);
         paddleArray = new GameObject[numberOfState];
-        var width = Camera.main.orthographicSize * 8.0f * Screen.width / Screen.height; // Width of the screen
         for (int i = 0; i < numberOfState; i++)
         {
             Vector3 paddlePosition = Camera.main.ScreenToWorldPoint(new Vector3((i+0.5f)*Screen.width/numberOfState, Screen.height*0.18f,0));
             paddlePosition.z = 0f;
             paddleArray[i] = (GameObject)Instantiate(paddle, paddlePosition, Quaternion.identity);
+            // set paddle width to 1/8 of screen width
             paddleArray[i].transform.localScale = new Vector2(width/8.0f, width/40.0f);
             paddleArray[i].name = "paddle1["+i+"]";
 
