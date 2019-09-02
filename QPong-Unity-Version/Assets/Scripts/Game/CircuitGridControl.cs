@@ -16,7 +16,6 @@ public class CircuitGridControl : MonoBehaviour
     public float rowHeight = 5;
     public float xOffset = -0.03f;
     public float yOffset = -35f;
-    public float spacer = 10f;
 
     // Variables for gate array
     public string[] gateArray; // array of string representing gates
@@ -57,10 +56,9 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2(Screen.width*(xOffset - i*columnHeight - spacer), -64), Quaternion.identity);
+                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2(Screen.width*(xOffset - i*columnHeight), -64), Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
-            spacer += 0.006f;
         }
         selectedGate = GameObject.Find("gate[0][0]");
         cursor = GameObject.Find("Cursor");
