@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameHUD: {fileID: 447822110}
-  winScore: 1
+  winScore: 7
   showGameOverTime: 5
 --- !u!114 &447822110
 MonoBehaviour:
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df683c427364c74876ac1207f81f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreXOffset: 0.05
+  ScoreXOffset: 0.02
   ScoreYOffset: 0.05
   ScoreCenterOffset: 0.08
   WinMessageXOffset: 0.05

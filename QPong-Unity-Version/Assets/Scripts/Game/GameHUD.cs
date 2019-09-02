@@ -21,13 +21,13 @@ public class GameHUD : MonoBehaviour
 
         var labelStyle = GUI.skin.GetStyle("Label");
         labelStyle.alignment = TextAnchor.MiddleCenter;
-        labelStyle.fontSize = Screen.height / 20;
+        labelStyle.fontSize = Screen.height / 15;
 
         // Show scores
         GUI.Label(new Rect(Screen.width * ScoreXOffset, Screen.height*(0.5f-ScoreCenterOffset+ScoreYOffset), 
-            Screen.height/40, Screen.height/20), "" + PlayerScore1);
+            Screen.height/20, Screen.height/20), "" + PlayerScore1);
         GUI.Label(new Rect(Screen.width * ScoreXOffset, Screen.height*(0.5f-ScoreCenterOffset-ScoreYOffset), 
-            Screen.height/40, Screen.height/20), "" + PlayerScore2);
+            Screen.height/20, Screen.height/20), "" + PlayerScore2);
 
         // Show game over message and credits
         if (showEndMessage) {
