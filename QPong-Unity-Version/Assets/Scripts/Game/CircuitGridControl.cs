@@ -42,6 +42,8 @@ public class CircuitGridControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // set screen resolution to mini-arcade
+        Screen.SetResolution(900, 1440, true);
         var width = Camera.main.orthographicSize * 8.0f * Screen.width / Screen.height; // Width of the screen
         transform.localScale = new Vector2(width/5.0f, width);
         gateArray = new string[qubitNumber * circuitDepth];

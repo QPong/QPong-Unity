@@ -42,8 +42,8 @@ PlayerSettings:
   m_SplashScreenLogos: []
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
-  defaultScreenWidth: 800
-  defaultScreenHeight: 600
+  defaultScreenWidth: 900
+  defaultScreenHeight: 1440
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
@@ -52,7 +52,7 @@ PlayerSettings:
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
-  displayResolutionDialog: 1
+  displayResolutionDialog: 0
   iosUseCustomAppBackgroundBehavior: 0
   iosAllowHTTPDownload: 1
   allowedAutorotateToPortrait: 1
@@ -67,7 +67,7 @@ PlayerSettings:
   androidRenderOutsideSafeArea: 0
   androidUseSwappy: 0
   androidBlitType: 0
-  defaultIsNativeResolution: 1
+  defaultIsNativeResolution: 0
   macRetinaSupport: 1
   runInBackground: 0
   captureSingleScreen: 0
@@ -115,10 +115,10 @@ PlayerSettings:
   switchNVNOtherPoolsGranularity: 16777216
   vulkanEnableSetSRGBWrite: 0
   m_SupportedAspectRatios:
-    4:3: 1
-    5:4: 1
-    16:10: 1
-    16:9: 1
+    4:3: 0
+    5:4: 0
+    16:10: 0
+    16:9: 0
     Others: 1
   bundleVersion: 0.1.0
   preloadedAssets: []
@@ -523,7 +523,8 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    7: 3
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

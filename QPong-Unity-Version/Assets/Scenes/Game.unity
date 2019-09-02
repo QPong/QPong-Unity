@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameHUD: {fileID: 447822110}
-  winScore: 1
+  winScore: 7
   showGameOverTime: 5
 --- !u!114 &447822110
 MonoBehaviour:
