@@ -23,6 +23,10 @@ public class GameHUD : MonoBehaviour
         labelStyle.alignment = TextAnchor.MiddleCenter;
         labelStyle.fontSize = Screen.height / 15;
 
+        var winMessageStyle = GUI.skin.GetStyle("TextField");
+        winMessageStyle.alignment = TextAnchor.MiddleCenter;
+        winMessageStyle.fontSize = Screen.height / 20;
+
         // Show scores
         GUI.Label(new Rect(Screen.width * ScoreXOffset, Screen.height*(0.5f-ScoreCenterOffset+ScoreYOffset), 
             Screen.height/20, Screen.height/20), "" + PlayerScore1);
@@ -32,7 +36,7 @@ public class GameHUD : MonoBehaviour
         // Show game over message and credits
         if (showEndMessage) {
             GUI.Label(new Rect(Screen.width*(WinMessageXOffset), Screen.height*(WinMessageYOffset), 
-                Screen.width*(1-2*WinMessageXOffset), Screen.height*0.25f), messageToShow, labelStyle);
+                Screen.width*(1-2*WinMessageXOffset), Screen.height*0.25f), messageToShow, winMessageStyle);
         }
     }
 
