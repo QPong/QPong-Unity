@@ -57,7 +57,7 @@ public class CircuitGridControl : MonoBehaviour
             {
                 int index = i * circuitDepth + j;
                 gateArray[index] = "I";
-                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2(Screen.width*(xOffset + i * columnHeight+spacer), -64), Quaternion.identity);
+                gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2(Screen.width*(xOffset - i*columnHeight - spacer), -64), Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
             }
             spacer += 0.006f;
@@ -143,10 +143,10 @@ public class CircuitGridControl : MonoBehaviour
 
         if (direction == JoystickButtonMaps.left)
         {
-            selectedColNum--;
+            selectedColNum++;
         } else
         {
-            selectedColNum++;
+            selectedColNum--;
         }
 
 

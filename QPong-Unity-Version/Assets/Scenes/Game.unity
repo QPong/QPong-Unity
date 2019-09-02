@@ -466,7 +466,7 @@ MonoBehaviour:
   qubitNumber: 3
   columnHeight: 0.01
   rowHeight: 0.01
-  xOffset: -0.016
+  xOffset: 0.016
   yOffset: -0.05
   spacer: 0
   gateArray: []
@@ -673,7 +673,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: q[0]   q[1]   q[2]
+  m_Text: q[2]   q[1]   q[0]
 --- !u!222 &1071975867
 CanvasRenderer:
   m_ObjectHideFlags: 0
