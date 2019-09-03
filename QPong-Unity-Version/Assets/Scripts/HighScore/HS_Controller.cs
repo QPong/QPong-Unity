@@ -7,6 +7,7 @@ public class HS_Controller : MonoBehaviour
     public Animator animator;
     HS_HUD hud;
     int selectedInitial;
+
     void Start()
     {
         selectedInitial = 0;
