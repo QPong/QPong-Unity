@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
         }
-        print("Update while game is playing");
+        //print("Update while game is playing");
 
         // Check for Arcade controls
         PollForButtonInput();
@@ -100,13 +100,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
         {
             //TODO: set up the move cursor to the left
-            print("BACK");
+            //print("BACK");
             circuitGridControlScript.MoveCursor(JoystickButtonMaps.left);
         }
         if (Input.GetKeyDown(JoystickButtonMaps.right.ToString()) || Input.GetKeyDown(JoystickButtonMaps.d.ToString()))
         {
             //TODO: setup the move cursor to the right
-            print("FORWARD");
+            //print("FORWARD");
             circuitGridControlScript.MoveCursor(JoystickButtonMaps.right);
         }
 
