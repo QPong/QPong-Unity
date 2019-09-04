@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
     {
 
         //NOTE: animate when the button is pressed
-        arcadeButtonController.ButtonPressed(gateName);
+        arcadeAPIController.ButtonPressed(gateName);
         switch (gateName)
         {
             case ArcadeButtonGates.xi:
