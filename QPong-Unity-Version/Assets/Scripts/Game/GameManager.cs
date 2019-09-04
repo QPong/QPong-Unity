@@ -121,11 +121,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonUp("Start"))
         {
 
-            float deltaTime = Math.Abs(Time.time - startButtonPressCount);
+            startButtonPressCount = Math.Abs(Time.time - startButtonPressCount);
 
-            print("time down " + deltaTime);
+            print("time down " + startButtonPressCount);
 
-            if (deltaTime >= 3.0f) 
+            if (startButtonPressCount >= 3.0f) 
             {
                 print("QUIT APP!!");
                 startButtonPressCount = 0f;
