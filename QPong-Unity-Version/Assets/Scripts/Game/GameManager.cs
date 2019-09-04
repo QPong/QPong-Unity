@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     ComputerControls classicalPaddleControlScript;
     Player player;
     ArcadeButtonInput arcadeButtonInput;
+    ArcadeAPIController arcadeAPIController;
     float startButtonPressCount = 0f;
 
 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 
         arcadeButtonInput = gameObject.GetComponent<ArcadeButtonInput>();
         player = GameController.Instance.player;
+        arcadeAPIController = gameObject.GetComponent<ArcadeAPIController>();
 
         RestartGame();
     }
@@ -39,7 +41,9 @@ public class GameManager : MonoBehaviour
     public void Score(string wallID){
         if (wallID == "TopWall"){
             player.AddPointsToPlayer();
+            arcadeAPIController.PuzzleSolved();
         } else {
+            //TODO: add an animation for when the computer wins a point
             player.AddPointsToComputer();
         }
         gameHUD.UpdateScores();
@@ -54,9 +58,11 @@ public class GameManager : MonoBehaviour
         if (player.playerScore >= winScore){
             gameHUD.showPlayerWinMessage();
             StartCoroutine(GameOver());
+            //TODO: add an animation for when the player wins
         } else if (player.computerScore >= winScore){
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
+            //TODO: add an animation for when the computer wins
         }
 
         // Check for Arcade controls
@@ -142,8 +148,8 @@ public class GameManager : MonoBehaviour
     public void PressedGate(ArcadeButtonGates gateName)
     {
 
-        //NOTE: my next step is to implement this
-        //arcadeButtonController.ButtonPressed(gateName);
+        //NOTE: animate when the button is pressed
+        arcadeButtonController.ButtonPressed(gateName);
         switch (gateName)
         {
             case ArcadeButtonGates.xi:
