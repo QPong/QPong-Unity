@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -120,13 +121,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonUp("Start"))
         {
 
-            startButtonPressCount = Time.time - startButtonPressCount;
+            startButtonPressCount = Math.Abs(Time.time - startButtonPressCount);
 
             print("time down " + startButtonPressCount);
-            if (startButtonPressCount > 2.0) 
+
+            if (startButtonPressCount >= 3.0f) 
             {
-                startButtonPressCount = 0f;
                 print("QUIT APP!!");
+                startButtonPressCount = 0f;
+
+                System.Diagnostics.Process.Start("osascript", "-e 'tell application \"AppMenu\" to activate'");
                 Application.Quit();
             }
             startButtonPressCount = 0f;
