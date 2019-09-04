@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class ArcadeButtonInput : MonoBehaviour
 {
+
     public ArcadeButtonGates isButtonPressed()
     {
 

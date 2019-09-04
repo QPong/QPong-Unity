@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     ComputerControls classicalPaddleControlScript;
     Player player;
     ArcadeButtonInput arcadeButtonInput;
+    float startButtonPressCount = 0f;
 
 
     // Start is called before the first frame update
@@ -51,15 +52,12 @@ public class GameManager : MonoBehaviour
         }
 
         if (player.playerScore >= winScore){
-            Debug.Log("Quantum computer wins");
             gameHUD.showPlayerWinMessage();
             StartCoroutine(GameOver());
         } else if (player.computerScore >= winScore){
-            Debug.Log("Classical computer wins");
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
         }
-        //print("Update while game is playing");
 
         // Check for Arcade controls
         PollForButtonInput();
@@ -81,7 +79,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        print("player " + player);
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
@@ -94,7 +91,9 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetButtonDown("Start"))
         {
-                //TODO: this is where we can go to reset the game or maybe even close it out and go back to the app selection screen
+            //the game or maybe even close it out and go back to the app selection screen
+            startButtonPressCount = Time.time;
+            print("Start button press " + startButtonPressCount);
 
         }
         if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
@@ -118,6 +117,20 @@ public class GameManager : MonoBehaviour
             PressedGate(gateButtonPressed);
         }
 
+        if (Input.GetButtonUp("Start"))
+        {
+
+            startButtonPressCount = Time.time - startButtonPressCount;
+
+            print("time down " + startButtonPressCount);
+            if (startButtonPressCount > 2.0) 
+            {
+                startButtonPressCount = 0f;
+                print("QUIT APP!!");
+                Application.Quit();
+            }
+            startButtonPressCount = 0f;
+        }
         if (Input.GetKey("escape"))
         {
             Application.Quit();
