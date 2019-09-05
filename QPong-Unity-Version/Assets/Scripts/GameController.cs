@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     // Global vars
     [HideInInspector]
     public Player player;
-    private ArcadeAPIController arcadeAPIController;
+
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         player = Storage.Instance.LoadPlayerData();
-        arcadeAPIController = GetComponent<ArcadeAPIController>();
+
         DontDestroyOnLoad(transform.gameObject);
     }
 
@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     private void Start () {
         player = Storage.Instance.LoadPlayerData();
+
 
     }
 
@@ -56,17 +57,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void InitArcadeLEDs()
-    {
-        arcadeAPIController.InitGame("QPong");
-    }
 
     #region Load Specific Scenes
     public void StartGame() {
         OpenScene(Scenes.Game);
 
         ArcadeButtonGates[] disabledGates = { ArcadeButtonGates.cz, ArcadeButtonGates.iz, ArcadeButtonGates.hi, ArcadeButtonGates.xi, ArcadeButtonGates.zi };
-        arcadeAPIController.SetupPuzzle( disabledGates);  
+        //arcadeAPIController.SetupPuzzle( disabledGates);  
     }
 
     public void LoadMainMenu() {

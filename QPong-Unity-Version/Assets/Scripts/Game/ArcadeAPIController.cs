@@ -52,6 +52,18 @@ public class ArcadeAPIController : MonoBehaviour
         StartCoroutine(GetRequest(urlString));
     }
 
+    public void LostPoint()
+    {
+        string urlString = API_URL + "lostpoint";
+        StartCoroutine(GetRequest(urlString));
+    }
+
+    public void GameLost()
+    {
+        string urlString = API_URL + "gamelost";
+        StartCoroutine(GetRequest(urlString));
+    }
+
 
     public IEnumerator GetRequest(string uri)
     {

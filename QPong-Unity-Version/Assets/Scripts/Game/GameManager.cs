@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     ArcadeButtonInput arcadeButtonInput;
     ArcadeAPIController arcadeAPIController;
     float startButtonPressCount = 0f;
+    bool showGameOverLEDAnimation = false;
 
 
     // Start is called before the first frame update
@@ -44,10 +45,12 @@ public class GameManager : MonoBehaviour
             player.AddPointsToPlayer();
             arcadeAPIController.PuzzleSolved();
         } else {
-            //TODO: add an animation for when the computer wins a point
+            //an animation for when the computer wins a point
             player.AddPointsToComputer();
+            arcadeAPIController.LostPoint();
         }
         gameHUD.UpdateScores();
+        SetupArcadeEnabledBoard();
     }
 
     void Update()
@@ -59,11 +62,21 @@ public class GameManager : MonoBehaviour
         if (player.playerScore >= winScore){
             gameHUD.showPlayerWinMessage();
             StartCoroutine(GameOver());
-            //TODO: add an animation for when the player wins
+            if (showGameOverLEDAnimation == false)
+            {
+                showGameOverLEDAnimation = true;
+                //add an animation for when the player wins
+                arcadeAPIController.PuzzleSolved();
+            }
         } else if (player.computerScore >= winScore){
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
-            //TODO: add an animation for when the computer wins
+            if (showGameOverLEDAnimation == false)
+            {
+                showGameOverLEDAnimation = true;
+                //add an animation for when the computer wins
+                arcadeAPIController.GameLost();
+            }
         }
 
         // Check for Arcade controls
@@ -84,12 +97,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetupArcadeEnabledBoard()
+    {
+        ArcadeButtonGates[] disabledGates = { ArcadeButtonGates.cz, ArcadeButtonGates.iz, ArcadeButtonGates.hi, ArcadeButtonGates.xi, ArcadeButtonGates.zi };
+        arcadeAPIController.SetupPuzzle(disabledGates);
+    }
+
     public void RestartGame()
     {
+        SetupArcadeEnabledBoard();
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
         classicalPaddleControlScript.ResetPaddle();
+        showGameOverLEDAnimation = false;
     }
 
     #region Board Input
