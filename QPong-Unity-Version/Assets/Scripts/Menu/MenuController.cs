@@ -7,10 +7,14 @@ public class MenuController : MonoBehaviour
     public int timeToExit = 10;
 
     bool startWasPressed = false;
+    private ArcadeAPIController arcadeAPIController;
 
     private void Awake() {
         startWasPressed = false;
         StartCoroutine(CountdownToRanking());
+        arcadeAPIController = GetComponent<ArcadeAPIController>();
+        print("arcade " + arcadeAPIController);
+        arcadeAPIController.InitGame("QPong");
     }
 
     void Update()

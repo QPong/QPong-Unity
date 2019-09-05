@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
     ComputerControls classicalPaddleControlScript;
     Player player;
     ArcadeButtonInput arcadeButtonInput;
+    ArcadeAPIController arcadeAPIController;
     float startButtonPressCount = 0f;
+    bool showGameOverLEDAnimation = false;
 
 
     // Start is called before the first frame update
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
 
         arcadeButtonInput = gameObject.GetComponent<ArcadeButtonInput>();
         player = GameController.Instance.player;
+        arcadeAPIController = gameObject.GetComponent<ArcadeAPIController>();
 
         RestartGame();
     }
@@ -40,10 +43,14 @@ public class GameManager : MonoBehaviour
     public void Score(string wallID){
         if (wallID == "TopWall"){
             player.AddPointsToPlayer();
+            arcadeAPIController.PuzzleSolved();
         } else {
+            //an animation for when the computer wins a point
             player.AddPointsToComputer();
+            arcadeAPIController.LostPoint();
         }
         gameHUD.UpdateScores();
+        SetupArcadeEnabledBoard();
     }
 
     void Update()
@@ -55,9 +62,21 @@ public class GameManager : MonoBehaviour
         if (player.playerScore >= winScore){
             gameHUD.showPlayerWinMessage();
             StartCoroutine(GameOver());
+            if (showGameOverLEDAnimation == false)
+            {
+                showGameOverLEDAnimation = true;
+                //add an animation for when the player wins
+                arcadeAPIController.PuzzleSolved();
+            }
         } else if (player.computerScore >= winScore){
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
+            if (showGameOverLEDAnimation == false)
+            {
+                showGameOverLEDAnimation = true;
+                //add an animation for when the computer wins
+                arcadeAPIController.GameLost();
+            }
         }
 
         // Check for Arcade controls
@@ -78,12 +97,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetupArcadeEnabledBoard()
+    {
+        ArcadeButtonGates[] disabledGates = { ArcadeButtonGates.cz, ArcadeButtonGates.iz, ArcadeButtonGates.hi, ArcadeButtonGates.xi, ArcadeButtonGates.zi };
+        arcadeAPIController.SetupPuzzle(disabledGates);
+    }
+
     public void RestartGame()
     {
+        SetupArcadeEnabledBoard();
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
         classicalPaddleControlScript.ResetPaddle();
+        showGameOverLEDAnimation = false;
     }
 
     #region Board Input
@@ -146,8 +173,8 @@ public class GameManager : MonoBehaviour
     public void PressedGate(ArcadeButtonGates gateName)
     {
 
-        //NOTE: my next step is to implement this
-        //arcadeButtonController.ButtonPressed(gateName);
+        //NOTE: animate when the button is pressed
+        arcadeAPIController.ButtonPressed(gateName);
         switch (gateName)
         {
             case ArcadeButtonGates.xi:
