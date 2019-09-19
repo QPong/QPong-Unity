@@ -10,7 +10,7 @@ This game was initiated in IBM Qiskit Camp 2019 by [Huang Junye](https://github.
 In the dawn of the Quantum Era, a primitive 3-qubit Quantum Computer is trying to challenge the Classical Computer, the long-time ruler of the Computer Empire. Your mission is to use your Human Intelligence to help the Quantum Computer defeat the Classical Computer and demonstrate "quantum supremacy" for the first time in human history. The battle field of the Quantum-Classic war is none other than the classic Pong game.
 
 ## Installation
-Download the last [release](https://github.com/HuangJunye/QPong-Unity/releases) and nnzip the files to the "Downloads" folder on your computer. You need to run the `QPong-Python-Server` before runing QPong game. To do that you need to install Python and three required packages. You will also need to run the server in command line tool (Command Prompt for Windows or Terminal for macOS).
+Download the last [release](https://github.com/HuangJunye/QPong-Unity/releases) and unzip the files to the "Downloads" folder on your computer. You need to run the `QPong-Python-Server` before runing QPong game. To do that you need to install Python and three required packages. You will also need to run the server in command line tool (Command Prompt for Windows or Terminal for macOS).
 
 ### Install Python
 If you don't have Python installed on you computer, you can install Python from https://www.python.org/ or install Anaconda from https://www.anaconda.com
