@@ -2,7 +2,7 @@
 
 ![alt text](Logo.png)
 
-QPong is a quantum re-imagination of the classic video game Pong. It uses [Qikist](https://github.com/Qiskit/qiskit), IBM’s open source framework for making software for quantum computers. QPong let you explore unfamiliar yet fundamental concepts of quantum computing, such as superposition and measurement in a familiar and fun setting.
+QPong is a quantum re-imagination of the classic video game Pong. It uses [Qiskit](https://github.com/Qiskit/qiskit), IBM’s open source framework for making software for quantum computers. QPong let you explore unfamiliar yet fundamental concepts of quantum computing, such as superposition and measurement in a familiar and fun setting.
 
 This game was initiated in IBM Qiskit Camp 2019 by [Huang Junye](https://github.com/HuangJunye), Jarrod Reilly, Anastasia Jeffery and [James Weaver](https://github.com/JavaFXpert). (The original Python version can be found [here](https://github.com/HuangJunye/QPong))  This port over to Unity was developed by [Huang Junye](https://github.com/HuangJunye), [Gregory Boland](https://github.com/boland25), & [Ivan Duran](https://github.com/filemaster).
 
