@@ -27,6 +27,13 @@ public class HS_Controller : MonoBehaviour
             GameController.Instance.player.StoreNewHighScore(hud.UserName());
             GameController.Instance.LoadMainMenu();
         }
+        if (Input.GetButtonDown("Menu"))
+        {
+            print("QUIT APP!!");
+            System.Diagnostics.Process.Start("osascript", "-e 'tell application \"Quantum Arcade\" to activate'");
+            Application.Quit();
+        }
+
 
         if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
         {

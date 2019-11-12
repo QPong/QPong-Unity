@@ -29,6 +29,13 @@ public class MenuController : MonoBehaviour
             print("Start button press " + startButtonPressCount);
 
         }
+        if (Input.GetButtonDown("Menu"))
+        {
+            print("QUIT APP!!");
+            System.Diagnostics.Process.Start("osascript", "-e 'tell application \"Quantum Arcade\" to activate'");
+            Application.Quit();
+        }
+
         if (Input.GetButtonUp("Start"))
         {
 

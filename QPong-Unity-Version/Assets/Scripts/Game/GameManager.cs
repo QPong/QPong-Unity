@@ -124,6 +124,13 @@ public class GameManager : MonoBehaviour
             print("Start button press " + startButtonPressCount);
 
         }
+        if (Input.GetButtonDown("Menu"))
+        {
+            print("QUIT APP!!");
+            System.Diagnostics.Process.Start("osascript", "-e 'tell application \"Quantum Arcade\" to activate'");
+            Application.Quit();
+        }
+
         if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
         {
             //TODO: set up the move cursor to the left
