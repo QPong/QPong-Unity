@@ -160,6 +160,12 @@ public class CircuitGridControl : MonoBehaviour
 
     }
 
+    public void SetCursorToSelected(string selectedName)
+    {
+        int[] result = FindSelectedQubitIDs(selectedName);
+        MoveCursorToSelectedQubit(result[0], result[1]);
+    }
+
     // Extract column number and row number from name
     private int[] FindSelectedQubitIDs(string qubitName)
     {
