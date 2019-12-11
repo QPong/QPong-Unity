@@ -176,6 +176,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void TouchedGate(ArcadeButtonGates gateName, string selectedName)
+    {
+        print("qubit name " + selectedName);
+
+    }
+
 
     public void PressedGate(ArcadeButtonGates gateName)
     {
@@ -190,6 +196,10 @@ public class GameManager : MonoBehaviour
                 break;
             case ArcadeButtonGates.hi:
                 print("HI");
+                circuitGridControlScript.AddGate(gateName);
+                break;
+            case ArcadeButtonGates.None:
+                print("NONE");
                 circuitGridControlScript.AddGate(gateName);
                 break;
             default:

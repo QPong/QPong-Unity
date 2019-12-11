@@ -42,6 +42,7 @@ public class CircuitGridControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //TODO: this wll probably have to change
         // set screen resolution to mini-arcade
         Screen.SetResolution(900, 1440, true);
         var width = Camera.main.orthographicSize * 8.0f * Screen.width / Screen.height; // Width of the screen
@@ -51,7 +52,7 @@ public class CircuitGridControl : MonoBehaviour
         circuitGridClientScript = GameObject.Find("CircuitGrid").GetComponent<CircuitGridClient>();
         measureWallScript = GameObject.Find("BottomMeasurementWall").GetComponent<MeasureWalls>();
         ResetCircuit();
-
+        print("START CIRCUIT GRID");
         for (int i = 0; i < qubitNumber; i++)
         {
             for (int j = 0; j < circuitDepth; j++)
@@ -60,6 +61,7 @@ public class CircuitGridControl : MonoBehaviour
                 gateArray[index] = "I";
                 gateObjectArray[index] = (GameObject) Instantiate(emptyGate, new Vector2(Screen.width*(xOffset - i*columnHeight), -64), Quaternion.identity);
                 gateObjectArray[index].name = "gate["+i+"]["+j+"]";
+                print("Spacing out the qubits");
             }
         }
         selectedGate = GameObject.Find("gate[0][0]");
@@ -82,28 +84,19 @@ public class CircuitGridControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Extract column number and row number from name
-        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        var index = FindSelectedQubitIDs(selectedGate.name);
         selectedColNum = index[0];
         selectedRowNum = index[1];
-
-
-
-        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
-        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
-        cursor.transform.position = selectedGate.transform.position;
+        MoveCursorToSelectedQubit(selectedColNum, selectedRowNum);
     }
 
     public void AddGate(ArcadeButtonGates gate)
     {
         // Extract column number and row number from name
-        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        var index = FindSelectedQubitIDs(selectedGate.name);
         selectedColNum = index[0];
         selectedRowNum = index[1];
-
-        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
-        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
-        cursor.transform.position = selectedGate.transform.position;
+        MoveCursorToSelectedQubit(selectedColNum, selectedRowNum);
 
         if (gate == ArcadeButtonGates.xi)
         {
@@ -129,6 +122,11 @@ public class CircuitGridControl : MonoBehaviour
                 gateArray[selectedIndex] = "H";
             }
         }
+        if (gate == ArcadeButtonGates.None) 
+        {
+            updateCircuit = true;
+            gateArray[selectedIndex] = "I";
+        }
         UpdateCircuit();
 
     }
@@ -137,9 +135,9 @@ public class CircuitGridControl : MonoBehaviour
     public void MoveCursor(JoystickButtonMaps direction)
     {
         // Extract column number and row number from name
-        var index = Regex.Matches(selectedGate.name, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
-        selectedColNum = index[0];
-        selectedRowNum = index[1];
+        int[] result = FindSelectedQubitIDs(selectedGate.name);
+        selectedColNum = result[0];
+        selectedRowNum = result[1];
 
         if (direction == JoystickButtonMaps.left)
         {
@@ -158,10 +156,23 @@ public class CircuitGridControl : MonoBehaviour
         {
             selectedColNum = 0;
         }
-        selectedIndex = selectedColNum * circuitDepth + selectedRowNum;
-        selectedGate = GameObject.Find("gate[" + selectedColNum + "][" + selectedRowNum + "]");
-        cursor.transform.position = selectedGate.transform.position;
+        MoveCursorToSelectedQubit(selectedColNum, selectedRowNum);
 
+    }
+
+    // Extract column number and row number from name
+    private int[] FindSelectedQubitIDs(string qubitName)
+    {
+        // Extract column number and row number from name
+        var index = Regex.Matches(qubitName, @"\d+").OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+        return index;
+    }
+
+    private void MoveCursorToSelectedQubit(int selectedColumnIndex, int selectedRowIndex)
+    {
+        selectedIndex = selectedColumnIndex * circuitDepth + selectedRowIndex;
+        selectedGate = GameObject.Find("gate[" + selectedColumnIndex + "][" + selectedRowIndex + "]");
+        cursor.transform.position = selectedGate.transform.position;
     }
 
     void UpdateCircuit()
