@@ -27,7 +27,6 @@ public class Gate : MonoBehaviour
             BoxCollider2D gateCollider = GetComponent<BoxCollider2D>();
             if (gateCollider.OverlapPoint(wp))
             {
-                Debug.Log("GATE IS PRESSED " + name);
                 PressedGate();
             }
         }
@@ -45,7 +44,6 @@ public class Gate : MonoBehaviour
             currentGate = 0;
         }
         ArcadeButtonGates currGate = gateStates[currentGate];
-        print("Gate To be SHOWN " + currGate);
         gameManager.TouchedGate(currGate, name);
     }
 
