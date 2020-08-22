@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
     ComputerControls classicalPaddleControlScript;
     Player player;
     ArcadeButtonInput arcadeButtonInput;
+    ArcadeAPIController arcadeAPIController;
+    float startButtonPressCount = 0f;
+    bool showGameOverLEDAnimation = false;
 
 
     // Start is called before the first frame update
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
 
         arcadeButtonInput = gameObject.GetComponent<ArcadeButtonInput>();
         player = GameController.Instance.player;
+        arcadeAPIController = gameObject.GetComponent<ArcadeAPIController>();
 
         RestartGame();
     }
@@ -38,10 +43,14 @@ public class GameManager : MonoBehaviour
     public void Score(string wallID){
         if (wallID == "TopWall"){
             player.AddPointsToPlayer();
+            arcadeAPIController.PuzzleSolved();
         } else {
+            //an animation for when the computer wins a point
             player.AddPointsToComputer();
+            arcadeAPIController.LostPoint();
         }
         gameHUD.UpdateScores();
+        SetupArcadeEnabledBoard();
     }
 
     void Update()
@@ -51,15 +60,24 @@ public class GameManager : MonoBehaviour
         }
 
         if (player.playerScore >= winScore){
-            Debug.Log("Quantum computer wins");
             gameHUD.showPlayerWinMessage();
             StartCoroutine(GameOver());
+            if (showGameOverLEDAnimation == false)
+            {
+                showGameOverLEDAnimation = true;
+                //add an animation for when the player wins
+                arcadeAPIController.PuzzleSolved();
+            }
         } else if (player.computerScore >= winScore){
-            Debug.Log("Classical computer wins");
             gameHUD.showComputerWinMessage();
             StartCoroutine(GameOver());
+            if (showGameOverLEDAnimation == false)
+            {
+                showGameOverLEDAnimation = true;
+                //add an animation for when the computer wins
+                arcadeAPIController.GameLost();
+            }
         }
-        print("Update while game is playing");
 
         // Check for Arcade controls
         PollForButtonInput();
@@ -79,13 +97,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetupArcadeEnabledBoard()
+    {
+        ArcadeButtonGates[] disabledGates = { ArcadeButtonGates.cz, ArcadeButtonGates.iz, ArcadeButtonGates.hi, ArcadeButtonGates.xi, ArcadeButtonGates.zi };
+        arcadeAPIController.SetupPuzzle(disabledGates);
+    }
+
     public void RestartGame()
     {
-        print("player " + player);
+        SetupArcadeEnabledBoard();
         player.ResetScores();
         gameHUD.UpdateScores();
         ballControlScript.RestartRound(-1f);
         classicalPaddleControlScript.ResetPaddle();
+        showGameOverLEDAnimation = false;
     }
 
     #region Board Input
@@ -94,21 +119,31 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetButtonDown("Start"))
         {
-                //TODO: this is where we can go to reset the game or maybe even close it out and go back to the app selection screen
+            //the game or maybe even close it out and go back to the app selection screen
+            startButtonPressCount = Time.time;
+            print("Start button press " + startButtonPressCount);
 
         }
+        if (Input.GetButtonDown("Menu"))
+        {
+            print("QUIT APP!!");
+            System.Diagnostics.Process.Start("osascript", "-e 'tell application \"Quantum Arcade\" to activate'");
+            Application.Quit();
+        }
+
         if (Input.GetKeyDown(JoystickButtonMaps.left.ToString()) || Input.GetKeyDown(JoystickButtonMaps.a.ToString()))
         {
             //TODO: set up the move cursor to the left
-            print("BACK");
+            //print("BACK");
             circuitGridControlScript.MoveCursor(JoystickButtonMaps.left);
         }
         if (Input.GetKeyDown(JoystickButtonMaps.right.ToString()) || Input.GetKeyDown(JoystickButtonMaps.d.ToString()))
         {
             //TODO: setup the move cursor to the right
-            print("FORWARD");
+            //print("FORWARD");
             circuitGridControlScript.MoveCursor(JoystickButtonMaps.right);
         }
+
 
         ArcadeButtonGates gateButtonPressed = arcadeButtonInput.isButtonPressed();
         if (gateButtonPressed != ArcadeButtonGates.None)
@@ -117,6 +152,23 @@ public class GameManager : MonoBehaviour
             PressedGate(gateButtonPressed);
         }
 
+        if (Input.GetButtonUp("Start"))
+        {
+
+            startButtonPressCount = Math.Abs(Time.time - startButtonPressCount);
+
+            print("time down " + startButtonPressCount);
+
+            if (startButtonPressCount >= 3.0f) 
+            {
+                print("QUIT APP!!");
+                startButtonPressCount = 0f;
+
+                System.Diagnostics.Process.Start("osascript", "-e 'tell application \"AppMenu\" to activate'");
+                Application.Quit();
+            }
+            startButtonPressCount = 0f;
+        }
         if (Input.GetKey("escape"))
         {
             Application.Quit();
@@ -128,8 +180,8 @@ public class GameManager : MonoBehaviour
     public void PressedGate(ArcadeButtonGates gateName)
     {
 
-        //NOTE: my next step is to implement this
-        //arcadeButtonController.ButtonPressed(gateName);
+        //NOTE: animate when the button is pressed
+        arcadeAPIController.ButtonPressed(gateName);
         switch (gateName)
         {
             case ArcadeButtonGates.xi:
