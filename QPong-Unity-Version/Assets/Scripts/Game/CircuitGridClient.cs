@@ -27,7 +27,7 @@ public class CircuitGridClient : MonoBehaviour
     public GameObject[] paddleArray;
     GameObject circuitGrid;
     CircuitGridControl circuitGridControlScript;
-    
+
     void Start()
     {
         circuitGrid = GameObject.Find("CircuitGrid");
@@ -48,7 +48,7 @@ public class CircuitGridClient : MonoBehaviour
             getStatevectorFlag = false;
             GetStateVector(gateString);
         }
-       
+
         if (doMeasurementFlag) {
             doMeasurementFlag = false;
             DoMeasurement(gateString);
@@ -61,8 +61,8 @@ public class CircuitGridClient : MonoBehaviour
         StartCoroutine(PostRequest(urlString, circuitDimensionString, gateString, (results) => {
 
             // Deserialize stateVector from JSON
-            // TODO: come up with a better way to abstract this out
-            var obj = JsonConvert.DeserializeObject<RootObject>(results);
+
+            RootObject obj = (RootObject)JsonUtility.FromJson(results, typeof(RootObject));
             Complex[] stateVector = new Complex[stateNumber];
             double[] stateProbability = new double[stateNumber];
             for (int i = 0; i < stateNumber; i++)
@@ -119,14 +119,16 @@ public class CircuitGridClient : MonoBehaviour
         }
     }
 
+    [Serializable]
     public class DataObject{
-        public double[] __complex__ { get; set; }
+        public double[] __complex__;
     }
 
+    [Serializable]
     public class RootObject{
-        public DataObject[] __ndarray__ { get; set; }
-        public string dtype { get; set; }
-        public int[] shape { get; set; }
+        public DataObject[] __ndarray__;
+        public string dtype;
+        public int[] shape;
     }
 
 

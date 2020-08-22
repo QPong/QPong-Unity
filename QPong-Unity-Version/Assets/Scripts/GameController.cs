@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public Player player;
 
+
     private void Awake()
     {
         if (instance == null)
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         player = Storage.Instance.LoadPlayerData();
+
         DontDestroyOnLoad(transform.gameObject);
     }
 
@@ -39,7 +41,9 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     private void Start () {
         player = Storage.Instance.LoadPlayerData();
-	}
+
+
+    }
 
     private void OpenScene (Scenes scene) {
         SceneManager.LoadScene(scene.ToString());
@@ -53,9 +57,13 @@ public class GameController : MonoBehaviour
         }
     }
 
+
     #region Load Specific Scenes
     public void StartGame() {
         OpenScene(Scenes.Game);
+
+        ArcadeButtonGates[] disabledGates = { ArcadeButtonGates.cz, ArcadeButtonGates.iz, ArcadeButtonGates.hi, ArcadeButtonGates.xi, ArcadeButtonGates.zi };
+        //arcadeAPIController.SetupPuzzle( disabledGates);  
     }
 
     public void LoadMainMenu() {
